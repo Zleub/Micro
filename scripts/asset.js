@@ -2,12 +2,12 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:31:23
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-09 21:20:28
+* @Last Modified time: 2015-06-10 08:16:52
 */
 
 'use strict';
 
-var Micro = Micro || {}
+var Micro = window['Micro'] || {}
 if (!('Sprites' in Micro))
 	Micro.Sprites = {};
 if (!('Asset' in Micro))
@@ -41,13 +41,14 @@ Asset.makeArray = function (res, id)
 	return(sprites)
 }
 
-Asset.onLoad = function (id)
+Asset.onLoad = function (id, callback)
 {
 	var loader = new PIXI.loaders.Loader()
 	console.log("Asset.onLoad", id)
 	loader.add(id, window['_' + id].image);
 	loader.once('complete', function (loader, res)
 	{
+		console.log("Check this up", loader, res)
 		window['_' + id].base = res[id].texture.baseTexture
 
 		var sprites = Asset.makeArray(res, id)
@@ -64,8 +65,13 @@ Asset.onLoad = function (id)
 		console.log("undefined")
 		window['_' + id] = undefined
 		Micro.Sprites[id] = sprites
+		if (callback)
+			callback()
+		// Micro.stage.addChild(Micro.Sprites[id][1]);
 	});
 	loader.load();
 }
 
+
 })();
+console.log("--_--_--_--_--_--_--_--", this)

@@ -37,3 +37,42 @@ Error: ENOENT, no such file or directory './test.js'
     at HTTPParser.parserOnHeadersComplete [as onHeadersComplete] (http.js:121:23)
     at Socket.socket.ondata (http.js:1966:22)
     at TCP.onread (net.js:525:27)
+
+fs.js:432
+  return binding.open(pathModule._makeLong(path), stringToFlags(flags), mode);
+                 ^
+Error: ENOENT, no such file or directory './assets/dwarves.json'
+    at Object.fs.openSync (fs.js:432:18)
+    at Object.fs.readFileSync (fs.js:286:15)
+    at Server.dispatch (/home/adebray/www/main.js:47:14)
+    at Server.EventEmitter.emit (events.js:98:17)
+    at HTTPParser.parser.onIncoming (http.js:2108:12)
+    at HTTPParser.parserOnHeadersComplete [as onHeadersComplete] (http.js:121:23)
+    at Socket.socket.ondata (http.js:1966:22)
+    at TCP.onread (net.js:525:27)
+
+fs.js:432
+  return binding.open(pathModule._makeLong(path), stringToFlags(flags), mode);
+                 ^
+Error: ENOENT, no such file or directory './script/engine.js'
+    at Object.fs.openSync (fs.js:432:18)
+    at Object.fs.readFileSync (fs.js:286:15)
+    at Server.dispatch (/home/adebray/www/main.js:42:14)
+    at Server.EventEmitter.emit (events.js:98:17)
+    at HTTPParser.parser.onIncoming (http.js:2108:12)
+    at HTTPParser.parserOnHeadersComplete [as onHeadersComplete] (http.js:121:23)
+    at Socket.socket.ondata (http.js:1966:22)
+    at TCP.onread (net.js:525:27)
+
+fs.js:432
+  return binding.open(pathModule._makeLong(path), stringToFlags(flags), mode);
+                 ^
+Error: ENOENT, no such file or directory './ajax/test.js'
+    at Object.fs.openSync (fs.js:432:18)
+    at Object.fs.readFileSync (fs.js:286:15)
+    at Server.dispatch (/home/adebray/www/main.js:42:14)
+    at Server.EventEmitter.emit (events.js:98:17)
+    at HTTPParser.parser.onIncoming (http.js:2108:12)
+    at HTTPParser.parserOnHeadersComplete [as onHeadersComplete] (http.js:121:23)
+    at Socket.socket.ondata (http.js:1966:22)
+    at TCP.onread (net.js:525:27)

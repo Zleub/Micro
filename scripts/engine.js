@@ -2,10 +2,12 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-09 19:37:03
+* @Last Modified time: 2015-06-10 08:07:15
 */
 
 var Micro = Micro || {}
+
+console.log('start')
 
 Micro.time = Date.now();
 Micro.size = 16
@@ -63,7 +65,6 @@ function update(dt)
 
 function animate()
 {
-	console.log("animate")
 	var dt = Date.now() - Micro.time
 
 	update(dt)
@@ -71,3 +72,5 @@ function animate()
 	requestAnimationFrame(animate);
 	Micro.time = Date.now()
 }
+// $('body').data('Micro', Micro);
+console.log('end')
