@@ -2,10 +2,12 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:31:23
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-10 08:16:52
+* @Last Modified time: 2015-06-11 02:01:58
 */
 
 'use strict';
+
+console.log('begin')
 
 var Micro = window['Micro'] || {}
 if (!('Sprites' in Micro))
@@ -41,10 +43,11 @@ Asset.makeArray = function (res, id)
 	return(sprites)
 }
 
-Asset.onLoad = function (id, callback)
+Asset.load = function (id, callback)
 {
-	var loader = new PIXI.loaders.Loader()
-	console.log("Asset.onLoad", id)
+	var status = this.status
+	var loader = PIXI.loader
+	console.log("Asset.onLoad", this)
 	loader.add(id, window['_' + id].image);
 	loader.once('complete', function (loader, res)
 	{
@@ -62,16 +65,16 @@ Asset.onLoad = function (id, callback)
 		};
 
 		Asset[id] = window['_' + id]
-		console.log("undefined")
 		window['_' + id] = undefined
 		Micro.Sprites[id] = sprites
+		Micro.stage.addChild(Micro.Sprites[id][1]);
 		if (callback)
 			callback()
-		// Micro.stage.addChild(Micro.Sprites[id][1]);
 	});
 	loader.load();
+
 }
 
+console.log('END')
 
 })();
-console.log("--_--_--_--_--_--_--_--", this)

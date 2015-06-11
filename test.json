@@ -1,4 +1,14 @@
-{
-	"test": "test",
-	"test2": function () { console.log("test") }
-}
+[
+	{
+		"scripts/engine.js" : []
+	},
+	{
+		"scripts/asset.js" : [
+			"assets/dwarves.js",
+			"assets/PrtWeed.js"
+		]
+	},
+	{
+		"scripts/scene.js"
+	}
+]

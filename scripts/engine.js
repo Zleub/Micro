@@ -2,10 +2,10 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-10 08:07:15
+* @Last Modified time: 2015-06-11 01:31:14
 */
 
-var Micro = Micro || {}
+var Micro = window['Micro'] || {}
 
 console.log('start')
 
@@ -29,22 +29,28 @@ window.addEventListener('keyup', function (e) {
 	Micro.keyArray[e.keyCode] = false
 } )
 
-
-function require(id, filename, callback)
+function gravity(dt, sprite)
 {
-	console.log('require: ' + filename)
-
-	var elem = document.createElement('script');
-	elem.type = 'text/javascript';
-	elem.src = filename;
-
-	document.body.appendChild(elem);
-	elem.onload = function () {
-		callback(id)
-		if (!(id in Micro))
-			Micro[id] = true
-	}
+	sprite.y += dt;
+	if (sprite.y + sprite.height > Micro.height)
+		sprite.y = Micro.height - sprite.height
 }
+
+// function require(id, filename, callback)
+// {
+// 	console.log('require: ' + filename)
+
+// 	var elem = document.createElement('script');
+// 	elem.type = 'text/javascript';
+// 	elem.src = filename;
+
+// 	document.body.appendChild(elem);
+// 	elem.onload = function () {
+// 		callback(id)
+// 		if (!(id in Micro))
+// 			Micro[id] = true
+// 	}
+// }
 
 function update(dt)
 {
@@ -65,6 +71,7 @@ function update(dt)
 
 function animate()
 {
+	// console.log('animate')
 	var dt = Date.now() - Micro.time
 
 	update(dt)
