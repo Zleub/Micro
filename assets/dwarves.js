@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-05 20:06:11
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-10 07:56:11
+* @Last Modified time: 2015-06-11 19:11:37
 */
 
 'use strict';
@@ -21,4 +21,4 @@ window['_dwarves'] = {
 	}
 }
 
-console.log('endl')
+console.log('dwarves end')

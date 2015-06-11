@@ -6,12 +6,15 @@ $(function()
 {
 	function GetDepend(json)
 	{
+		console.log(json)
 		for (var i = 0; i < json.length; i++)
 		{
 			var obj = json[i]
 			for (var name in obj)
 			{
+				console.log(i, json.length)
 				var t = []
+
 				var array = obj[name]
 				for (var mod in array)
 				{
@@ -21,24 +24,30 @@ $(function()
 						(function (_name) {
 						return function () {
 							console.log(_name)
-							$.getScript(_name)
+							var re = /\/?(\w+)\./;
+							$.getScript(_name).done(function () {Micro.Asset.load(re.exec(_name)[1])})
 						}
-					})(modname)
+						})(modname)
 
 					)
 				}
 				console.log(name)
+				// if (i == json.length - 1)
+				// 	t.push ( animate )
+
 				$.getScript(name).done(t);
 			}
+
 			// if (json[i].length != 1)
 			// 	console.log("Depend drop : ", json[i])
 		};
+
 	}
 
 	$.ajaxSetup({
 		async: true,
 		cache: true
 	});
-	$.getJSON('test.json' ).done(GetDepend)
+	$.getJSON('test.json').done(GetDepend)
 });
 

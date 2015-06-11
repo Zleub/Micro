@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-11 01:31:14
+* @Last Modified time: 2015-06-11 22:32:38
 */
 
 var Micro = window['Micro'] || {}
@@ -68,10 +68,9 @@ function update(dt)
 	if (Micro.keyArray[39] && Micro.Sprites['dwarves'])
 		Micro.Sprites['dwarves'][1].x += dt;
 }
-
 function animate()
 {
-	// console.log('animate')
+	console.log('animate')
 	var dt = Date.now() - Micro.time
 
 	update(dt)
@@ -81,3 +80,5 @@ function animate()
 }
 // $('body').data('Micro', Micro);
 console.log('end')
+
+animate()
