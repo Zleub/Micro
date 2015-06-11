@@ -2,14 +2,14 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:31:23
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-11 05:49:11
+* @Last Modified time: 2015-06-11 23:01:12
 */
 
 'use strict';
 
 console.log('begin')
 
-var Micro = Micro || {}
+var Micro = window['Micro'] || {}
 if (!('Sprites' in Micro))
 	Micro.Sprites = {};
 if (!('Asset' in Micro))
@@ -57,34 +57,36 @@ Asset.loader.on('complete', function (load, res) {
 	Asset[name].base = res.texture.baseTexture
 })
 
-Asset.load = function (res)
+Asset.load = function (id, callback)
 {
-	var loader = Asset.loader
-	console.log("Asset.onLoad", res)
-	Asset[name] = res.data
-	loader.add(res.name, res.data.image);
-	// loader.once('complete', function (loader, res)
-	// {
-	// 	console.log("Check this up", loader, res)
-	// 	Asset[name].base = res[name].texture.baseTexture
+	var status = this.status
+	var loader = PIXI.loader
+	console.log("Asset.onLoad", this)
+	loader.add(id, window['_' + id].image);
+	loader.once('complete', function (loader, res)
+	{
+		console.log("Check this up", loader, res)
+		window['_' + id].base = res[id].texture.baseTexture
 
-	// 	var sprites = Asset.makeArray(res, Asset[name])
+		var sprites = Asset.makeArray(res, id)
 
-	// 	for (var i = sprites.length - 1; i >= 0; i--) {
-	// 		if (window['_' + id].properties.scale)
-	// 		{
-	// 			sprites[i].scale.x = window['_' + id].properties.scale.x
-	// 			sprites[i].scale.y = window['_' + id].properties.scale.y
-	// 		}
-	// 	};
+		for (var i = sprites.length - 1; i >= 0; i--) {
+			if (window['_' + id].properties.scale)
+			{
+				sprites[i].scale.x = window['_' + id].properties.scale.x
+				sprites[i].scale.y = window['_' + id].properties.scale.y
+			}
+		};
 
-	// 	// Asset[id] = window['_' + id]
-	// 	// window['_' + id] = undefined
-	// 	Micro.Sprites[id] = sprites
-	// 	Micro.stage.addChild(Micro.Sprites[id][1]);
-
-	// });
-	// loader.load();
+		Asset[id] = window['_' + id]
+		window['_' + id] = undefined
+		Micro.Sprites[id] = sprites
+		console.log('testtesttest')
+		Micro.stage.addChild(Micro.Sprites[id][1]);
+		if (callback)
+			callback()
+	});
+	loader.load();
 
 }
 
