@@ -2,14 +2,14 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:31:23
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-11 02:01:58
+* @Last Modified time: 2015-06-11 05:49:11
 */
 
 'use strict';
 
 console.log('begin')
 
-var Micro = window['Micro'] || {}
+var Micro = Micro || {}
 if (!('Sprites' in Micro))
 	Micro.Sprites = {};
 if (!('Asset' in Micro))
@@ -43,35 +43,48 @@ Asset.makeArray = function (res, id)
 	return(sprites)
 }
 
-Asset.load = function (id, callback)
+Asset.loader = new PIXI.loaders.Loader()
+
+Asset.loader.on('progress', function (load, res) {
+	console.log('progress')
+})
+Asset.loader.on('load', function (load, res) {
+	Asset[name].base = res.texture.baseTexture
+	console.log('load', res)
+})
+Asset.loader.on('complete', function (load, res) {
+	console.log(load, res)
+	Asset[name].base = res.texture.baseTexture
+})
+
+Asset.load = function (res)
 {
-	var status = this.status
-	var loader = PIXI.loader
-	console.log("Asset.onLoad", this)
-	loader.add(id, window['_' + id].image);
-	loader.once('complete', function (loader, res)
-	{
-		console.log("Check this up", loader, res)
-		window['_' + id].base = res[id].texture.baseTexture
+	var loader = Asset.loader
+	console.log("Asset.onLoad", res)
+	Asset[name] = res.data
+	loader.add(res.name, res.data.image);
+	// loader.once('complete', function (loader, res)
+	// {
+	// 	console.log("Check this up", loader, res)
+	// 	Asset[name].base = res[name].texture.baseTexture
 
-		var sprites = Asset.makeArray(res, id)
+	// 	var sprites = Asset.makeArray(res, Asset[name])
 
-		for (var i = sprites.length - 1; i >= 0; i--) {
-			if (window['_' + id].properties.scale)
-			{
-				sprites[i].scale.x = window['_' + id].properties.scale.x
-				sprites[i].scale.y = window['_' + id].properties.scale.y
-			}
-		};
+	// 	for (var i = sprites.length - 1; i >= 0; i--) {
+	// 		if (window['_' + id].properties.scale)
+	// 		{
+	// 			sprites[i].scale.x = window['_' + id].properties.scale.x
+	// 			sprites[i].scale.y = window['_' + id].properties.scale.y
+	// 		}
+	// 	};
 
-		Asset[id] = window['_' + id]
-		window['_' + id] = undefined
-		Micro.Sprites[id] = sprites
-		Micro.stage.addChild(Micro.Sprites[id][1]);
-		if (callback)
-			callback()
-	});
-	loader.load();
+	// 	// Asset[id] = window['_' + id]
+	// 	// window['_' + id] = undefined
+	// 	Micro.Sprites[id] = sprites
+	// 	Micro.stage.addChild(Micro.Sprites[id][1]);
+
+	// });
+	// loader.load();
 
 }
 

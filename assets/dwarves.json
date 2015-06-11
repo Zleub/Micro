@@ -1,0 +1,11 @@
+{
+	"image" : "dwarves.png",
+	"width" : 16,
+	"height" : 16,
+	"properties" : {
+		"scale" : {
+			"x" : 5,
+			"y" : 5
+		}
+	}
+}

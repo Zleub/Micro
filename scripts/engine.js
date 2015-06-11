@@ -2,10 +2,10 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-11 01:31:14
+* @Last Modified time: 2015-06-11 05:33:08
 */
 
-var Micro = window['Micro'] || {}
+var Micro = Micro || {}
 
 console.log('start')
 
@@ -28,6 +28,16 @@ window.addEventListener('keydown', function (e) {
 window.addEventListener('keyup', function (e) {
 	Micro.keyArray[e.keyCode] = false
 } )
+
+Micro.launch = function ()
+{
+	Micro.Asset.loader.once('complete', function () {
+		console.log('launch')
+		Micro.stage.add(Micro.Sprites['dwarves'][1])
+	// animate();
+	})
+	Micro.Asset.loader.load()
+}
 
 function gravity(dt, sprite)
 {
