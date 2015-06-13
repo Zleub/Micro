@@ -9,7 +9,12 @@
 		]
 	},
 	{
-		"scripts/entity.js" : []
+		"scripts/entity.js" : [
+			"scripts/player.js"
+		]
+	},
+	{
+		"scripts/block.js" : []
 	},
 	{
 		"scenes/TutoA.js" : []

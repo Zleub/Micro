@@ -6,6 +6,9 @@ window['_Sprute'] = {
 		scale : {
 			x : 5,
 			y : 5
+		},
+		14 : {
+			collision : true
 		}
 	}
 }

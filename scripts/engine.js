@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-13 03:25:07
+* @Last Modified time: 2015-06-14 01:51:42
 */
 
 var Micro = window['Micro'] || {}
@@ -32,55 +32,45 @@ window.addEventListener('keyup', function (e) {
 Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
-		console.log('launch')
-		Micro.stage.addChild(Micro.Sprites['dwarves'][1])
-	animate();
+		// console.log(Micro.Sprites)
+
+		var dup = new PIXI.Sprite(Micro.Sprites['Sprute'][14].generateTexture(Micro.renderer))
+		dup.scale.x = Micro.Sprites['Sprute'][14].scale.x
+		dup.scale.y = Micro.Sprites['Sprute'][14].scale.y
+		Micro.Block.new(dup).moveTo(200, 500)
+
+		var dup2 = new PIXI.Sprite(Micro.Sprites['Sprute'][14].generateTexture(Micro.renderer))
+		dup2.scale.x = Micro.Sprites['Sprute'][14].scale.x
+		dup2.scale.y = Micro.Sprites['Sprute'][14].scale.y
+		Micro.Block.new(dup2).moveTo(400, 610)
+		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(0, Micro.height - Micro.size)
+
+		// dupeSprite[c] = new PIXI.Sprite(PIXI.Texture.fromFrame(sprites.sprite));
+		// Micro.Block.new(new PIXI.Sprite(Micro.Sprites['Sprute'][14]))
+
+		Micro.Player.new(Micro.Sprites['dwarves'][1])
+		animate();
 	})
 	PIXI.loader.load()
 }
 
-function gravity(dt, sprite)
+function gravity(dt, entity)
 {
-	sprite.y += dt;
-	if (sprite.y + sprite.height > Micro.height)
-		sprite.y = Micro.height - sprite.height
+	entity.moveBy(0, dt);
 }
-
-// function require(id, filename, callback)
-// {
-// 	console.log('require: ' + filename)
-
-// 	var elem = document.createElement('script');
-// 	elem.type = 'text/javascript';
-// 	elem.src = filename;
-
-// 	document.body.appendChild(elem);
-// 	elem.onload = function () {
-// 		callback(id)
-// 		if (!(id in Micro))
-// 			Micro[id] = true
-// 	}
-// }
 
 function update(dt)
 {
-	if (!('Sprites' in Micro))
-	{
-		console.log('return')
-		return
-	}
-	// console.log(dt)
-	if (Micro.Sprites['dwarves'])
-		gravity(dt, Micro.Sprites['dwarves'][1]);
-
-	if (Micro.keyArray[37] && Micro.Sprites['dwarves'])
-		Micro.Sprites['dwarves'][1].x -= dt;
-	if (Micro.keyArray[39] && Micro.Sprites['dwarves'])
-		Micro.Sprites['dwarves'][1].x += dt;
+	for (var i = 0; i < Micro.Entity.list.length; i++) {
+		gravity(dt, Micro.Entity.list[i])
+	};
+	for (var i = 0; i < Micro.Player.list.length; i++) {
+		Micro.Player.list[i].update(dt)
+	};
 }
+
 function animate()
 {
-	// console.log('animate')
 	var dt = Date.now() - Micro.time
 
 	update(dt)
@@ -88,7 +78,3 @@ function animate()
 	requestAnimationFrame(animate);
 	Micro.time = Date.now()
 }
-// $('body').data('Micro', Micro);
-console.log('end')
-
-// Micro.launch()
