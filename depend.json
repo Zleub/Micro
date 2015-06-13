@@ -5,7 +5,13 @@
 	{
 		"scripts/asset.js" : [
 			"assets/dwarves.js",
-			"assets/PrtWeed.js"
+			"assets/Sprute.js"
 		]
+	},
+	{
+		"scripts/entity.js" : []
+	},
+	{
+		"scenes/TutoA.js" : []
 	}
 ]

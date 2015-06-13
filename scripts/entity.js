@@ -2,12 +2,12 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:16:54
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-11 05:05:00
+* @Last Modified time: 2015-06-12 19:23:55
 */
 
 'use strict';
 
-var Micro = Micro || {}
+var Micro = window['Micro'] || {}
 if (!('Entity' in Micro))
 	Micro.Entity = {};
 

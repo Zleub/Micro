@@ -2,12 +2,10 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:31:23
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-11 23:01:12
+* @Last Modified time: 2015-06-12 19:14:41
 */
 
 'use strict';
-
-console.log('begin')
 
 var Micro = window['Micro'] || {}
 if (!('Sprites' in Micro))
@@ -19,14 +17,9 @@ if (!('Asset' in Micro))
 
 var Asset = Micro.Asset
 
-Asset.new = function (jsfile)
+Asset.makeArray = function (baseTexture, id)
 {
-	require(jsfile, 'assets/' + jsfile + '.js', Asset.onLoad)
-}
-
-Asset.makeArray = function (res, id)
-{
-	var base = res[id].texture.baseTexture
+	var base = baseTexture
 	var sprites = []
 
 	for (var i = 0; i < base.height; i = i + window['_' + id].height) {
@@ -43,53 +36,35 @@ Asset.makeArray = function (res, id)
 	return(sprites)
 }
 
-Asset.loader = new PIXI.loaders.Loader()
+PIXI.loader.on('load', function (loader, res)
+{
+	var test = new PIXI.BaseTexture(res.data)
 
-Asset.loader.on('progress', function (load, res) {
-	console.log('progress')
-})
-Asset.loader.on('load', function (load, res) {
-	Asset[name].base = res.texture.baseTexture
-	console.log('load', res)
-})
-Asset.loader.on('complete', function (load, res) {
-	console.log(load, res)
-	Asset[name].base = res.texture.baseTexture
-})
+	window['_' + res.name].base = test
+
+	var sprites = Asset.makeArray(test, res.name)
+
+	for (var i = sprites.length - 1; i >= 0; i--) {
+		if (window['_' + res.name].properties.scale)
+		{
+			sprites[i].scale.x = window['_' + res.name].properties.scale.x
+			sprites[i].scale.y = window['_' + res.name].properties.scale.y
+		}
+	};
+
+	Asset[res.name] = window['_' + res.name]
+	window['_' + res.name] = undefined
+	Micro.Sprites[res.name] = sprites
+	// Micro.stage.addChild(Micro.Sprites[res.name][1]);
+});
+
 
 Asset.load = function (id, callback)
 {
 	var status = this.status
 	var loader = PIXI.loader
-	console.log("Asset.onLoad", this)
 	loader.add(id, window['_' + id].image);
-	loader.once('complete', function (loader, res)
-	{
-		console.log("Check this up", loader, res)
-		window['_' + id].base = res[id].texture.baseTexture
-
-		var sprites = Asset.makeArray(res, id)
-
-		for (var i = sprites.length - 1; i >= 0; i--) {
-			if (window['_' + id].properties.scale)
-			{
-				sprites[i].scale.x = window['_' + id].properties.scale.x
-				sprites[i].scale.y = window['_' + id].properties.scale.y
-			}
-		};
-
-		Asset[id] = window['_' + id]
-		window['_' + id] = undefined
-		Micro.Sprites[id] = sprites
-		console.log('testtesttest')
-		Micro.stage.addChild(Micro.Sprites[id][1]);
-		if (callback)
-			callback()
-	});
-	loader.load();
 
 }
-
-console.log('END')
 
 })();

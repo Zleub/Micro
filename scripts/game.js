@@ -4,44 +4,44 @@ PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST
 
 $(function()
 {
-	function GetDepend(json)
+	function GetDepend(json, index)
 	{
-		console.log(json)
-		for (var i = 0; i < json.length; i++)
+		if (index >= json.length)
+			return
+
+		var obj = json[index]
+		for (var name in obj)
 		{
-			var obj = json[i]
-			for (var name in obj)
+			var t = []
+
+			var array = obj[name]
+			for (var mod in array)
 			{
-				var t = []
+				var modname = array[mod]
+				t.push (
 
-				var array = obj[name]
-				for (var mod in array)
-				{
-					var modname = array[mod]
-					t.push (
+					(function (_name) {
+					return function () {
+						var re = /\/?(\w+)\./;
+						$.getScript(_name).done(function () {
+							Micro.Asset.load(re.exec(_name)[1])
+						})
+					}
+					})(modname)
 
-						(function (_name) {
-						return function () {
-							console.log(_name)
-							var re = /\/?(\w+)\./;
-							$.getScript(_name).done(function () {
-								Micro.Asset.load(re.exec(_name)[1])
-							})
-						}
-						})(modname)
-
-					)
-				}
-				console.log(name)
-				// if (i == json.length - 1)
-				// 	t.push ( animate )
-
-				$.getScript(name).done(t);
+				)
 			}
+			if (index + 1 >= json.length)
+				t.push ( function () {
+					Micro.launch()
+				} )
+			else
+				t.push ( function () {
+					GetDepend(json, index + 1)
+				} )
 
-			// if (json[i].length != 1)
-			// 	console.log("Depend drop : ", json[i])
-		};
+			$.getScript(name).done(t);
+		}
 
 	}
 
@@ -49,14 +49,5 @@ $(function()
 		async: true,
 		cache: true
 	});
-	$.getJSON('test.json').done(GetDepend)
+	$.getJSON('depend.json').done(function (json) {GetDepend(json, 0)})
 });
-
-// document.body.onload = function () {
-// 	console.log('caca')
-// 	loader.on('load', function (loader, res) {
-// 		Micro.Asset.load(res)
-// 	})
-// 	loader.once('complete', Micro.launch)
-// 	loader.load()
-// }

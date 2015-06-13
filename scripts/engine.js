@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-11 23:01:38
+* @Last Modified time: 2015-06-13 03:25:07
 */
 
 var Micro = window['Micro'] || {}
@@ -12,7 +12,7 @@ console.log('start')
 Micro.time = Date.now();
 Micro.size = 16
 Micro.width = Micro.size * 60
-Micro.height = Micro.size * 40
+Micro.height = Micro.size * 40 + Micro.size / 2
 
 Micro.renderer = new PIXI.WebGLRenderer(Micro.width, Micro.height);
 document.body.appendChild(Micro.renderer.view);
@@ -31,12 +31,12 @@ window.addEventListener('keyup', function (e) {
 
 Micro.launch = function ()
 {
-	Micro.Asset.loader.once('complete', function () {
+	PIXI.loader.once('complete', function () {
 		console.log('launch')
-		Micro.stage.add(Micro.Sprites['dwarves'][1])
-	// animate();
+		Micro.stage.addChild(Micro.Sprites['dwarves'][1])
+	animate();
 	})
-	Micro.Asset.loader.load()
+	PIXI.loader.load()
 }
 
 function gravity(dt, sprite)
@@ -91,4 +91,4 @@ function animate()
 // $('body').data('Micro', Micro);
 console.log('end')
 
-animate()
+// Micro.launch()
