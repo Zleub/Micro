@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-05 15:47:33
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-09 17:49:56
+* @Last Modified time: 2015-06-22 16:08:00
 */
 
 'use strict';
@@ -10,6 +10,7 @@
 var path = require('path')
 var fs = require('fs')
 var http = require('http')
+var git = require('./git.js')
 
 var dispatch = function (req, res)
 {
@@ -43,6 +44,8 @@ var dispatch = function (req, res)
 	}
 	else if (path.extname(req.url) == '.json')
 	{
+		console.log("rep.url")
+		git.writeAuthor()
 		res.writeHead(200, {'Content-Type': 'application/json'})
 		res.end(fs.readFileSync("." + req.url))
 	}

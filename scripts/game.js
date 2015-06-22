@@ -1,5 +1,6 @@
 'use strict';
 
+var Micro = window['Micro'] || {}
 PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST
 
 $(function()
@@ -40,7 +41,10 @@ $(function()
 					GetDepend(json, index + 1)
 				} )
 
-			$.getScript(name).done(t);
+			if (name.split(".")[1] == 'json')
+				$.getJSON(name).done(function (data) {Micro[name.split(".")[0]] = data}, t);
+			else
+				$.getScript(name).done(t);
 		}
 
 	}

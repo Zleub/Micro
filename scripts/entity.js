@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:16:54
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-14 01:49:16
+* @Last Modified time: 2015-06-21 18:25:44
 */
 
 'use strict';
@@ -17,10 +17,10 @@ var Entity = Micro.Entity
 
 Entity.list = []
 
-Entity.collides = function (r1, r2)
+Entity.collides = function (r1, r2, x, y)
 {
-	if (r1.x + r1.width > r2.x && r1.y + r1.height > r2.y &&
-		r1.x < r2.x + r2.width && r1.y < r2.y + r2.height)
+	if (r1.x + x + r1.width > r2.x && r1.y + y + r1.height > r2.y &&
+		r1.x + x < r2.x + r2.width && r1.y + y < r2.y + r2.height)
 		return true
 	else
 		return false
@@ -28,31 +28,42 @@ Entity.collides = function (r1, r2)
 
 Entity.moveBy = function (x, y)
 {
+	x = Math.round(x)
+	y = Math.round(y)
 	for (var i = 0; i < Micro.Block.list.length; i++)
 	{
 		var r1 = this.sprite.getBounds()
 		var r2 = Micro.Block.list[i].sprite.getBounds()
 
-		r1.x += x
-		r1.y += y
-		if (Entity.collides(r1,r2))
+		if (Entity.collides(r1, r2, x, y))
 		{
-			// console.log(this.sprite.y + this.sprite.height, r2.y - this.sprite.height )
-			this.sprite.x += x
-			if (this.sprite.y + this.sprite.height - r2.y < this.sprite.height / 2)
+			// console.log(r1.y + r1.height - r2.y, r1.height / 32)
+			if (this.jumpBool == false && r1.y + r1.height - r2.y < r1.height / 32)
 			{
-				this.sprite.y = r2.y - this.sprite.height
-				return
+				this.sprite.x += x
+				this.sprite.y = r2.y - r1.height
+				this.jumpDelay = 1
+				this.jumpBool = true
+				return false
 			}
 			else
+			{
+				//console.log("catch")
 				break
+			}
 		}
 	}
 
 	this.sprite.x += x
 	this.sprite.y += y
-	if (this.sprite.y + this.sprite.height > Micro.height)
+	if (this.sprite.y + this.sprite.height > Micro.height) {
 		this.sprite.y = Micro.height - this.sprite.height
+		this.jumpBool = true
+		return false
+	}
+
+	this.jumpBool = false
+	return true
 }
 
 Entity.new = function (sprite) {

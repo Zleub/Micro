@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-14 01:51:42
+* @Last Modified time: 2015-06-22 16:35:28
 */
 
 var Micro = window['Micro'] || {}
@@ -14,7 +14,7 @@ Micro.size = 16
 Micro.width = Micro.size * 60
 Micro.height = Micro.size * 40 + Micro.size / 2
 
-Micro.renderer = new PIXI.WebGLRenderer(Micro.width, Micro.height);
+Micro.renderer = new PIXI.CanvasRenderer(Micro.width, Micro.height);
 document.body.appendChild(Micro.renderer.view);
 Micro.renderer.view.style.marginTop = window.innerHeight / 2 - Micro.height / 2 +'px';
 
@@ -32,7 +32,6 @@ window.addEventListener('keyup', function (e) {
 Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
-		// console.log(Micro.Sprites)
 
 		var dup = new PIXI.Sprite(Micro.Sprites['Sprute'][14].generateTexture(Micro.renderer))
 		dup.scale.x = Micro.Sprites['Sprute'][14].scale.x
@@ -49,6 +48,8 @@ Micro.launch = function ()
 		// Micro.Block.new(new PIXI.Sprite(Micro.Sprites['Sprute'][14]))
 
 		Micro.Player.new(Micro.Sprites['dwarves'][1])
+
+		addAuthor();
 		animate();
 	})
 	PIXI.loader.load()
@@ -56,17 +57,34 @@ Micro.launch = function ()
 
 function gravity(dt, entity)
 {
-	entity.moveBy(0, dt);
+	entity.moveBy(0, dt)
 }
 
 function update(dt)
 {
-	for (var i = 0; i < Micro.Entity.list.length; i++) {
-		gravity(dt, Micro.Entity.list[i])
-	};
 	for (var i = 0; i < Micro.Player.list.length; i++) {
 		Micro.Player.list[i].update(dt)
 	};
+	for (var i = 0; i < Micro.Entity.list.length; i++) {
+		gravity(dt, Micro.Entity.list[i])
+	};
+}
+
+function addAuthor()
+{
+	var string = Micro.author[0] + '\n' + Micro.author[1] + '\n' + Micro.author[2] + ' : ' + Micro.author[3]
+
+	var authorText = new PIXI.Text(string, {font : '14px Arial', fill : 0xff1010, align : 'right'})
+	authorText.x = Micro.width - 200
+	authorText.y = 10
+	Micro.stage.addChild(authorText)
+
+
+}
+
+function Removeauthor(authorText)
+{
+	Micro.stage.removeChild(authorText)
 }
 
 function animate()
@@ -74,7 +92,18 @@ function animate()
 	var dt = Date.now() - Micro.time
 
 	update(dt)
-	Micro.renderer.render(Micro.stage);
-	requestAnimationFrame(animate);
+	// console.log(author())
+	// var text = new PIXI.Text(Micro.Player.list[0].jumpBool ,{font : '24px Arial', fill : 0xff1010, align : 'center'})
+	// var authorText = new PIXI.Text(author().substr(2, author().length - 4), {font : '24px Arial', fill : 0xff1010})
+
+	// // Micro.stage.addChild(text)
+	// Micro.stage.addChild(authorText)
+
+	// authorText = Writeauthor()
+	Micro.renderer.render(Micro.stage)
+	// Micro.stage.removeChild(text)
+	// Removeauthor(authorText)
+
 	Micro.time = Date.now()
+	requestAnimationFrame(animate)
 }
