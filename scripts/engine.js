@@ -2,8 +2,14 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-22 16:35:28
+* @Last Modified time: 2015-06-24 01:26:33
 */
+
+(function(){
+	Math.clamp = function (a,b,c) {
+		return Math.max( b, Math.min(c,a) )
+	}
+})();
 
 var Micro = window['Micro'] || {}
 
@@ -55,31 +61,29 @@ Micro.launch = function ()
 	PIXI.loader.load()
 }
 
-function gravity(dt, entity)
-{
-	entity.moveBy(0, dt)
-}
+// function gravity(dt, entity)
+// {
+// 	entity.moveBy(0, dt)
+// }
 
 function update(dt)
 {
 	for (var i = 0; i < Micro.Player.list.length; i++) {
 		Micro.Player.list[i].update(dt)
 	};
-	for (var i = 0; i < Micro.Entity.list.length; i++) {
-		gravity(dt, Micro.Entity.list[i])
-	};
+	// for (var i = 0; i < Micro.Entity.list.length; i++) {
+		// Micro.Entity.list[i].update(dt)
+	// };
 }
 
 function addAuthor()
 {
-	var string = Micro.author[0] + '\n' + Micro.author[1] + '\n' + Micro.author[2] + ' : ' + Micro.author[3]
+	var string = Micro.author[0] + '\n' + Micro.author[1] + '\n' + Micro.author[2] + '\n' + Micro.author[3]
 
-	var authorText = new PIXI.Text(string, {font : '14px Arial', fill : 0xff1010, align : 'right'})
-	authorText.x = Micro.width - 200
-	authorText.y = 10
+	var authorText = new PIXI.Text(string, {font : '14px courier', fill : 0xd8d8d8, align : 'center'})
+	authorText.x = Micro.width - 225
+	authorText.y = 25
 	Micro.stage.addChild(authorText)
-
-
 }
 
 function Removeauthor(authorText)
@@ -91,18 +95,13 @@ function animate()
 {
 	var dt = Date.now() - Micro.time
 
+	var text = new PIXI.Text(JSON.stringify(Micro.Player.list[0].velocity) ,{font : '24px Arial', fill : 0xff1010, align : 'center'})
 	update(dt)
-	// console.log(author())
-	// var text = new PIXI.Text(Micro.Player.list[0].jumpBool ,{font : '24px Arial', fill : 0xff1010, align : 'center'})
-	// var authorText = new PIXI.Text(author().substr(2, author().length - 4), {font : '24px Arial', fill : 0xff1010})
 
-	// // Micro.stage.addChild(text)
-	// Micro.stage.addChild(authorText)
+	Micro.stage.addChild(text)
 
-	// authorText = Writeauthor()
 	Micro.renderer.render(Micro.stage)
-	// Micro.stage.removeChild(text)
-	// Removeauthor(authorText)
+	Micro.stage.removeChild(text)
 
 	Micro.time = Date.now()
 	requestAnimationFrame(animate)

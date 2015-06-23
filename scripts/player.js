@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-13 03:33:39
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-21 18:25:08
+* @Last Modified time: 2015-06-24 01:44:49
 */
 
 'use strict';
@@ -19,27 +19,30 @@ Player.list = []
 
 Player.update = function (dt)
 {
+	if (this.Eupdate)
+		this.Eupdate(dt)
+
 	if (Micro.keyArray[37])
-		this.moveBy(-dt / 2, 0);
+		this.addVelocity(-0.6, 0)
+
 	if (Micro.keyArray[39])
-		this.moveBy(dt / 2, 0);
-	// if (Micro.keyArray[38])
-	// 	this.moveBy(0, -dt * 2);
-	// if (Micro.keyArray[40])
-	// 	this.moveBy(0, dt * 2);
+		this.addVelocity(0.6, 0)
+
+	if (!Micro.keyArray[37] && !Micro.keyArray[39])
+		this.velocity.x = 0
 
 	if (Micro.keyArray[32] && this.jumpBool == true)
 		this.jumpDelay = 0
-
-	if (this.jumpDelay < 1)
+	if (this.jumpDelay < Math.PI)
 	{
-		this.jumpDelay += dt / 200
-		if (!(this.moveBy(0, -dt * Math.cos(this.jumpDelay) * 2)))
-			this.jumpDelay = 1
+		this.jumpDelay += dt / 150
+		console.log((Math.cos(this.jumpDelay)))
+		this.addVelocity(0, -Math.cos(this.jumpDelay) / 8)
 	}
 	else
 	{
-		this.jumpDelay = 1
+		this.jumpDelay = Math.PI
+		this.addVelocity(0, 0.6)
 	}
 }
 
@@ -49,14 +52,16 @@ Player.toString = function ()
 }
 
 Player.new = function (sprite) {
-	var t = Micro.Entity.new(sprite)
-	t.sprite.x = 0
-	t.sprite.y = 0
-	t.update = Player.update
-	t.toString = Player.toString
+	var newPlayer = Micro.Entity.new(sprite)
+	newPlayer.sprite.x = 0
+	newPlayer.sprite.y = 0
+	if (newPlayer.update)
+		newPlayer.Eupdate = newPlayer.update
+	newPlayer.update = Player.update
+	newPlayer.toString = Player.toString
 	Micro.stage.addChild(sprite)
-	Player.list.push(t)
-	return t
+	Player.list.push(newPlayer)
+	return newPlayer
 }
 
 })()
