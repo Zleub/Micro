@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:16:54
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-24 01:31:57
+* @Last Modified time: 2015-06-24 10:44:00
 */
 
 'use strict';
@@ -11,11 +11,11 @@ var Micro = window['Micro'] || {}
 if (!('Entity' in Micro))
 	Micro.Entity = {};
 
-// var test = new PIXI.Graphics();
-// test.lineStyle(2, 0xacacac);
-// test.drawCircle(300, 300, 10);
+var test = new PIXI.Graphics();
+test.lineStyle(2, 0xacacac);
+// test.drawCircle(300, 300, 1);
 
-// Micro.stage.addChild(test);
+Micro.stage.addChild(test);
 
 (function () {
 
@@ -32,40 +32,74 @@ Entity.collides = function (r1, r2, x, y)
 		return false
 }
 
-Entity.moveBy = function (x, y)
-{
-	x = Math.round(x)
-	y = Math.round(y)
-	// for (var i = 0; i < Micro.Block.list.length; i++)
-	// {
-	// 	var r1 = this.sprite.getBounds()
-	// 	var r2 = Micro.Block.list[i].sprite.getBounds()
+// Entity.moveBy = function (x, y)
+// {
+// 	x = Math.round(x)
+// 	y = Math.round(y)
+// 	// for (var i = 0; i < Micro.Block.list.length; i++)
+// 	// {
+// 	// 	var r1 = this.sprite.getBounds()
+// 	// 	var r2 = Micro.Block.list[i].sprite.getBounds()
 
-	// 	r1.x += x;
-	// 	r1.y += y;
+// 	// 	r1.x += x;
+// 	// 	r1.y += y;
 
-	// }
+// 	// }
 
-	this.sprite.x += x
-	this.sprite.y += y
-	if (this.sprite.y + this.sprite.height > Micro.height) {
-		this.sprite.y = Micro.height - this.sprite.height
-		this.jumpBool = true
-		return false
-	}
+// 	this.sprite.x += x
+// 	this.sprite.y += y
+// 	if (this.sprite.y + this.sprite.height > Micro.height) {
+// 		this.sprite.y = Micro.height - this.sprite.height
+// 		this.jumpBool = true
+// 		return false
+// 	}
 
-	this.jumpBool = false
-	return true
-}
+// 	this.jumpBool = false
+// 	return true
+// }
 
 Entity.update = function (dt)
 {
+	// test.drawCircle(this.sprite.x, this.sprite.y, 1)
+	for (var i = 0; i < Micro.Block.list.length; i++)
+	{
+		var r1 = this.sprite
+		var r2 = Micro.Block.list[i].sprite
+
+		if (r1.x + r1.width / 2 > r2.x && r1.x + r1.width / 2 < r2.x + r2.width)
+		{
+			if (r1.y == r2.y - r1.height) {
+				this.sprite.x += this.velocity.x * dt
+				if (this.velocity.y < 0) {
+					this.sprite.y += this.velocity.y * dt
+				}
+				this.jumpBool = true
+				this.jumpDelay = Math.PI
+				this.addVelocity(0, dt)
+				return
+			}
+
+			if (r1.y + r1.height < r2.y + dt && r1.y + r1.height > r2.y - dt)
+			{
+				this.sprite.x += this.velocity.x * dt
+				r1.y = r2.y - r1.height
+				this.velocity.y = 0
+				return
+			}
+		}
+	}
+
 	this.sprite.x += this.velocity.x * dt
 	this.sprite.y += this.velocity.y * dt
+
 	if (this.sprite.y + this.sprite.height > Micro.height) {
 		this.sprite.y = Micro.height - this.sprite.height
 		this.jumpBool = true
+		this.jumpDelay = Math.PI
+		return
 	}
+	this.jumpBool = false
+	this.addVelocity(0, dt)
 }
 
 Entity.new = function (sprite)
@@ -73,7 +107,7 @@ Entity.new = function (sprite)
 	var t = {
 		velocity : {
 			x_max : 1,
-			y_max : 1,
+			y_max : 2,
 			x : 0,
 			y : 1
 		},
@@ -84,7 +118,7 @@ Entity.new = function (sprite)
 			this.velocity.y = Math.clamp(this.velocity.y, -this.velocity.y_max, this.velocity.y_max)
 		},
 		sprite : sprite,
-		moveBy : Entity.moveBy,
+		// moveBy : Entity.moveBy,
 		update : Entity.update
 	}
 	Entity.list.push(t)

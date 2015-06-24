@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-24 01:26:33
+* @Last Modified time: 2015-06-24 10:42:59
 */
 
 (function(){
@@ -78,10 +78,16 @@ function update(dt)
 
 function addAuthor()
 {
+	var lenmax = Math.max(
+		Math.max(Micro.author[0].length, Micro.author[1].length),
+		Math.max(Micro.author[2].length, Micro.author[3].length)
+	)
+
+	console.log(lenmax)
 	var string = Micro.author[0] + '\n' + Micro.author[1] + '\n' + Micro.author[2] + '\n' + Micro.author[3]
 
 	var authorText = new PIXI.Text(string, {font : '14px courier', fill : 0xd8d8d8, align : 'center'})
-	authorText.x = Micro.width - 225
+	authorText.x = Micro.width - lenmax * 9
 	authorText.y = 25
 	Micro.stage.addChild(authorText)
 }
@@ -95,13 +101,14 @@ function animate()
 {
 	var dt = Date.now() - Micro.time
 
-	var text = new PIXI.Text(JSON.stringify(Micro.Player.list[0].velocity) ,{font : '24px Arial', fill : 0xff1010, align : 'center'})
 	update(dt)
 
-	Micro.stage.addChild(text)
+	// var text = new PIXI.Text(JSON.stringify(Micro.Player.list[0].velocity), {font : '24px Arial', fill : 0xff1010})
+	// Micro.stage.addChild(text)
 
 	Micro.renderer.render(Micro.stage)
-	Micro.stage.removeChild(text)
+
+	// Micro.stage.removeChild(text)
 
 	Micro.time = Date.now()
 	requestAnimationFrame(animate)

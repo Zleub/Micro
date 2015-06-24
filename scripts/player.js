@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-13 03:33:39
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-24 01:44:49
+* @Last Modified time: 2015-06-24 10:37:38
 */
 
 'use strict';
@@ -23,26 +23,30 @@ Player.update = function (dt)
 		this.Eupdate(dt)
 
 	if (Micro.keyArray[37])
-		this.addVelocity(-0.6, 0)
+		this.addVelocity(-0.5, 0)
 
 	if (Micro.keyArray[39])
-		this.addVelocity(0.6, 0)
+		this.addVelocity(0.5, 0)
 
 	if (!Micro.keyArray[37] && !Micro.keyArray[39])
 		this.velocity.x = 0
 
-	if (Micro.keyArray[32] && this.jumpBool == true)
+	if (Micro.keyArray[32] && this.jumpBool == true) {
+		// console.log("satrt")
 		this.jumpDelay = 0
+	}
+
 	if (this.jumpDelay < Math.PI)
 	{
-		this.jumpDelay += dt / 150
-		console.log((Math.cos(this.jumpDelay)))
-		this.addVelocity(0, -Math.cos(this.jumpDelay) / 8)
+		this.jumpDelay += dt / 200
+		// console.log(Micro.Player.list[0].velocity, -Math.cos(this.jumpDelay) * 2 - 0.6)
+		this.addVelocity(0, -Math.cos(this.jumpDelay) * 3)
+		this.jumpBool = false
 	}
 	else
 	{
 		this.jumpDelay = Math.PI
-		this.addVelocity(0, 0.6)
+		// this.addVelocity(0, 0.6)
 	}
 }
 
@@ -53,6 +57,7 @@ Player.toString = function ()
 
 Player.new = function (sprite) {
 	var newPlayer = Micro.Entity.new(sprite)
+	newPlayer.jumpDelay = Math.PI
 	newPlayer.sprite.x = 0
 	newPlayer.sprite.y = 0
 	if (newPlayer.update)
