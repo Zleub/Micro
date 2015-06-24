@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:31:23
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-12 19:14:41
+* @Last Modified time: 2015-06-24 17:21:31
 */
 
 'use strict';
@@ -47,6 +47,7 @@ PIXI.loader.on('load', function (loader, res)
 	for (var i = sprites.length - 1; i >= 0; i--) {
 		if (window['_' + res.name].properties.scale)
 		{
+			console.log("test", res.name)
 			sprites[i].scale.x = window['_' + res.name].properties.scale.x
 			sprites[i].scale.y = window['_' + res.name].properties.scale.y
 		}
@@ -65,6 +66,23 @@ Asset.load = function (id, callback)
 	var loader = PIXI.loader
 	loader.add(id, window['_' + id].image);
 
+}
+
+Asset.new = function (sprite) {
+	var tmp = new PIXI.Sprite(sprite.generateTexture(Micro.renderer))
+	tmp.scale.x = sprite.scale.x
+	tmp.scale.y = sprite.scale.y
+	return tmp
+}
+
+Asset.newAt = function (sprite, x, y) {
+	var tmp = new PIXI.Sprite(sprite.generateTexture(Micro.renderer))
+	tmp.scale.x = sprite.scale.x
+	tmp.scale.y = sprite.scale.y
+	tmp.x = x
+	tmp.y = y
+	Micro.stage.addChild(tmp)
+	return tmp
 }
 
 })();

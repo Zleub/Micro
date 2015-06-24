@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-24 10:42:59
+* @Last Modified time: 2015-06-24 17:46:09
 */
 
 (function(){
@@ -39,23 +39,25 @@ Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
 
-		var dup = new PIXI.Sprite(Micro.Sprites['Sprute'][14].generateTexture(Micro.renderer))
-		dup.scale.x = Micro.Sprites['Sprute'][14].scale.x
-		dup.scale.y = Micro.Sprites['Sprute'][14].scale.y
-		Micro.Block.new(dup).moveTo(200, 500)
+		addAuthor();
 
-		var dup2 = new PIXI.Sprite(Micro.Sprites['Sprute'][14].generateTexture(Micro.renderer))
-		dup2.scale.x = Micro.Sprites['Sprute'][14].scale.x
-		dup2.scale.y = Micro.Sprites['Sprute'][14].scale.y
-		Micro.Block.new(dup2).moveTo(400, 610)
+		//Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 450)
+		//Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 290)
+		Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], 0, Micro.height - 64 * 12)
+		Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], 64 * 12, Micro.height - 64 * 12)
+
 		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(0, Micro.height - Micro.size)
-
-		// dupeSprite[c] = new PIXI.Sprite(PIXI.Texture.fromFrame(sprites.sprite));
-		// Micro.Block.new(new PIXI.Sprite(Micro.Sprites['Sprute'][14]))
+		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(160, Micro.height - Micro.size)
+		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(400, 610)
+		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(560, 610)
+		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(560, 610)
+		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(800, 550)
+		Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(560, 450)
+		Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(400, 400)
+		Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 450)
 
 		Micro.Player.new(Micro.Sprites['dwarves'][1])
 
-		addAuthor();
 		animate();
 	})
 	PIXI.loader.load()

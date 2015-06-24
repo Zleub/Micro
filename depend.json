@@ -8,7 +8,8 @@
 	{
 		"scripts/asset.js" : [
 			"assets/dwarves.js",
-			"assets/Sprute.js"
+			"assets/Sprute.js",
+			"assets/mountain_2.js"
 		]
 	},
 	{

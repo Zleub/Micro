@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-05 15:47:33
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-22 16:08:00
+* @Last Modified time: 2015-06-24 16:47:11
 */
 
 'use strict';
@@ -14,6 +14,7 @@ var git = require('./git.js')
 
 var dispatch = function (req, res)
 {
+	try {
 	if (path.extname(req.url) == '.html')
 	{
 		if (fs.existsSync("./srcs" + req.url))
@@ -51,6 +52,19 @@ var dispatch = function (req, res)
 	}
 	else
 	{
+		if (fs.existsSync("./srcs/index.html"))
+		{
+			res.writeHead(200, {'Content-Type': 'text/html'})
+			res.end(fs.readFileSync("./srcs/index.html"))
+		}
+		else
+		{
+			res.writeHead(404, {'Content-Type': 'text/html'})
+			res.end();
+		}
+	}
+	}catch(e){
+		console.log(req.url, e)
 		res.writeHead(404, {'Content-Type': 'text/plain'})
 		res.write("Error 404: resource not found")
 		res.end()
@@ -59,4 +73,4 @@ var dispatch = function (req, res)
 
 var server = http.createServer(dispatch)
 
-server.listen(8080)
+server.listen(80)
