@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:31:23
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-24 17:21:31
+* @Last Modified time: 2015-06-25 17:53:30
 */
 
 'use strict';
@@ -72,6 +72,7 @@ Asset.new = function (sprite) {
 	var tmp = new PIXI.Sprite(sprite.generateTexture(Micro.renderer))
 	tmp.scale.x = sprite.scale.x
 	tmp.scale.y = sprite.scale.y
+	Micro.stage.addChild(tmp)
 	return tmp
 }
 

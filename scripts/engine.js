@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-24 17:46:09
+* @Last Modified time: 2015-06-25 19:31:25
 */
 
 (function(){
@@ -39,12 +39,10 @@ Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
 
-		addAuthor();
-
 		//Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 450)
 		//Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 290)
-		Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], 0, Micro.height - 64 * 12)
-		Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], 64 * 12, Micro.height - 64 * 12)
+		Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], 0, Micro.height - Micro.Sprites['mountain_2'][0].height)
+		Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], Micro.Sprites['mountain_2'][0].width, Micro.height - Micro.Sprites['mountain_2'][0].height)
 
 		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(0, Micro.height - Micro.size)
 		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(160, Micro.height - Micro.size)
@@ -56,8 +54,13 @@ Micro.launch = function ()
 		Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(400, 400)
 		Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 450)
 
-		Micro.Player.new(Micro.Sprites['dwarves'][1])
+		Micro.Asset.newAt(Micro.Sprites['Door'][0], -75, Micro.height - Micro.Sprites['Door'][0].width - 16)
 
+		Micro.Player.new(Micro.Sprites['dwarves'][1]).sprite.x = 64
+
+
+
+		addAuthor();
 		animate();
 	})
 	PIXI.loader.load()
@@ -103,7 +106,10 @@ function animate()
 {
 	var dt = Date.now() - Micro.time
 
-	update(dt)
+	update(dt / 4)
+	update(dt / 4)
+	update(dt / 4)
+	update(dt / 4)
 
 	// var text = new PIXI.Text(JSON.stringify(Micro.Player.list[0].velocity), {font : '24px Arial', fill : 0xff1010})
 	// Micro.stage.addChild(text)
