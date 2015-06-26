@@ -2,27 +2,22 @@
 * @Author: adebray
 * @Date:   2015-06-25 17:12:34
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-26 16:19:08
+* @Last Modified time: 2015-06-26 23:51:58
 */
 
 'use strict';
 
 var Micro = window['Micro'] || {}
-if (!('Vec2' in Micro))
-	Micro.Vec2 = {};
+if (!('Debug' in Micro))
+	Micro.Debug = {};
 
 // console.log('test&&&')
 
 (function () {
 
-var Vec2 = Micro.Vec2
+var Debug = Micro.Debug
+	Debug.space = new PIXI.Graphics()
+	Debug.space.lineStyle(2, 0xacacac)
 
-Vec2.new = function () {
-	var vec = {
-		x : 0,
-		y : 0
-	}
-	return vec
-}
 
 })()

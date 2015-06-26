@@ -9,13 +9,12 @@ $(function()
 
 		return function () {
 			var re = /(\w+)\/?(\w+)\./;
-			console.log(re.exec(_name)[1])
 			if (re.exec(_name)[1] == 'assets')
 				$.getScript(_name).done(function () {
 					Micro.Asset.load(re.exec(_name)[2])
 				})
 			else
-				$.getScript(_name).done(function () {console.log('were done')})
+				$.getScript(_name).done(function () {})
 		}
 	}
 

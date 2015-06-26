@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-26 15:24:42
+* @Last Modified time: 2015-06-27 00:11:35
 */
 
 (function(){
@@ -20,11 +20,13 @@ Micro.size = 16
 Micro.width = Micro.size * 60
 Micro.height = Micro.size * 40 + Micro.size / 2
 
-Micro.renderer = new PIXI.CanvasRenderer(Micro.width, Micro.height);
+Micro.renderer = new PIXI.WebGLRenderer(Micro.width, Micro.height);
 document.body.appendChild(Micro.renderer.view);
 Micro.renderer.view.style.marginTop = window.innerHeight / 2 - Micro.height / 2 +'px';
 
 Micro.stage = new PIXI.Container();
+Micro.scene = new PIXI.Container();
+
 Micro.loader = PIXI.loader;
 
 Micro.keyArray = []
@@ -38,6 +40,9 @@ window.addEventListener('keyup', function (e) {
 Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
+
+	var contain = new PIXI.Container()
+	contain.addChild(new PIXI.Graphics().lineStyle(2, 0xff0000).drawCircle(300, 300, 100))
 
 		//Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 450)
 		//Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 290)
@@ -59,7 +64,11 @@ Micro.launch = function ()
 		Micro.Player.new(Micro.Sprites['dwarves'][1]).sprite.x = 64
 
 
+		var test = new PIXI.Rectangle(10, 10, 100, 100)
+		Micro.Debug.space.drawRect(10, 10, 100, 100)
+		Micro.stage.addChild(Micro.Debug.space)
 
+	Micro.stage.addChild(contain)
 		addAuthor();
 		animate();
 	})

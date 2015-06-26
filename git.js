@@ -26,6 +26,7 @@ exports.writeAuthor = function () {
 	array = array.toString()
 	var re = /(\S+)\s<(.+)>\s(.+)\scommit: (.+)/;
 	array = array.match(re)
+	console.log(array)
 	array.shift()
 
 	array[2] = timeConverter(array[2].split(" ")[0])
