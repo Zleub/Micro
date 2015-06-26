@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-13 03:33:39
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-24 10:37:38
+* @Last Modified time: 2015-06-26 15:28:56
 */
 
 'use strict';
@@ -22,11 +22,17 @@ Player.update = function (dt)
 	if (this.Eupdate)
 		this.Eupdate(dt)
 
-	if (Micro.keyArray[37])
+	if (Micro.keyArray[37]) {
+		// if (this.sprite.scale.x > 0)
+			// this.sprite.scale.x *= -1
 		this.addVelocity(-0.5, 0)
+	}
 
-	if (Micro.keyArray[39])
+	if (Micro.keyArray[39]) {
+		// if (this.sprite.scale.x < 0)
+			// this.sprite.scale.x *= -1
 		this.addVelocity(0.5, 0)
+	}
 
 	if (!Micro.keyArray[37] && !Micro.keyArray[39])
 		this.velocity.x = 0

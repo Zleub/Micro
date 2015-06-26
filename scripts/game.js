@@ -5,6 +5,20 @@ PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST
 
 $(function()
 {
+	function MakeDepend(_name) {
+
+		return function () {
+			var re = /(\w+)\/?(\w+)\./;
+			console.log(re.exec(_name)[1])
+			if (re.exec(_name)[1] == 'assets')
+				$.getScript(_name).done(function () {
+					Micro.Asset.load(re.exec(_name)[2])
+				})
+			else
+				$.getScript(_name).done(function () {console.log('were done')})
+		}
+	}
+
 	function GetDepend(json, index)
 	{
 		if (index >= json.length)
@@ -19,19 +33,7 @@ $(function()
 			for (var mod in array)
 			{
 				var modname = array[mod]
-				t.push (
-
-					(function (_name) {
-					return function () {
-						var re = /\/?(\w+)\./;
-						console.log(_name)
-						$.getScript(_name).done(function () {
-							Micro.Asset.load(re.exec(_name)[1])
-						})
-					}
-					})(modname)
-
-				)
+				t.push ( MakeDepend(modname) )
 			}
 			if (index + 1 >= json.length)
 				t.push ( function () {

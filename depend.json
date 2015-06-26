@@ -23,5 +23,8 @@
 	},
 	{
 		"scenes/TutoA.js" : []
+	},
+	{
+		"scripts/lib.js" : []
 	}
 ]

@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-25 19:31:25
+* @Last Modified time: 2015-06-26 15:24:42
 */
 
 (function(){
@@ -54,7 +54,7 @@ Micro.launch = function ()
 		Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(400, 400)
 		Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 450)
 
-		Micro.Asset.newAt(Micro.Sprites['Door'][0], -75, Micro.height - Micro.Sprites['Door'][0].width - 16)
+		Micro.Asset.newAt(Micro.Sprites['Door'][0], -77, Micro.height - Micro.Sprites['Door'][0].width - 16)
 
 		Micro.Player.new(Micro.Sprites['dwarves'][1]).sprite.x = 64
 
@@ -89,7 +89,7 @@ function addAuthor()
 	)
 
 	console.log(lenmax)
-	var string = Micro.author[0] + '\n' + Micro.author[1] + '\n' + Micro.author[2] + '\n' + Micro.author[3]
+	var string = 'Last Update Box ._.\n' + Micro.author[0] + '\n' + Micro.author[1] + '\n' + Micro.author[2] + '\n' + Micro.author[3]
 
 	var authorText = new PIXI.Text(string, {font : '14px courier', fill : 0xd8d8d8, align : 'center'})
 	authorText.x = Micro.width - lenmax * 9
