@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 16:34:05
+* @Last Modified time: 2015-06-27 19:33:02
 */
 
 (function(){
@@ -51,13 +51,16 @@ Micro.launch = function ()
 		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(160, Micro.height - Micro.size)
 		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(400, 610)
 		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(560, 610)
-		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(560, 610)
+		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(560, 610).draw()
 		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(800, 550)
 		Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(560, 450)
 		Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(400, 400)
 		Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 450)
 
-		Micro.Asset.newAt(Micro.Sprites['Door'][0], -77, Micro.height - Micro.Sprites['Door'][0].width - 16)
+		// Micro.Asset.newAt(Micro.Sprites['Door'][0], -77, Micro.height - Micro.Sprites['Door'][0].width - 16)
+
+		Micro.Door.newAt(Micro.Sprites['Door'][0], -77, Micro.height - Micro.Sprites['Door'][0].width - 16).draw()
+		// Micro.Door.newAt(Micro.Sprites['Door'][0], 100, 100).draw()
 
 		Micro.Player.new(Micro.Sprites['dwarves'][1]).sprite.x = 64
 
@@ -71,19 +74,16 @@ Micro.launch = function ()
 	PIXI.loader.load()
 }
 
-// function gravity(dt, entity)
-// {
-// 	entity.moveBy(0, dt)
-// }
-
 function update(dt)
 {
-	for (var i = 0; i < Micro.Player.list.length; i++) {
-		Micro.Player.list[i].update(dt)
-	};
-	// for (var i = 0; i < Micro.Entity.list.length; i++) {
-		// Micro.Entity.list[i].update(dt)
+	// for (var i = 0; i < Micro.Player.list.length; i++) {
+	// 	Micro.Player.list[i].update(dt)
 	// };
+	for (var i = 0; i < Micro.Entity.list.length; i++) {
+		for (var j = 0; j < Micro.Entity.list[i].update.length; j++) {
+			Micro.Entity.list[i].update[j](dt, Micro.Entity.list[i])
+		}
+	};
 }
 
 function addAuthor()
@@ -93,7 +93,6 @@ function addAuthor()
 		Math.max(Micro.author[2].length, Micro.author[3].length)
 	)
 
-	console.log(lenmax)
 	var string = 'Last Update Box ._.\n' + Micro.author[0] + '\n' + Micro.author[1] + '\n' + Micro.author[2] + '\n' + Micro.author[3]
 
 	var authorText = new PIXI.Text(string, {font : '14px courier', fill : 0xd8d8d8, align : 'center'})
@@ -102,14 +101,10 @@ function addAuthor()
 	Micro.stage.addChild(authorText)
 }
 
-function Removeauthor(authorText)
-{
-	Micro.stage.removeChild(authorText)
-}
-
 function animate()
 {
 	var dt = Date.now() - Micro.time
+
 
 	update(dt / 4)
 	update(dt / 4)
@@ -120,6 +115,7 @@ function animate()
 	// Micro.stage.addChild(text)
 
 	Micro.renderer.render(Micro.stage)
+
 
 	// Micro.stage.removeChild(text)
 

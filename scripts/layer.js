@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-25 17:12:34
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 16:28:15
+* @Last Modified time: 2015-06-27 18:51:36
 */
 
 'use strict';
@@ -16,7 +16,13 @@ if (!('Layer' in Micro))
 var Layer = Micro.Layer
 	Layer.list = {}
 	Layer.list.debug = new PIXI.Container()
-	Layer.list.debug.addChild(new PIXI.Graphics().lineStyle(2, 0xacacac))
+	Layer.list.debug.addChild(
+		new PIXI.Graphics().lineStyle(2, 0xacacac)
+	)
+	Layer.list.debug.reset = function () {
+		Layer.list.debug.children[0].clear()
+		Layer.list.debug.children[0].lineStyle(2, 0xacacac)
+	}
 	Layer.list.background = new PIXI.Container()
 	Layer.list.foreground = new PIXI.Container()
 	Layer.list.ui = new PIXI.Container()

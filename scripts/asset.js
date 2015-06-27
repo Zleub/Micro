@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:31:23
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 16:29:06
+* @Last Modified time: 2015-06-27 19:33:14
 */
 
 'use strict';
@@ -47,7 +47,6 @@ PIXI.loader.on('load', function (loader, res)
 	for (var i = sprites.length - 1; i >= 0; i--) {
 		if (window['_' + res.name].properties.scale)
 		{
-			console.log("test", res.name)
 			sprites[i].scale.x = window['_' + res.name].properties.scale.x
 			sprites[i].scale.y = window['_' + res.name].properties.scale.y
 		}

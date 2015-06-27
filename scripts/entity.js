@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:16:54
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 00:19:12
+* @Last Modified time: 2015-06-27 19:29:21
 */
 
 'use strict';
@@ -32,48 +32,82 @@ Entity.collides = function (r1, r2, x, y)
 		return false
 }
 
-Entity.update = function (dt)
+var time = 0
+
+Entity.update = function (dt, entity)
 {
+	// -- // -- // -- // -- // -- // -- // -- // -- // -- // -- // -- // -- //
+
+	if (Micro.debug) {
+
+	if (time > 1) {
+		time = 0;
+		Micro.Layer.list.debug.reset()
+	}
+
+	time += dt / 1000
 	// test.drawCircle(this.sprite.x, this.sprite.y, 1)
+
+
 	for (var i = 0; i < Micro.Block.list.length; i++)
 	{
-		var r1 = this.sprite
+		Micro.Block.list[i].rectangle.y = Micro.Block.list[i].sprite.y - dt
+		Micro.Block.list[i].rectangle.height = dt * 2
+		// console.log(time, old_time)
+//		if (time < 5)
+			Micro.Block.list[i].draw()
+	}
+
+	for (var i = Micro.Door.list.length - 1; i >= 0; i--) {
+		Micro.Door.list[i].draw()
+	};
+
+	// Micro.Layer.list.debug.children[0].drawCircle(this.sprite.x, this.sprite.y, 1)
+
+	}
+
+	// -- // -- // -- // -- // -- // -- // -- // -- // -- // -- // -- // -- //
+
+	for (var i = 0; i < Micro.Block.list.length; i++)
+	{
+		// console.log(entity)
+		var r1 = entity.sprite
 		var r2 = Micro.Block.list[i].sprite
 
-		if (r1.x + r1.width / 2 > r2.x && r1.x + r1.width / 2 < r2.x + r2.width)
+		if (r1.x > r2.x && r1.x < r2.x + r2.width)
 		{
-			if (r1.y == r2.y - r1.height) {
-				this.sprite.x += this.velocity.x * dt
-				if (this.velocity.y < 0) {
-					this.sprite.y += this.velocity.y * dt
+			if (r1.y == r2.y - r1.height / 2) {
+				entity.sprite.x += entity.velocity.x * dt
+				if (entity.velocity.y < 0) {
+					entity.sprite.y += entity.velocity.y * dt
 				}
-				this.jumpBool = true
-				this.jumpDelay = Math.PI
-				this.addVelocity(0, dt)
+				entity.jumpBool = true
+				entity.jumpDelay = Math.PI
+				entity.addVelocity(0, dt)
 				return
 			}
 
-			if (r1.y + r1.height < r2.y + dt && r1.y + r1.height > r2.y - dt)
+			if (r1.y + r1.height / 2 < r2.y + dt && r1.y + r1.height / 2 > r2.y - dt)
 			{
-				this.sprite.x += this.velocity.x * dt
-				r1.y = r2.y - r1.height
-				this.velocity.y = 0
+				entity.sprite.x += entity.velocity.x * dt
+				r1.y = r2.y - r1.height / 2
+				entity.velocity.y = 0
 				return
 			}
 		}
 	}
 
-	this.sprite.x += this.velocity.x * dt
-	this.sprite.y += this.velocity.y * dt
+	entity.sprite.x += entity.velocity.x * dt
+	entity.sprite.y += entity.velocity.y * dt
 
-	if (this.sprite.y + this.sprite.height > Micro.height) {
-		this.sprite.y = Micro.height - this.sprite.height
-		this.jumpBool = true
-		this.jumpDelay = Math.PI
+	if (entity.sprite.y + entity.sprite.height / 2 > Micro.height) {
+		entity.sprite.y = Micro.height - entity.sprite.height / 2
+		entity.jumpBool = true
+		entity.jumpDelay = Math.PI
 		return
 	}
-	this.jumpBool = false
-	this.addVelocity(0, dt)
+	entity.jumpBool = false
+	entity.addVelocity(0, dt)
 }
 
 Entity.new = function (sprite)
@@ -91,10 +125,14 @@ Entity.new = function (sprite)
 			this.velocity.x = Math.clamp(this.velocity.x, -this.velocity.x_max, this.velocity.x_max)
 			this.velocity.y = Math.clamp(this.velocity.y, -this.velocity.y_max, this.velocity.y_max)
 		},
-		sprite : sprite,
+		sprite : new PIXI.Sprite(sprite.generateTexture(Micro.renderer)),
 		// moveBy : Entity.moveBy,
-		update : Entity.update
+		update : []
 	}
+	t.sprite.scale.x = sprite.scale.x
+	t.sprite.scale.y = sprite.scale.y
+	t.update.push(Entity.update)
+
 	Entity.list.push(t)
 	return t
 }
