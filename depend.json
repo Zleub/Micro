@@ -3,7 +3,9 @@
 		"author.json" : []
 	},
 	{
-		"scripts/engine.js" : []
+		"scripts/engine.js" : [
+			"scripts/layer.js"
+		]
 	},
 	{
 		"scripts/asset.js" : [
@@ -15,16 +17,11 @@
 	},
 	{
 		"scripts/entity.js" : [
-			"scripts/player.js"
+			"scripts/player.js",
+			"scripts/block.js"
 		]
 	},
 	{
-		"scripts/block.js" : []
-	},
-	{
 		"scenes/TutoA.js" : []
-	},
-	{
-		"scripts/lib.js" : []
 	}
 ]

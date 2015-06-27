@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:31:23
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-25 17:53:30
+* @Last Modified time: 2015-06-27 16:29:06
 */
 
 'use strict';
@@ -72,7 +72,7 @@ Asset.new = function (sprite) {
 	var tmp = new PIXI.Sprite(sprite.generateTexture(Micro.renderer))
 	tmp.scale.x = sprite.scale.x
 	tmp.scale.y = sprite.scale.y
-	Micro.stage.addChild(tmp)
+	Micro.Layer.list.background.addChild(tmp)
 	return tmp
 }
 
@@ -82,7 +82,7 @@ Asset.newAt = function (sprite, x, y) {
 	tmp.scale.y = sprite.scale.y
 	tmp.x = x
 	tmp.y = y
-	Micro.stage.addChild(tmp)
+	Micro.Layer.list.background.addChild(tmp)
 	return tmp
 }
 

@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 00:11:35
+* @Last Modified time: 2015-06-27 16:34:05
 */
 
 (function(){
@@ -25,7 +25,6 @@ document.body.appendChild(Micro.renderer.view);
 Micro.renderer.view.style.marginTop = window.innerHeight / 2 - Micro.height / 2 +'px';
 
 Micro.stage = new PIXI.Container();
-Micro.scene = new PIXI.Container();
 
 Micro.loader = PIXI.loader;
 
@@ -41,11 +40,10 @@ Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
 
-	var contain = new PIXI.Container()
-	contain.addChild(new PIXI.Graphics().lineStyle(2, 0xff0000).drawCircle(300, 300, 100))
 
-		//Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 450)
-		//Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 290)
+		// Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 450)
+		// Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 290)
+
 		Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], 0, Micro.height - Micro.Sprites['mountain_2'][0].height)
 		Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], Micro.Sprites['mountain_2'][0].width, Micro.height - Micro.Sprites['mountain_2'][0].height)
 
@@ -65,10 +63,8 @@ Micro.launch = function ()
 
 
 		var test = new PIXI.Rectangle(10, 10, 100, 100)
-		Micro.Debug.space.drawRect(10, 10, 100, 100)
-		Micro.stage.addChild(Micro.Debug.space)
+		Micro.Layer.list.debug.children[0].drawRect(10, 10, 100, 100)
 
-	Micro.stage.addChild(contain)
 		addAuthor();
 		animate();
 	})

@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:16:54
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-24 10:44:00
+* @Last Modified time: 2015-06-27 00:19:12
 */
 
 'use strict';
@@ -31,32 +31,6 @@ Entity.collides = function (r1, r2, x, y)
 	else
 		return false
 }
-
-// Entity.moveBy = function (x, y)
-// {
-// 	x = Math.round(x)
-// 	y = Math.round(y)
-// 	// for (var i = 0; i < Micro.Block.list.length; i++)
-// 	// {
-// 	// 	var r1 = this.sprite.getBounds()
-// 	// 	var r2 = Micro.Block.list[i].sprite.getBounds()
-
-// 	// 	r1.x += x;
-// 	// 	r1.y += y;
-
-// 	// }
-
-// 	this.sprite.x += x
-// 	this.sprite.y += y
-// 	if (this.sprite.y + this.sprite.height > Micro.height) {
-// 		this.sprite.y = Micro.height - this.sprite.height
-// 		this.jumpBool = true
-// 		return false
-// 	}
-
-// 	this.jumpBool = false
-// 	return true
-// }
 
 Entity.update = function (dt)
 {
