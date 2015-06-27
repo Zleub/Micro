@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:16:54
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 19:29:21
+* @Last Modified time: 2015-06-27 19:40:35
 */
 
 'use strict';
@@ -36,37 +36,6 @@ var time = 0
 
 Entity.update = function (dt, entity)
 {
-	// -- // -- // -- // -- // -- // -- // -- // -- // -- // -- // -- // -- //
-
-	if (Micro.debug) {
-
-	if (time > 1) {
-		time = 0;
-		Micro.Layer.list.debug.reset()
-	}
-
-	time += dt / 1000
-	// test.drawCircle(this.sprite.x, this.sprite.y, 1)
-
-
-	for (var i = 0; i < Micro.Block.list.length; i++)
-	{
-		Micro.Block.list[i].rectangle.y = Micro.Block.list[i].sprite.y - dt
-		Micro.Block.list[i].rectangle.height = dt * 2
-		// console.log(time, old_time)
-//		if (time < 5)
-			Micro.Block.list[i].draw()
-	}
-
-	for (var i = Micro.Door.list.length - 1; i >= 0; i--) {
-		Micro.Door.list[i].draw()
-	};
-
-	// Micro.Layer.list.debug.children[0].drawCircle(this.sprite.x, this.sprite.y, 1)
-
-	}
-
-	// -- // -- // -- // -- // -- // -- // -- // -- // -- // -- // -- // -- //
 
 	for (var i = 0; i < Micro.Block.list.length; i++)
 	{

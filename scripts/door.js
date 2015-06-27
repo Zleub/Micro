@@ -30,7 +30,7 @@ Door.new = function (sprite) {
 	t.sprite = new PIXI.Sprite(sprite.generateTexture(Micro.renderer))
 	t.sprite.scale.x = sprite.scale.x
 	t.sprite.scale.y = sprite.scale.y
-	t.Irectangle = new PIXI.Rectangle(t.sprite.x + t.sprite.width / 4, t.sprite.y, t.sprite.width - t.sprite.width / 2, t.sprite.height)
+	t.Irectangle = new PIXI.Rectangle(t.sprite.x + t.sprite.width / 8, t.sprite.y, t.sprite.width - t.sprite.width / 4, t.sprite.height)
 	t.Crectangle = new PIXI.Rectangle(t.sprite.x + t.sprite.width / 2.2, t.sprite.y, t.sprite.width - t.sprite.width / 1.1, t.sprite.height)
 	t.draw = Door.draw
 
@@ -46,7 +46,7 @@ Door.newAt = function (sprite, x, y) {
 	t.sprite.y = y
 	t.sprite.scale.x = sprite.scale.x
 	t.sprite.scale.y = sprite.scale.y
-	t.Irectangle = new PIXI.Rectangle(t.sprite.x + t.sprite.width / 4, t.sprite.y, t.sprite.width - t.sprite.width / 2, t.sprite.height)
+	t.Irectangle = new PIXI.Rectangle(t.sprite.x + t.sprite.width / 8, t.sprite.y, t.sprite.width - t.sprite.width / 4, t.sprite.height)
 	t.Crectangle = new PIXI.Rectangle(t.sprite.x + t.sprite.width / 2.2, t.sprite.y, t.sprite.width - t.sprite.width / 1.1, t.sprite.height)
 	t.draw = Door.draw
 

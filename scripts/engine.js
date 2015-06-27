@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 19:33:02
+* @Last Modified time: 2015-06-27 19:50:26
 */
 
 (function(){
@@ -51,7 +51,7 @@ Micro.launch = function ()
 		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(160, Micro.height - Micro.size)
 		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(400, 610)
 		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(560, 610)
-		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(560, 610).draw()
+		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(560, 610)
 		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(800, 550)
 		Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(560, 450)
 		Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(400, 400)
@@ -59,14 +59,12 @@ Micro.launch = function ()
 
 		// Micro.Asset.newAt(Micro.Sprites['Door'][0], -77, Micro.height - Micro.Sprites['Door'][0].width - 16)
 
-		Micro.Door.newAt(Micro.Sprites['Door'][0], -77, Micro.height - Micro.Sprites['Door'][0].width - 16).draw()
+		Micro.Door.newAt(Micro.Sprites['Door'][0], -77, Micro.height - Micro.Sprites['Door'][0].width - 16)
 		// Micro.Door.newAt(Micro.Sprites['Door'][0], 100, 100).draw()
 
 		Micro.Player.new(Micro.Sprites['dwarves'][1]).sprite.x = 64
 
-
-		var test = new PIXI.Rectangle(10, 10, 100, 100)
-		Micro.Layer.list.debug.children[0].drawRect(10, 10, 100, 100)
+		// Micro.Layer.list.debug.children[0].drawRect(10, 10, 100, 100)
 
 		addAuthor();
 		animate();
@@ -76,14 +74,42 @@ Micro.launch = function ()
 
 function update(dt)
 {
-	// for (var i = 0; i < Micro.Player.list.length; i++) {
-	// 	Micro.Player.list[i].update(dt)
-	// };
 	for (var i = 0; i < Micro.Entity.list.length; i++) {
 		for (var j = 0; j < Micro.Entity.list[i].update.length; j++) {
 			Micro.Entity.list[i].update[j](dt, Micro.Entity.list[i])
 		}
 	};
+}
+
+var time = 0
+
+function draw(dt) {
+
+	if (Micro.debug) {
+
+		if (time > 1) {
+			time = 0;
+			Micro.Layer.list.debug.reset()
+		}
+
+		time += dt / 1000
+
+		for (var i = 0; i < Micro.Block.list.length; i++)
+		{
+			Micro.Block.list[i].rectangle.y = Micro.Block.list[i].sprite.y - dt
+			Micro.Block.list[i].rectangle.height = dt * 2
+			Micro.Block.list[i].draw()
+		}
+
+		for (var i = Micro.Door.list.length - 1; i >= 0; i--) {
+			Micro.Door.list[i].draw()
+		};
+
+		Micro.Layer.list.debug.children[0].drawCircle(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y, 1)
+
+	}
+
+	Micro.renderer.render(Micro.stage)
 }
 
 function addAuthor()
@@ -98,13 +124,12 @@ function addAuthor()
 	var authorText = new PIXI.Text(string, {font : '14px courier', fill : 0xd8d8d8, align : 'center'})
 	authorText.x = Micro.width - lenmax * 9
 	authorText.y = 25
-	Micro.stage.addChild(authorText)
+	Micro.Layer.list.ui.addChild(authorText)
 }
 
 function animate()
 {
 	var dt = Date.now() - Micro.time
-
 
 	update(dt / 4)
 	update(dt / 4)
@@ -114,8 +139,7 @@ function animate()
 	// var text = new PIXI.Text(JSON.stringify(Micro.Player.list[0].velocity), {font : '24px Arial', fill : 0xff1010})
 	// Micro.stage.addChild(text)
 
-	Micro.renderer.render(Micro.stage)
-
+	draw(dt / 4)
 
 	// Micro.stage.removeChild(text)
 
