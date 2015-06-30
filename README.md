@@ -1,3 +1,3 @@
 # Micro
 
-Host @ [adebray.ovh](adebray.ovh)
+Host @ [adebray.ovh](http://adebray.ovh)
