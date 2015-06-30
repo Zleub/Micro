@@ -12,7 +12,10 @@
 			"assets/Door.js",
 			"assets/dwarves.js",
 			"assets/Sprute.js",
-			"assets/mountain_2.js"
+			"assets/mountain_2.js",
+			"assets/needcoffee.js",
+			"assets/Fire.js",
+			"assets/fence_sign.js"
 		]
 	},
 	{

@@ -12,17 +12,6 @@ Door.list = []
 
 Door.collidesWith = function (dt, entity) {
 
-	// Micro.Layer.list.debug.children[0].drawCircle(
-	// 	entity.sprite.x + entity.sprite.width / 2,
-	// 	entity.sprite.y,
-	// 	1
-	// )
-	// Micro.Layer.list.debug.children[0].drawCircle(
-	// 	entity.sprite.x - entity.sprite.width / 2,
-	// 	entity.sprite.y,
-	// 	1
-	// )
-
 	var caca = {}
 	caca.left_move = entity.sprite.x - entity.sprite.width / 2 - dt
 	caca.left_min = entity.sprite.x - entity.sprite.width / 2
@@ -33,26 +22,20 @@ Door.collidesWith = function (dt, entity) {
 	for (var i = Door.list.length - 1; i >= 0; i--) {
 		var r1 = entity
 		var r2 = Door.list[i].Crectangle
-		// if (r1.velocity.x > 0) {
 
-			for (var m = caca.left_min; m >= caca.left_move; m -= 0.01)
-			{
-				if (r2.x + r2.width > m && r2.x < m ) {
-					r1.velocity.x = 1
-					// return true
-				}
+		for (var m = caca.left_min; m >= caca.left_move; m -= 0.01)
+		{
+			if (r2.x + r2.width > m && r2.x < m ) {
+				r1.velocity.x = 1
 			}
-		// }
-		// if (r1.velocity.x < 0 ){
-			for (var m = caca.right_min; m <= caca.right_move; m += 0.01)
-			{
+		}
 
-				if (r2.x + r2.width > m  && r2.x < m ) {
-					r1.velocity.x = 0
-					// return true
-				}
+		for (var m = caca.right_min; m <= caca.right_move; m += 0.01)
+		{
+			if (r2.x + r2.width > m  && r2.x < m ) {
+				r1.velocity.x = 0
 			}
-		// }
+		}
 	};
 }
 

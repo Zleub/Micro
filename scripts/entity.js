@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:16:54
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-30 10:39:51
+* @Last Modified time: 2015-06-30 13:29:28
 */
 
 'use strict';
@@ -61,12 +61,6 @@ Entity.update = function (dt, entity)
 	entity.sprite.x += entity.velocity.x * dt
 	entity.sprite.y += entity.velocity.y * dt
 
-	// if (entity.sprite.y + entity.sprite.height / 2 > Micro.height) {
-	// 	entity.sprite.y = Micro.height - entity.sprite.height / 2
-	// 	entity.jumpBool = true
-	// 	entity.jumpDelay = Math.PI
-	// 	return
-	// }
 	entity.jumpBool = false
 	entity.addVelocity(0, dt)
 

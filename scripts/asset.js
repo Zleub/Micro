@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:31:23
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-30 10:58:23
+* @Last Modified time: 2015-06-30 12:25:12
 */
 
 'use strict';
@@ -22,8 +22,8 @@ Asset.makeArray = function (baseTexture, id)
 	var base = baseTexture
 	var sprites = []
 
-	for (var i = 0; i < base.height; i = i + window['_' + id].height) {
-		for (var j = 0; j < base.width; j = j + window['_' + id].width) {
+	for (var i = 0; i < base.height ; i = i + window['_' + id].height) {
+		for (var j = 0; j < base.width ; j = j + window['_' + id].width) {
 			sprites.push( new PIXI.Sprite(
 				new PIXI.Texture(
 					base,

@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-30 11:00:40
+* @Last Modified time: 2015-06-30 18:01:06
 */
 
 (function(){
@@ -65,8 +65,20 @@ function update(dt)
 		}
 	};
 
-	Micro.Layer.list.foreground.position.x = Micro.width / 2 - Micro.Player.list[0].sprite.position.x
-	Micro.Layer.list.foreground.position.y = Micro.height / 2 - Micro.Player.list[0].sprite.position.y
+	var testx = Micro.width / 2 - Micro.Player.list[0].sprite.position.x
+	var testy = Micro.height / 2 - Micro.Player.list[0].sprite.position.y
+
+	Micro.Layer.list.foreground.position.x = testx
+	Micro.Layer.list.foreground.position.y = testy
+
+	Micro.Layer.list.background.position.x = testx / 4
+	Micro.Layer.list.background.position.y = testy / 4
+
+	if (Micro.doortest.Irectangle.contains(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y)
+		|| new PIXI.Rectangle(Micro.Firetest.x, Micro.Firetest.y, Micro.Firetest.width, Micro.Firetest.height).contains(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y))
+		Micro.test.visible = true
+	else
+		Micro.test.visible = false
 
 	if (Micro.Player.list[0].sprite.y > 3000) {
 		Micro.Player.list[0].sprite.y = 0
@@ -80,7 +92,7 @@ function draw(dt) {
 
 	if (Micro.debug) {
 
-		if (time > 1) {
+		if (time > 0.1) {
 			time = 0;
 			Micro.Layer.list.debug.reset()
 		}
@@ -129,12 +141,12 @@ function animate()
 	update(dt / 4)
 	update(dt / 4)
 
-	var text = new PIXI.Text(JSON.stringify(Micro.Player.list[0].velocity), {font : '24px Arial', fill : 0xff1010})
-	Micro.stage.addChild(text)
+	// var text = new PIXI.Text(JSON.stringify(Micro.Player.list[0].velocity), {font : '24px Arial', fill : 0xff1010})
+	// Micro.stage.addChild(text)
 
 	draw(dt / 4)
 
-	Micro.stage.removeChild(text)
+	// Micro.stage.removeChild(text)
 
 	Micro.time = Date.now()
 	requestAnimationFrame(animate)
