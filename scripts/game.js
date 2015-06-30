@@ -34,6 +34,7 @@ $(function()
 				var modname = array[mod]
 				t.push ( MakeDepend(modname) )
 			}
+
 			if (index + 1 >= json.length)
 				t.push ( function () {
 					Micro.launch()

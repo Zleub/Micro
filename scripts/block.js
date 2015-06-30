@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-13 17:26:31
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 17:55:17
+* @Last Modified time: 2015-06-30 10:49:51
 */
 
 'use strict';
@@ -16,6 +16,38 @@ if (!('Block' in Micro))
 var Block = Micro.Block
 
 Block.list = []
+
+Block.collidesWith = function (dt, entity) {
+	for (var i = 0; i < Block.list.length; i++)
+	{
+		// console.log(entity)
+		var r1 = entity.sprite
+		var r2 = Block.list[i].sprite
+
+		if (r1.x > r2.x && r1.x < r2.x + r2.width)
+		{
+			if (r1.y == r2.y - r1.height / 2) {
+				entity.sprite.x += entity.velocity.x * dt
+				if (entity.velocity.y < 0) {
+					entity.sprite.y += entity.velocity.y * dt
+				}
+				entity.jumpBool = true
+				entity.jumpDelay = Math.PI
+				entity.velocity.y = 0
+				return true
+			}
+
+			if (r1.y + r1.height / 2 < r2.y + dt * 4 && r1.y + r1.height / 2 > r2.y)
+			{
+				entity.sprite.x += entity.velocity.x * dt
+				r1.y = r2.y - r1.height / 2
+				entity.velocity.y = 0
+				return true
+			}
+		}
+	}
+	return false
+}
 
 Block.moveTo = function (x, y)
 {

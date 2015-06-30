@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-05 15:47:33
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-26 23:34:48
+* @Last Modified time: 2015-06-28 22:59:49
 */
 
 'use strict';
@@ -53,10 +53,20 @@ var dispatch = function (req, res)
 	}
 	else
 	{
-		if (fs.existsSync("./srcs/index.html"))
+		if (req.url == '/')
 		{
+			if (fs.existsSync('./srcs/index.html'))
+			{
+				console.log(req.url)
+				res.writeHead(200, {'Content-Type': 'text/html'})
+				res.end(fs.readFileSync('./srcs/index.html'))
+			}
+		}
+		else if (fs.existsSync('.' + req.url))
+		{
+			console.log(req.url)
 			res.writeHead(200, {'Content-Type': 'text/html'})
-			res.end(fs.readFileSync("./srcs/index.html"))
+			res.end(fs.readFileSync('.' + req.url))
 		}
 		else
 		{

@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-13 03:33:39
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 19:27:36
+* @Last Modified time: 2015-06-30 10:52:08
 */
 
 'use strict';
@@ -19,16 +19,27 @@ Player.list = []
 
 Player.update = function (dt, player)
 {
+	// if (Micro.keyArray[71])
+	// 	Micro.Layer.list.foreground.position.x -= dt
+	// if (Micro.keyArray[72])
+	// 	Micro.Layer.list.foreground.position.x += dt
+	// if (Micro.keyArray[89])
+	// 	Micro.Layer.list.foreground.position.y -= dt
+	// if (Micro.keyArray[66])
+	// 	Micro.Layer.list.foreground.position.y += dt
+
 	if (Micro.keyArray[37]) {
 		if (player.sprite.scale.x > 0)
 			player.sprite.scale.x *= -1
-		player.addVelocity(-0.5, 0)
+		player.addVelocity(-1, 0)
+		// Micro.Layer.list.foreground.position.x += dt
 	}
 
 	if (Micro.keyArray[39]) {
 		if (player.sprite.scale.x < 0)
 			player.sprite.scale.x *= -1
-		player.addVelocity(0.5, 0)
+		player.addVelocity(1, 0)
+		// Micro.Layer.list.foreground.position.x -= dt
 	}
 
 	if (!Micro.keyArray[37] && !Micro.keyArray[39])
@@ -39,35 +50,12 @@ Player.update = function (dt, player)
 		player.jumpDelay = 0
 	}
 
-	if (player.jumpDelay < Math.PI)
-	{
-		player.jumpDelay += dt / 200
-		// console.log(Micro.Player.list[0].velocity, -Math.cos(player.jumpDelay) * 2 - 0.6)
-		player.addVelocity(0, -Math.cos(player.jumpDelay) * 3)
-		player.jumpBool = false
-	}
-	else
-	{
-		player.jumpDelay = Math.PI
-		// player.addVelocity(0, 0.6)
-	}
-}
-
-Player.toString = function ()
-{
-	return "" + this.state
 }
 
 Player.new = function (sprite) {
 	var newPlayer = Micro.Entity.new(sprite)
-	newPlayer.jumpDelay = Math.PI
-	newPlayer.sprite.x = 0
-	newPlayer.sprite.y = 0
-	newPlayer.sprite.anchor.x = 0.5
-	newPlayer.sprite.anchor.y = 0.5
 	newPlayer.update.push(Player.update)
-	newPlayer.toString = Player.toString
-	Micro.stage.addChild(newPlayer.sprite)
+	// Micro.stage.addChild(newPlayer.sprite)
 	Player.list.push(newPlayer)
 	return newPlayer
 }

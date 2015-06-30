@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 19:50:26
+* @Last Modified time: 2015-06-30 11:00:40
 */
 
 (function(){
@@ -28,46 +28,31 @@ Micro.stage = new PIXI.Container();
 
 Micro.loader = PIXI.loader;
 
+Micro.menuBool = true
 Micro.keyArray = []
 window.addEventListener('keydown', function (e) {
 	Micro.keyArray[e.keyCode] = true
 } )
 window.addEventListener('keyup', function (e) {
 	Micro.keyArray[e.keyCode] = false
+
+	if (e.keyCode == 27 && Micro.menuBool == true) {
+		Micro.Layer.list.ui.alpha = 0
+		Micro.menuBool = false
+	}
+	else if (e.keyCode == 27 && Micro.menuBool == false) {
+		Micro.Layer.list.ui.alpha = 1
+		Micro.menuBool = true
+	}
 } )
 
 Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
 
-
-		// Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 450)
-		// Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 290)
-
-		Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], 0, Micro.height - Micro.Sprites['mountain_2'][0].height)
-		Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], Micro.Sprites['mountain_2'][0].width, Micro.height - Micro.Sprites['mountain_2'][0].height)
-
-		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(0, Micro.height - Micro.size)
-		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(160, Micro.height - Micro.size)
-		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(400, 610)
-		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(560, 610)
-		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(560, 610)
-		Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(800, 550)
-		Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(560, 450)
-		Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(400, 400)
-		Micro.Asset.newAt(Micro.Sprites['Sprute'][40], 400, 450)
-
-		// Micro.Asset.newAt(Micro.Sprites['Door'][0], -77, Micro.height - Micro.Sprites['Door'][0].width - 16)
-
-		Micro.Door.newAt(Micro.Sprites['Door'][0], -77, Micro.height - Micro.Sprites['Door'][0].width - 16)
-		// Micro.Door.newAt(Micro.Sprites['Door'][0], 100, 100).draw()
-
-		Micro.Player.new(Micro.Sprites['dwarves'][1]).sprite.x = 64
-
-		// Micro.Layer.list.debug.children[0].drawRect(10, 10, 100, 100)
-
-		addAuthor();
-		animate();
+		Micro.TutoA.make()
+		addAuthor()
+		animate()
 	})
 	PIXI.loader.load()
 }
@@ -79,6 +64,14 @@ function update(dt)
 			Micro.Entity.list[i].update[j](dt, Micro.Entity.list[i])
 		}
 	};
+
+	Micro.Layer.list.foreground.position.x = Micro.width / 2 - Micro.Player.list[0].sprite.position.x
+	Micro.Layer.list.foreground.position.y = Micro.height / 2 - Micro.Player.list[0].sprite.position.y
+
+	if (Micro.Player.list[0].sprite.y > 3000) {
+		Micro.Player.list[0].sprite.y = 0
+		Micro.Player.list[0].sprite.x = 128
+	}
 }
 
 var time = 0
@@ -136,12 +129,12 @@ function animate()
 	update(dt / 4)
 	update(dt / 4)
 
-	// var text = new PIXI.Text(JSON.stringify(Micro.Player.list[0].velocity), {font : '24px Arial', fill : 0xff1010})
-	// Micro.stage.addChild(text)
+	var text = new PIXI.Text(JSON.stringify(Micro.Player.list[0].velocity), {font : '24px Arial', fill : 0xff1010})
+	Micro.stage.addChild(text)
 
 	draw(dt / 4)
 
-	// Micro.stage.removeChild(text)
+	Micro.stage.removeChild(text)
 
 	Micro.time = Date.now()
 	requestAnimationFrame(animate)

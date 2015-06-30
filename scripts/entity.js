@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:16:54
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 19:40:35
+* @Last Modified time: 2015-06-30 10:39:51
 */
 
 'use strict';
@@ -36,52 +36,52 @@ var time = 0
 
 Entity.update = function (dt, entity)
 {
-
-	for (var i = 0; i < Micro.Block.list.length; i++)
+	if (entity.jumpDelay < Math.PI)
 	{
-		// console.log(entity)
-		var r1 = entity.sprite
-		var r2 = Micro.Block.list[i].sprite
-
-		if (r1.x > r2.x && r1.x < r2.x + r2.width)
-		{
-			if (r1.y == r2.y - r1.height / 2) {
-				entity.sprite.x += entity.velocity.x * dt
-				if (entity.velocity.y < 0) {
-					entity.sprite.y += entity.velocity.y * dt
-				}
-				entity.jumpBool = true
-				entity.jumpDelay = Math.PI
-				entity.addVelocity(0, dt)
-				return
-			}
-
-			if (r1.y + r1.height / 2 < r2.y + dt && r1.y + r1.height / 2 > r2.y - dt)
-			{
-				entity.sprite.x += entity.velocity.x * dt
-				r1.y = r2.y - r1.height / 2
-				entity.velocity.y = 0
-				return
-			}
-		}
+		entity.jumpDelay += dt / 200
+		entity.addVelocity(0, -Math.cos(entity.jumpDelay) * 3)
+		entity.jumpBool = false
 	}
+	else
+	{
+		entity.jumpDelay = Math.PI
+	}
+
+	var tmpBool = false
+
+	Micro.Door.collidesWith(dt, entity)
+
+	if (Micro.Block.collidesWith(dt, entity))
+		tmpBool = true
+
+	if (tmpBool)
+		return
+
 
 	entity.sprite.x += entity.velocity.x * dt
 	entity.sprite.y += entity.velocity.y * dt
 
-	if (entity.sprite.y + entity.sprite.height / 2 > Micro.height) {
-		entity.sprite.y = Micro.height - entity.sprite.height / 2
-		entity.jumpBool = true
-		entity.jumpDelay = Math.PI
-		return
-	}
+	// if (entity.sprite.y + entity.sprite.height / 2 > Micro.height) {
+	// 	entity.sprite.y = Micro.height - entity.sprite.height / 2
+	// 	entity.jumpBool = true
+	// 	entity.jumpDelay = Math.PI
+	// 	return
+	// }
 	entity.jumpBool = false
 	entity.addVelocity(0, dt)
+
 }
+
+var id = 0
 
 Entity.new = function (sprite)
 {
+	id += 1;
 	var t = {
+		id : id,
+		jumpDelay : Math.PI,
+		jumpBool : false,
+
 		velocity : {
 			x_max : 1,
 			y_max : 2,
@@ -94,14 +94,18 @@ Entity.new = function (sprite)
 			this.velocity.x = Math.clamp(this.velocity.x, -this.velocity.x_max, this.velocity.x_max)
 			this.velocity.y = Math.clamp(this.velocity.y, -this.velocity.y_max, this.velocity.y_max)
 		},
+
 		sprite : new PIXI.Sprite(sprite.generateTexture(Micro.renderer)),
 		// moveBy : Entity.moveBy,
 		update : []
 	}
+	t.sprite.anchor.x = 0.5
+	t.sprite.anchor.y = 0.5
 	t.sprite.scale.x = sprite.scale.x
 	t.sprite.scale.y = sprite.scale.y
 	t.update.push(Entity.update)
 
+	Micro.Layer.list.foreground.addChild(t.sprite)
 	Entity.list.push(t)
 	return t
 }

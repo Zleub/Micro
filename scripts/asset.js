@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:31:23
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-27 19:33:14
+* @Last Modified time: 2015-06-30 10:58:23
 */
 
 'use strict';
@@ -75,6 +75,14 @@ Asset.new = function (sprite) {
 	return tmp
 }
 
+Asset.newOn = function (sprite, layer) {
+	var tmp = new PIXI.Sprite(sprite.generateTexture(Micro.renderer))
+	tmp.scale.x = sprite.scale.x
+	tmp.scale.y = sprite.scale.y
+	layer.addChild(tmp)
+	return tmp
+}
+
 Asset.newAt = function (sprite, x, y) {
 	var tmp = new PIXI.Sprite(sprite.generateTexture(Micro.renderer))
 	tmp.scale.x = sprite.scale.x
@@ -82,6 +90,16 @@ Asset.newAt = function (sprite, x, y) {
 	tmp.x = x
 	tmp.y = y
 	Micro.Layer.list.background.addChild(tmp)
+	return tmp
+}
+
+Asset.newAtOn = function (sprite, x, y, layer) {
+	var tmp = new PIXI.Sprite(sprite.generateTexture(Micro.renderer))
+	tmp.scale.x = sprite.scale.x
+	tmp.scale.y = sprite.scale.y
+	tmp.x = x
+	tmp.y = y
+	layer.addChild(tmp)
 	return tmp
 }
 
