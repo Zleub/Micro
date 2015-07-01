@@ -56,5 +56,6 @@ $(function()
 		async: true,
 		cache: true
 	});
+
 	$.getJSON('depend.json').done(function (json) {GetDepend(json, 0)})
 });

@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-13 03:33:39
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-30 12:40:30
+* @Last Modified time: 2015-07-01 18:30:00
 */
 
 'use strict';
@@ -19,22 +19,24 @@ Player.list = []
 
 Player.update = function (dt, player)
 {
-	if (Micro.keyArray[37]) {
+	// Micro.keypressed(18)
+
+	if (Micro.keypressed('left')) {
 		if (player.sprite.scale.x > 0)
 			player.sprite.scale.x *= -1
 		player.addVelocity(-1, 0)
 	}
 
-	if (Micro.keyArray[39]) {
+	if (Micro.keypressed('right')) {
 		if (player.sprite.scale.x < 0)
 			player.sprite.scale.x *= -1
 		player.addVelocity(1, 0)
 	}
 
-	if (!Micro.keyArray[37] && !Micro.keyArray[39])
+	if (!Micro.keypressed('left') && !Micro.keypressed('right'))
 		player.velocity.x = 0
 
-	if (Micro.keyArray[32] && player.jumpBool == true) {
+	if (Micro.keypressed('space') && player.jumpBool == true) {
 		player.jumpDelay = 0
 	}
 

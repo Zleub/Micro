@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-11 00:18:37
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-30 17:59:48
+* @Last Modified time: 2015-07-01 14:15:48
 */
 
 'use strict';
@@ -16,13 +16,6 @@ if (!('TutoA' in Micro))
 var TutoA = Micro.TutoA
 
 TutoA.make = function () {
-	Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], -Micro.Sprites['mountain_2'][0].width, 0)
-	Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], -Micro.Sprites['mountain_2'][0].width, Micro.Sprites['mountain_2'][0].height)
-	Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], 0, -Micro.Sprites['mountain_2'][0].height)
-	Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], 0, 0)
-	Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], 0, Micro.Sprites['mountain_2'][0].height)
-	Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], Micro.Sprites['mountain_2'][0].width, 0)
-	Micro.Asset.newAt(Micro.Sprites['mountain_2'][0], Micro.Sprites['mountain_2'][0].width, Micro.Sprites['mountain_2'][0].height)
 
 	Micro.test = Micro.Asset.newAtOn(Micro.Sprites['needcoffee'][19], Micro.width / 2, Micro.height / 2 - 100, Micro.Layer.list.ui)
 	Micro.test.visible = false

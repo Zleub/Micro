@@ -4,7 +4,8 @@
 	},
 	{
 		"scripts/engine.js" : [
-			"scripts/layer.js"
+			"scripts/layer.js",
+			"scripts/animation.js"
 		]
 	},
 	{
@@ -15,7 +16,9 @@
 			"assets/mountain_2.js",
 			"assets/needcoffee.js",
 			"assets/Fire.js",
-			"assets/fence_sign.js"
+			"assets/fence_sign.js",
+			"assets/layout.js",
+			"assets/usebutton.js"
 		]
 	},
 	{

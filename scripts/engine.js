@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-30 18:01:06
+* @Last Modified time: 2015-07-01 18:29:47
 */
 
 (function(){
@@ -21,6 +21,7 @@ Micro.width = Micro.size * 60
 Micro.height = Micro.size * 40 + Micro.size / 2
 
 Micro.renderer = new PIXI.WebGLRenderer(Micro.width, Micro.height);
+// Micro.renderer.view.attributes["id"] = "MicroGame"
 document.body.appendChild(Micro.renderer.view);
 Micro.renderer.view.style.marginTop = window.innerHeight / 2 - Micro.height / 2 +'px';
 
@@ -28,23 +29,40 @@ Micro.stage = new PIXI.Container();
 
 Micro.loader = PIXI.loader;
 
-Micro.menuBool = true
+Micro.menuBool = false
+Micro.keyEnum = {
+	'space' : 32,
+	'left' : 37,
+	'right' : 39
+}
 Micro.keyArray = []
 window.addEventListener('keydown', function (e) {
 	Micro.keyArray[e.keyCode] = true
+
+	if (e.keyCode == 27 && Micro.menuBool == true) {
+		Micro.Layer.list.ui.children[0].visible = false
+		// Micro.Layer.list.ui.alpha = 0
+		Micro.menuBool = false
+	}
+	else if (e.keyCode == 27 && Micro.menuBool == false) {
+		Micro.Layer.list.ui.children[0].visible = true
+		// Micro.Layer.list.ui.alpha = 1
+		Micro.menuBool = true
+	}
 } )
 window.addEventListener('keyup', function (e) {
 	Micro.keyArray[e.keyCode] = false
 
-	if (e.keyCode == 27 && Micro.menuBool == true) {
-		Micro.Layer.list.ui.alpha = 0
-		Micro.menuBool = false
-	}
-	else if (e.keyCode == 27 && Micro.menuBool == false) {
-		Micro.Layer.list.ui.alpha = 1
-		Micro.menuBool = true
-	}
 } )
+
+Micro.keypressed = function (key) {
+	if (typeof key == 'number')
+		return Micro.keyArray[key]
+	else
+		return Micro.keyArray[Micro.keyEnum[key]]
+}
+
+// Micro.renderer.view.addEventListener('click', function() { }, false);
 
 Micro.launch = function ()
 {
@@ -52,6 +70,17 @@ Micro.launch = function ()
 
 		Micro.TutoA.make()
 		addAuthor()
+
+		var cacatest = new PIXI.extras.TilingSprite(Micro.Sprites.mountain_2[0]._texture, 400, 400)
+
+		cacatest.x = -150
+		cacatest.y = -150
+
+		cacatest.scale.x = 4
+		cacatest.scale.y = 4
+		Micro.Layer.list.background.addChild(cacatest)
+
+		Micro.Layer.makeUI()
 		animate()
 	})
 	PIXI.loader.load()
@@ -59,6 +88,9 @@ Micro.launch = function ()
 
 function update(dt)
 {
+	if (Micro.menuBool)
+		return
+
 	for (var i = 0; i < Micro.Entity.list.length; i++) {
 		for (var j = 0; j < Micro.Entity.list[i].update.length; j++) {
 			Micro.Entity.list[i].update[j](dt, Micro.Entity.list[i])
@@ -71,8 +103,8 @@ function update(dt)
 	Micro.Layer.list.foreground.position.x = testx
 	Micro.Layer.list.foreground.position.y = testy
 
-	Micro.Layer.list.background.position.x = testx / 4
-	Micro.Layer.list.background.position.y = testy / 4
+	Micro.Layer.list.background.position.x = testx / 8
+	Micro.Layer.list.background.position.y = testy / 8
 
 	if (Micro.doortest.Irectangle.contains(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y)
 		|| new PIXI.Rectangle(Micro.Firetest.x, Micro.Firetest.y, Micro.Firetest.width, Micro.Firetest.height).contains(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y))
@@ -86,23 +118,23 @@ function update(dt)
 	}
 }
 
-var time = 0
+var cmp = 0
 
 function draw(dt) {
 
 	if (Micro.debug) {
 
-		if (time > 0.1) {
-			time = 0;
+		if (cmp > 0.1) {
+			cmp = 0;
 			Micro.Layer.list.debug.reset()
 		}
 
-		time += dt / 1000
+		cmp += dt / 1000
 
 		for (var i = 0; i < Micro.Block.list.length; i++)
 		{
-			Micro.Block.list[i].rectangle.y = Micro.Block.list[i].sprite.y - dt
-			Micro.Block.list[i].rectangle.height = dt * 2
+			Micro.Block.list[i].rectangle.y = Micro.Block.list[i].sprite.y - dt * 2
+			Micro.Block.list[i].rectangle.height = dt * 2 * 2
 			Micro.Block.list[i].draw()
 		}
 

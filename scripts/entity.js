@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:16:54
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-06-30 13:29:28
+* @Last Modified time: 2015-07-01 13:36:53
 */
 
 'use strict';
@@ -31,8 +31,6 @@ Entity.collides = function (r1, r2, x, y)
 	else
 		return false
 }
-
-var time = 0
 
 Entity.update = function (dt, entity)
 {
