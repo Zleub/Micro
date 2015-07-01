@@ -18,7 +18,8 @@
 			"assets/Fire.js",
 			"assets/fence_sign.js",
 			"assets/layout.js",
-			"assets/usebutton.js"
+			"assets/usebutton.js",
+			"assets/playerbutton.js"
 		]
 	},
 	{

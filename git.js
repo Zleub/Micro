@@ -27,7 +27,7 @@ exports.writeAuthor = function () {
 
 	array = array.slice(i + 1, array.length - 1)
 	array = array.toString()
-	var re = /(\S+)\s<(.+)>\s(.+)\scommit: (.+)/;
+	var re = /(\S+)\s<(.+)>\s(.+)\s.+: (.+)/;
 	array = array.match(re)
 	array.shift()
 

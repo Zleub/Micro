@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-07-01 18:29:47
+* @Last Modified time: 2015-07-01 20:38:50
 */
 
 (function(){
@@ -39,14 +39,13 @@ Micro.keyArray = []
 window.addEventListener('keydown', function (e) {
 	Micro.keyArray[e.keyCode] = true
 
-	if (e.keyCode == 27 && Micro.menuBool == true) {
+	if (e.keyCode == 27 && Micro.menuBool == true) { // On PauseMenu OFF
 		Micro.Layer.list.ui.children[0].visible = false
-		// Micro.Layer.list.ui.alpha = 0
 		Micro.menuBool = false
 	}
-	else if (e.keyCode == 27 && Micro.menuBool == false) {
+	else if (e.keyCode == 27 && Micro.menuBool == false) { // On PauseMenu ON
+		Micro.Layer.makeBindingList()
 		Micro.Layer.list.ui.children[0].visible = true
-		// Micro.Layer.list.ui.alpha = 1
 		Micro.menuBool = true
 	}
 } )
@@ -81,6 +80,7 @@ Micro.launch = function ()
 		Micro.Layer.list.background.addChild(cacatest)
 
 		Micro.Layer.makeUI()
+
 		animate()
 	})
 	PIXI.loader.load()

@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-25 17:12:34
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-07-01 18:14:14
+* @Last Modified time: 2015-07-01 20:34:56
 */
 
 'use strict';
@@ -27,9 +27,8 @@ var Layer = Micro.Layer
 	Layer.list.foreground = new PIXI.Container()
 	Layer.list.ui = new PIXI.Container()
 
-	var PauseMenu = new PIXI.Container()
+var PauseMenu = new PIXI.Container()
 	PauseMenu.visible = false
-	Layer.list.ui.addChild(PauseMenu)
 
 Layer.layoutUI = []
 Layer.makeUI = function () {
@@ -48,8 +47,17 @@ Layer.makeUI = function () {
 		Layer.layoutUI[39].scale.y = 0.7
 		Layer.layoutUI[39].x = 660
 		Layer.layoutUI[39].y = 397
-
 }
+
+Layer.BindingList = new PIXI.Text(JSON.stringify(Micro.keyEnum), {font : '21px courier', fill : 0xd8d8d8, align : 'center'})
+PauseMenu.addChild(Layer.BindingList)
+Layer.makeBindingList = function () {
+	PauseMenu.removeChild(Layer.BindingList)
+	Layer.BindingList = new PIXI.Text(JSON.stringify(Micro.keyEnum), {font : '21px courier', fill : 0xd8d8d8, align : 'center'})
+	PauseMenu.addChild(Layer.BindingList)
+}
+
+Layer.list.ui.addChild(PauseMenu)
 
 Micro.stage.addChild(Layer.list.background)
 Micro.stage.addChild(Layer.list.foreground)
