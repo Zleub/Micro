@@ -2,12 +2,15 @@
 * @Author: adebray
 * @Date:   2015-06-07 16:35:53
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-07-01 20:38:50
+* @Last Modified time: 2015-07-02 18:32:48
 */
 
 (function(){
 	Math.clamp = function (a,b,c) {
 		return Math.max( b, Math.min(c,a) )
+	}
+	Math.getRandomInt = function (min, max) {
+	  return Math.floor(Math.random() * (max - min)) + min;
 	}
 })();
 
@@ -20,7 +23,7 @@ Micro.size = 16
 Micro.width = Micro.size * 60
 Micro.height = Micro.size * 40 + Micro.size / 2
 
-Micro.renderer = new PIXI.WebGLRenderer(Micro.width, Micro.height);
+Micro.renderer = new PIXI.CanvasRenderer(Micro.width, Micro.height);
 // Micro.renderer.view.attributes["id"] = "MicroGame"
 document.body.appendChild(Micro.renderer.view);
 Micro.renderer.view.style.marginTop = window.innerHeight / 2 - Micro.height / 2 +'px';
@@ -37,6 +40,7 @@ Micro.keyEnum = {
 }
 Micro.keyArray = []
 window.addEventListener('keydown', function (e) {
+	console.log(e.keyCode)
 	Micro.keyArray[e.keyCode] = true
 
 	if (e.keyCode == 27 && Micro.menuBool == true) { // On PauseMenu OFF
@@ -44,7 +48,7 @@ window.addEventListener('keydown', function (e) {
 		Micro.menuBool = false
 	}
 	else if (e.keyCode == 27 && Micro.menuBool == false) { // On PauseMenu ON
-		Micro.Layer.makeBindingList()
+		Micro.Layer.actualizedBindingList()
 		Micro.Layer.list.ui.children[0].visible = true
 		Micro.menuBool = true
 	}
@@ -79,8 +83,6 @@ Micro.launch = function ()
 		cacatest.scale.y = 4
 		Micro.Layer.list.background.addChild(cacatest)
 
-		Micro.Layer.makeUI()
-
 		animate()
 	})
 	PIXI.loader.load()
@@ -103,8 +105,8 @@ function update(dt)
 	Micro.Layer.list.foreground.position.x = testx
 	Micro.Layer.list.foreground.position.y = testy
 
-	Micro.Layer.list.background.position.x = testx / 8
-	Micro.Layer.list.background.position.y = testy / 8
+	Micro.Layer.list.background.position.x = testx / 8 % 256
+	Micro.Layer.list.background.position.y = testy / 8 % 256
 
 	if (Micro.doortest.Irectangle.contains(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y)
 		|| new PIXI.Rectangle(Micro.Firetest.x, Micro.Firetest.y, Micro.Firetest.width, Micro.Firetest.height).contains(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y))
@@ -112,10 +114,9 @@ function update(dt)
 	else
 		Micro.test.visible = false
 
-	if (Micro.Player.list[0].sprite.y > 3000) {
-		Micro.Player.list[0].sprite.y = 0
-		Micro.Player.list[0].sprite.x = 128
-	}
+	// if (Micro.Player.list[0].sprite.y > 3000) {
+	// 	Micro.Player.list[0].sprite.y = 0
+	// }
 }
 
 var cmp = 0

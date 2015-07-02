@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-13 17:26:31
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-07-01 13:59:18
+* @Last Modified time: 2015-07-02 18:48:33
 */
 
 'use strict';
@@ -37,7 +37,7 @@ Block.collidesWith = function (dt, entity) {
 				return true
 			}
 
-			if (r1.y + r1.height / 2 < r2.y + dt * 2 && r1.y + r1.height / 2 > r2.y - dt * 2)
+			if (r1.y + r1.height / 2 < r2.y + 64 && r1.y + r1.height / 2 > r2.y)
 			{
 				entity.sprite.x += entity.velocity.x * dt
 				r1.y = r2.y - r1.height / 2

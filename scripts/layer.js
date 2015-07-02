@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-25 17:12:34
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-07-01 20:34:56
+* @Last Modified time: 2015-07-02 18:22:41
 */
 
 'use strict';
@@ -30,31 +30,14 @@ var Layer = Micro.Layer
 var PauseMenu = new PIXI.Container()
 	PauseMenu.visible = false
 
-Layer.layoutUI = []
-Layer.makeUI = function () {
-	Layer.layout = Micro.Asset.newOn(Micro.Sprites['layout'][0], PauseMenu)
-		Layer.layout.scale.x = 0.8
-		Layer.layout.scale.y = 0.8
-		Layer.layout.x = Micro.width / 2 - Layer.layout.width / 2
-		Layer.layout.y = Micro.height / 2 - Layer.layout.height / 2
-	Layer.layoutUI[37] = Micro.Asset.newOn(Micro.Sprites['usebutton'][0], PauseMenu)
-		Layer.layoutUI[37].scale.x = 0.7
-		Layer.layoutUI[37].scale.y = 0.7
-		Layer.layoutUI[37].x = 597
-		Layer.layoutUI[37].y = 397
-	Layer.layoutUI[39] = Micro.Asset.newOn(Micro.Sprites['usebutton'][0], PauseMenu)
-		Layer.layoutUI[39].scale.x = 0.7
-		Layer.layoutUI[39].scale.y = 0.7
-		Layer.layoutUI[39].x = 660
-		Layer.layoutUI[39].y = 397
+Layer.makeBindingList = function () {
+	Layer.BindingList = new PIXI.Text(JSON.stringify(Micro.keyEnum, null, 2), {font : '21px courier', fill : 0xd8d8d8})
+	PauseMenu.addChild(Layer.BindingList)
 }
 
-Layer.BindingList = new PIXI.Text(JSON.stringify(Micro.keyEnum), {font : '21px courier', fill : 0xd8d8d8, align : 'center'})
-PauseMenu.addChild(Layer.BindingList)
-Layer.makeBindingList = function () {
+Layer.actualizeBindingList = function () {
 	PauseMenu.removeChild(Layer.BindingList)
-	Layer.BindingList = new PIXI.Text(JSON.stringify(Micro.keyEnum), {font : '21px courier', fill : 0xd8d8d8, align : 'center'})
-	PauseMenu.addChild(Layer.BindingList)
+	Layer.makeBindingList()
 }
 
 Layer.list.ui.addChild(PauseMenu)
