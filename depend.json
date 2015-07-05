@@ -1,15 +1,16 @@
 [
 	{
-		"author.json" : []
+		"author.json" : [
+			"scripts/stdlib.js"]
 	},
 	{
 		"scripts/engine.js" : [
-			"scripts/layer.js",
-			"scripts/animation.js"
+			"scripts/Base.js",
+			"scripts/Layer.js"
 		]
 	},
 	{
-		"scripts/asset.js" : [
+		"scripts/Asset.js" : [
 			"assets/Door.js",
 			"assets/dwarves.js",
 			"assets/Sprute.js",
@@ -23,8 +24,8 @@
 		]
 	},
 	{
-		"scripts/entity.js" : [
-			"scripts/player.js",
+		"scripts/Entity.js" : [
+			"scripts/Player.js",
 			"scripts/block.js",
 			"scripts/door.js"
 		]

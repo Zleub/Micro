@@ -1,7 +1,8 @@
 'use strict';
 
-var Micro = window['Micro'] || {}
 PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST
+
+var Micro = window['Micro'] || {}
 
 $(function()
 {

@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-13 17:26:31
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-07-02 18:48:33
+* @Last Modified time: 2015-07-04 19:33:21
 */
 
 'use strict';
@@ -24,6 +24,9 @@ Block.collidesWith = function (dt, entity) {
 		var r1 = entity.sprite
 		var r2 = Block.list[i].sprite
 
+		Block.list[i].rectangle.y = r2.y - dt * 2
+		Block.list[i].rectangle.height = dt * 2
+
 		if (r1.x > r2.x && r1.x < r2.x + r2.width)
 		{
 			if (r1.y == r2.y - r1.height / 2) {
@@ -37,8 +40,9 @@ Block.collidesWith = function (dt, entity) {
 				return true
 			}
 
-			if (r1.y + r1.height / 2 < r2.y + 64 && r1.y + r1.height / 2 > r2.y)
+			if (r1.y + r1.height / 2 < r2.y && r1.y + r1.height / 2 > r2.y - dt * 2)
 			{
+				Micro.Layer.list
 				entity.sprite.x += entity.velocity.x * dt
 				r1.y = r2.y - r1.height / 2
 				entity.velocity.y = 0
