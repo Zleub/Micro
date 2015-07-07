@@ -1,9 +1,17 @@
-/*
-* @Author: adebray
-* @Date:   2015-06-13 03:33:39
-* @Last Modified by:   adebray
-* @Last Modified time: 2015-07-06 00:16:58
-*/
+//          `--::-.`
+//      ./shddddddddhs+.
+//    :yddddddddddddddddy:
+//  `sdddddddddddddddddddds`
+//  ydddh+sdddddddddy+ydddds  Player.js
+// /ddddy:oddddddddds:sddddd/ By adebray - adebray
+// sdddddddddddddddddddddddds
+// sdddddddddddddddddddddddds Created: 2015-07-07 05:22:41
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 05:23:12
+//  odddddddd/`:-`sdddddddds
+//   +ddddddh`+dh +dddddddo
+//    -sdddddh///sdddddds-
+//      .+ydddddddddhs/.
+//          .-::::-`
 
 'use strict';
 
@@ -43,8 +51,25 @@ var Micro = window['Micro'] || {}
 // }
 
 Micro.Player = function (texture) {
+//  ____________________________________
+// /\                                   \
+// \_|A Player is build upon Entity     |
+//   |   _______________________________|_
+//    \_/_________________________________/
+
 	Micro.Entity.call(this, texture)
-	// var newPlayer = Micro.Entity.new(sprite)
+
+//  ____________________________________
+// /\                                    \
+// \_|Player.update                      |
+//   |                                   |
+//   |  Since Base's update is an array  |
+//   |    one should push an             |
+//   |    Player's update in order to    |
+//   |    get it processed               |
+//   |   ________________________________|_
+//    \_/_________________________________/
+
 	this.update.push(function (dt, player)
 	{
 		// Micro.keypressed(18)

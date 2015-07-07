@@ -52,7 +52,7 @@ function readFile(file, index, array) {
 				data.toString().split('\n').forEach(function (line, index, array) {
 					var array
 					if ((array = line.match("\\|(.+)\\|")))
-						_doc[file].push(array[1])
+						_doc[file].push(array[1].replace(/\s+$/, ""))
 				})
 			}
 
@@ -63,5 +63,5 @@ exports.writeDoc = function (folder) {
 	_folder = './' + folder + '/'
 	_doc = {}
 	fs.readdirSync(_folder).forEach(readFile)
-	fs.writeFileSync('./scripts/doc.json', JSON.stringify(_doc))
+	fs.writeFileSync('./scripts/doc.json', JSON.stringify(_doc, null, "  "))
 }

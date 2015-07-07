@@ -20,8 +20,8 @@ TutoA.make = function () {
 	// -- \|/ -- \|/ -- \|/ -- \
 	//	BACKGROUND
 	var background = new PIXI.extras.TilingSprite(Micro.Sprites.mountain_2[0]._texture, 400, 400)
-		background.x = -150
-		background.y = -150
+		background.x = -256
+		background.y = -256
 		background.scale.x = 4
 		background.scale.y = 4
 		Micro.Layer.list.background.addChild(background)

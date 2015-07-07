@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-06 22:51:08
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 04:00:38
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 04:58:23
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -25,7 +25,7 @@ Micro.Base = function (texture) {
 //   |                                  |
 //   |  Base implement update and       |
 //   |    collider as two array         |
-//   |    processed by the engine.      |
+//   |    processed by the engine       |
 //   |   _______________________________|_
 //    \_/_________________________________/
 
@@ -39,6 +39,16 @@ Micro.Base = function (texture) {
 //    \_/_________________________________/
 
 	this.sprite = new PIXI.Sprite(texture)
+
+//  ____________________________________
+// /\                                   \
+// \_|Base.moveTo && Base.addTo         |
+//   |                                  |
+//   |  moveTo is sprite-related        |
+//   |  addTo is layer-related          |
+//   |   _______________________________|_
+//    \_/_________________________________/
+
 	this.moveTo = function (x, y) {
 		this.sprite.x = x
 		this.sprite.y = y

@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-07 04:03:26
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 04:03:48
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 05:21:54
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -76,7 +76,7 @@ Micro.Entity = function (texture)
 {
 //  ____________________________________
 // /\                                   \
-// \_|Entity is build upon Base         |
+// \_|An Entity is build upon Base      |
 //   |   _______________________________|_
 //    \_/_________________________________/
 
@@ -84,34 +84,26 @@ Micro.Entity = function (texture)
 
 //  ____________________________________
 // /\                                    \
-// \_|Entity.jumpDelay && Entity.jumpBool|
+// \_|Entity.sprite.anchor               |
 //   |                                   |
-//   |  Entity.jumpDelay is meant to be  |
-//   |    decremented over time.         |
-//   |  Entity.jumpBool is the trigger   |
-//   |    allowing jump for an Entity    |
+//   |  Unlike Base's anchor,            |
+//   |    Entity.anchor is centered      |
 //   |   ________________________________|_
 //    \_/_________________________________/
 
-
-	this.jumpDelay = Math.PI
-	this.jumpBool = false
-
-	this.velocity = {
-		x_max : 1,
-		y_max : 2,
-		x : 0,
-		y : 1
-	}
-	this.addVelocity = function (x, y) {
-		this.velocity.x += x
-		this.velocity.y += y
-		this.velocity.x = Math.clamp(this.velocity.x, -this.velocity.x_max, this.velocity.x_max)
-		this.velocity.y = Math.clamp(this.velocity.y, -this.velocity.y_max, this.velocity.y_max)
-	}
-
 	this.sprite.anchor.x = 0.5
 	this.sprite.anchor.y = 0.5
+
+//  ____________________________________
+// /\                                    \
+// \_|Entity.update                      |
+//   |                                   |
+//   |  Since Base's update is an array  |
+//   |    one should push an             |
+//   |    Entity's update in order to    |
+//   |    get it processed               |
+//   |   ________________________________|_
+//    \_/_________________________________/
 
 	this.update.push( function (dt, entity)
 	{
@@ -149,6 +141,52 @@ Micro.Entity = function (texture)
 			entity.jumpBool = true
 		}
 	})
+
+//  ____________________________________
+// /\                                    \
+// \_|Entity.jumpDelay && Entity.jumpBool|
+//   |                                   |
+//   |  Entity.jumpDelay is meant to be  |
+//   |    decremented over time.         |
+//   |  Entity.jumpBool is the trigger   |
+//   |    allowing jump for an Entity    |
+//   |   ________________________________|_
+//    \_/_________________________________/
+
+	this.jumpDelay = Math.PI
+	this.jumpBool = false
+
+//  ____________________________________
+// /\                                    \
+// \_|Entity.velocity                    |
+//   |                                   |
+//   |  The velocity describes to force  |
+//   |    applied to an Entity every     |
+//   |    call to update                 |
+//   |  addVelocity is supplied for      |
+//   |    each Entity                    |
+//   |   ________________________________|_
+//    \_/_________________________________/
+
+	this.velocity = {
+		x_max : 1,
+		y_max : 2,
+		x : 0,
+		y : 1
+	}
+	this.addVelocity = function (x, y) {
+		this.velocity.x += x
+		this.velocity.y += y
+		this.velocity.x = Math.clamp(this.velocity.x, -this.velocity.x_max, this.velocity.x_max)
+		this.velocity.y = Math.clamp(this.velocity.y, -this.velocity.y_max, this.velocity.y_max)
+	}
+
+//  ____________________________________
+// /\                                   \
+// \_|An Entity is added to             |
+//   |  Micro.entityList upon creation  |
+//   |   _______________________________|_
+//    \_/_________________________________/
 
 	Micro.entityList.push(this)
 }

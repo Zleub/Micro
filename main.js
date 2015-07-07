@@ -51,6 +51,11 @@ var dispatch = function (req, res)
 			res.writeHead(200, {'Content-Type': 'application/json'})
 			res.end(fs.readFileSync("." + req.url))
 		}
+		else if (path.extname(req.url) == '.md')
+		{
+			res.writeHead(200, {'Content-Type': 'text/markdown'})
+			res.end(fs.readFileSync("." + req.url))
+		}
 		else
 		{
 			if (req.url == '/')
