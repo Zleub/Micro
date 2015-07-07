@@ -1,9 +1,17 @@
-/*
-* @Author: adebray
-* @Date:   2015-06-07 16:16:54
-* @Last Modified by:   adebray
-* @Last Modified time: 2015-07-06 00:16:20
-*/
+//          `--::-.`
+//      ./shddddddddhs+.
+//    :yddddddddddddddddy:
+//  `sdddddddddddddddddddds`
+//  ydddh+sdddddddddy+ydddds  Entity.js
+// /ddddy:oddddddddds:sddddd/ By adebray - adebray
+// sdddddddddddddddddddddddds
+// sdddddddddddddddddddddddds Created: 2015-07-07 04:03:26
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 04:03:48
+//  odddddddd/`:-`sdddddddds
+//   +ddddddh`+dh +dddddddo
+//    -sdddddh///sdddddds-
+//      .+ydddddddddhs/.
+//          .-::::-`
 
 'use strict';
 
@@ -66,23 +74,41 @@ Micro.entityList = []
 
 Micro.Entity = function (texture)
 {
-	Micro.Base.call(this, texture)
-	// var t = {
-		this.jumpDelay = Math.PI
-		this.jumpBool = false
+//  ____________________________________
+// /\                                   \
+// \_|Entity is build upon Base         |
+//   |   _______________________________|_
+//    \_/_________________________________/
 
-		this.velocity = {
-			x_max : 1,
-			y_max : 2,
-			x : 0,
-			y : 1
-		}
-		this.addVelocity = function (x, y) {
-			this.velocity.x += x
-			this.velocity.y += y
-			this.velocity.x = Math.clamp(this.velocity.x, -this.velocity.x_max, this.velocity.x_max)
-			this.velocity.y = Math.clamp(this.velocity.y, -this.velocity.y_max, this.velocity.y_max)
-		}
+	Micro.Base.call(this, texture)
+
+//  ____________________________________
+// /\                                    \
+// \_|Entity.jumpDelay && Entity.jumpBool|
+//   |                                   |
+//   |  Entity.jumpDelay is meant to be  |
+//   |    decremented over time.         |
+//   |  Entity.jumpBool is the trigger   |
+//   |    allowing jump for an Entity    |
+//   |   ________________________________|_
+//    \_/_________________________________/
+
+
+	this.jumpDelay = Math.PI
+	this.jumpBool = false
+
+	this.velocity = {
+		x_max : 1,
+		y_max : 2,
+		x : 0,
+		y : 1
+	}
+	this.addVelocity = function (x, y) {
+		this.velocity.x += x
+		this.velocity.y += y
+		this.velocity.x = Math.clamp(this.velocity.x, -this.velocity.x_max, this.velocity.x_max)
+		this.velocity.y = Math.clamp(this.velocity.y, -this.velocity.y_max, this.velocity.y_max)
+	}
 
 	this.sprite.anchor.x = 0.5
 	this.sprite.anchor.y = 0.5

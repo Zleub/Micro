@@ -2,7 +2,7 @@
 * @Author: adebray
 * @Date:   2015-06-05 15:47:33
 * @Last Modified by:   adebray
-* @Last Modified time: 2015-07-01 16:25:56
+* @Last Modified time: 2015-07-06 23:13:24
 */
 
 'use strict';
@@ -11,6 +11,7 @@ var path = require('path')
 var fs = require('fs')
 var http = require('http')
 var git = require('./git.js')
+var mydoxy = require('./mydoxy.js')
 
 var dispatch = function (req, res)
 {
@@ -49,7 +50,6 @@ var dispatch = function (req, res)
 		{
 			res.writeHead(200, {'Content-Type': 'application/json'})
 			res.end(fs.readFileSync("." + req.url))
-			git.writeAuthor()
 		}
 		else
 		{
@@ -58,6 +58,8 @@ var dispatch = function (req, res)
 				if (fs.existsSync('./srcs/index.html'))
 				{
 					console.log(req.url)
+					git.writeAuthor()
+					mydoxy.writeDoc('scripts')
 					res.writeHead(200, {'Content-Type': 'text/html'})
 					res.end(fs.readFileSync('./srcs/index.html'))
 				}

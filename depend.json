@@ -10,7 +10,7 @@
 		]
 	},
 	{
-		"scripts/Asset.js" : [
+		"scripts/asset.js" : [
 			"assets/Door.js",
 			"assets/dwarves.js",
 			"assets/Sprute.js",
