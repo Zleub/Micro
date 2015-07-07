@@ -38,7 +38,7 @@ var comment = [
 ]
 
 var _folder = './'
-var _doc = []
+var _doc = {}
 
 function readFile(file, index, array) {
 	if (/[A-z]/.test(file[0]))
@@ -61,7 +61,7 @@ function readFile(file, index, array) {
 
 exports.writeDoc = function (folder) {
 	_folder = './' + folder + '/'
-	_doc = []
+	_doc = {}
 	fs.readdirSync(_folder).forEach(readFile)
-	fs.writeFileSync('./scripts/doc.json', util.inspect(_doc))
+	fs.writeFileSync('./scripts/doc.json', JSON.stringify(_doc))
 }
