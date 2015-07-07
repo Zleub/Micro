@@ -1,9 +1,17 @@
-/*
-* @Author: adebray
-* @Date:   2015-06-25 17:12:34
-* @Last Modified by:   adebray
-* @Last Modified time: 2015-07-05 16:03:51
-*/
+//          `--::-.`
+//      ./shddddddddhs+.
+//    :yddddddddddddddddy:
+//  `sdddddddddddddddddddds`
+//  ydddh+sdddddddddy+ydddds  Layer.js
+// /ddddy:oddddddddds:sddddd/ By adebray - adebray
+// sdddddddddddddddddddddddds
+// sdddddddddddddddddddddddds Created: 2015-07-07 05:35:55
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 05:36:53
+//  odddddddd/`:-`sdddddddds
+//   +ddddddh`+dh +dddddddo
+//    -sdddddh///sdddddds-
+//      .+ydddddddddhs/.
+//          .-::::-`
 
 'use strict';
 
@@ -12,6 +20,21 @@ if (!('Layer' in Micro))
 	Micro.Layer = {};
 
 (function () {
+
+//  _______________________________________
+// /\                                      \
+// \_|Entity.Layer                         |
+//   |                                     |
+//   |  For now, the Layer namespace       |
+//   |    is organized in 4 PIXI.Container |
+//   |    in order :                       |
+//   |      Layer.list.background          |
+//   |      Layer.list.foreground          |
+//   |      Layer.list.ui                  |
+//   |      Layer.list.debug               |
+//   |   __________________________________|_
+//    \_/___________________________________/
+
 
 var Layer = Micro.Layer
 	Layer.list = {}

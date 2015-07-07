@@ -58,6 +58,13 @@ Micro.launch = function ()
 		Micro.TutoA.make()
 		addAuthor()
 
+		// var test1 = new Micro.Collider({x: 100, y: 100}).draw(Micro.Layer.list.debug.children[0])
+		// var test1 = new Micro.Collider({x: 180, y: 150, width: 100, height: 100}).draw(Micro.Layer.list.debug.children[0])
+		// var test2 = new Micro.Collider({x: 200, y: 100, width: 100, height: 100}).draw(Micro.Layer.list.debug.children[0])
+		// var test3 = new Micro.Collider({x: 100, y: 100, radius: 100}).draw(Micro.Layer.list.debug.children[0])
+
+		// console.log(test1.collidesWith(test3))
+
 		animate()
 	})
 	PIXI.loader.load()

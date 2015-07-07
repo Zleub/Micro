@@ -1,11 +1,13 @@
 [
 	{
 		"author.json" : [
-			"scripts/stdlib.js"]
+			"scripts/stdlib.js"
+		]
 	},
 	{
 		"scripts/engine.js" : [
 			"scripts/Base.js",
+			"scripts/Collider.js",
 			"scripts/Layer.js"
 		]
 	},

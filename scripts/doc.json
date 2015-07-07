@@ -14,6 +14,27 @@
     "  addTo is layer-related",
     "   _______________________________"
   ],
+  "Collider.js": [
+    "A Collider constructor only support",
+    "    math shapes :",
+    "",
+    "    Point : {x, y}",
+    "    Circle : {x, y, radius}",
+    "    Rectangle : {x, y, width, height}",
+    "   ___________________________________",
+    "Collider.collidesWith",
+    "",
+    "    collidesWith is used for by a",
+    "    Collider to detect collision with",
+    "    another Collider.shape",
+    "   ___________________________________",
+    "Collider.draw",
+    "",
+    "    draw is used to render a",
+    "    geometrical shape on a layer",
+    "    mostly for debug purpose",
+    "   ___________________________________"
+  ],
   "Entity.js": [
     "An Entity is build upon Base",
     "   _______________________________",
@@ -47,6 +68,18 @@
     "An Entity is added to",
     "  Micro.entityList upon creation",
     "   _______________________________"
+  ],
+  "Layer.js": [
+    "Entity.Layer",
+    "",
+    "  For now, the Layer namespace",
+    "    is organized in 4 PIXI.Container",
+    "    in order :",
+    "      Layer.list.background",
+    "      Layer.list.foreground",
+    "      Layer.list.ui",
+    "      Layer.list.debug",
+    "   __________________________________"
   ],
   "Player.js": [
     "A Player is build upon Entity",

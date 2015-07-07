@@ -5,8 +5,8 @@
 //  ydddh+sdddddddddy+ydddds  Entity.js
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
-// sdddddddddddddddddddddddds Created: 2015-07-07 04:03:26
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 05:21:54
+// sdddddddddddddddddddddddds Created: 2015-07-07 20:32:57
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 20:33:06
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -16,59 +16,6 @@
 'use strict';
 
 var Micro = window['Micro'] || {}
-
-// var test = new PIXI.Graphics();
-// test.lineStyle(2, 0xacacac);
-// // test.drawCircle(300, 300, 1);
-
-// Micro.stage.addChild(test);
-
-// (function () {
-
-// var Entity = Micro.Entity
-
-// Entity.list = []
-
-// Entity.collides = function (r1, r2, x, y)
-// {
-// 	if (r1.x + x + r1.width > r2.x && r1.y + y + r1.height > r2.y &&
-// 		r1.x + x < r2.x + r2.width && r1.y + y < r2.y + r2.height)
-// 		return true
-// 	else
-// 		return false
-// }
-
-// Entity.update = function (dt, entity)
-// {
-// 	if (entity.jumpDelay < Math.PI)
-// 	{
-// 		entity.jumpDelay += dt / 200
-// 		entity.addVelocity(0, -Math.cos(entity.jumpDelay) * 3)
-// 		entity.jumpBool = false
-// 	}
-// 	else
-// 	{
-// 		entity.jumpDelay = Math.PI
-// 	}
-
-// 	var tmpBool = false
-
-// 	Micro.Door.collidesWith(dt, entity)
-
-// 	if (Micro.Block.collidesWith(dt, entity))
-// 		tmpBool = true
-
-// 	if (tmpBool)
-// 		return
-
-
-// 	entity.sprite.x += entity.velocity.x * dt
-// 	entity.sprite.y += entity.velocity.y * dt
-
-// 	entity.jumpBool = false
-// 	entity.addVelocity(0, dt)
-
-// }
 
 Micro.entityList = []
 
@@ -120,13 +67,16 @@ Micro.Entity = function (texture)
 
 		var tmpBool = false
 
-		Micro.Door.collidesWith(dt, entity)
+		// THAT WAS OLD SCHOOL WAY TO COLLIDES ENTITY
+		// WITH DOOR && ENTITY
 
-		if (Micro.Block.collidesWith(dt, entity))
-			tmpBool = true
+		// Micro.Door.collidesWith(dt, entity)
 
-		if (tmpBool)
-			return
+		// if (Micro.Block.collidesWith(dt, entity))
+		// 	tmpBool = true
+
+		// if (tmpBool)
+		// 	return
 
 
 		entity.sprite.x += entity.velocity.x * dt
@@ -190,4 +140,59 @@ Micro.Entity = function (texture)
 
 	Micro.entityList.push(this)
 }
+
+// var test = new PIXI.Graphics();
+// test.lineStyle(2, 0xacacac);
+// // test.drawCircle(300, 300, 1);
+
+// Micro.stage.addChild(test);
+
+// (function () {
+
+// var Entity = Micro.Entity
+
+// Entity.list = []
+
+// Entity.collides = function (r1, r2, x, y)
+// {
+// 	if (r1.x + x + r1.width > r2.x && r1.y + y + r1.height > r2.y &&
+// 		r1.x + x < r2.x + r2.width && r1.y + y < r2.y + r2.height)
+// 		return true
+// 	else
+// 		return false
+// }
+
+// Entity.update = function (dt, entity)
+// {
+// 	if (entity.jumpDelay < Math.PI)
+// 	{
+// 		entity.jumpDelay += dt / 200
+// 		entity.addVelocity(0, -Math.cos(entity.jumpDelay) * 3)
+// 		entity.jumpBool = false
+// 	}
+// 	else
+// 	{
+// 		entity.jumpDelay = Math.PI
+// 	}
+
+// 	var tmpBool = false
+
+// 	Micro.Door.collidesWith(dt, entity)
+
+// 	if (Micro.Block.collidesWith(dt, entity))
+// 		tmpBool = true
+
+// 	if (tmpBool)
+// 		return
+
+
+// 	entity.sprite.x += entity.velocity.x * dt
+// 	entity.sprite.y += entity.velocity.y * dt
+
+// 	entity.jumpBool = false
+// 	entity.addVelocity(0, dt)
+
+// }
+
+
 
