@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-07 20:30:05
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 20:33:28
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-08 19:53:06
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -16,6 +16,26 @@
 'use strict';
 
 var Micro = window['Micro'] || {}
+
+function testCircleRectangle(rectangle, circle) {
+	return rectangle.contains(circle.x, circle.y) ||
+			rectangle.contains(circle.x + circle.radius, circle.y ) ||
+			rectangle.contains(circle.x - circle.radius, circle.y ) ||
+			rectangle.contains(circle.x, circle.y + circle.radius) ||
+			rectangle.contains(circle.x, circle.y - circle.radius) ||
+			rectangle.contains(circle.x + Math.sqrt(3) / 2 * circle.radius, circle.y + circle.radius / 2) ||
+			rectangle.contains(circle.x + Math.sqrt(3) / 2 * circle.radius, circle.y - circle.radius / 2) ||
+			rectangle.contains(circle.x - Math.sqrt(3) / 2 * circle.radius, circle.y + circle.radius / 2) ||
+			rectangle.contains(circle.x - Math.sqrt(3) / 2 * circle.radius, circle.y - circle.radius / 2) ||
+			rectangle.contains(circle.x + circle.radius / 2, circle.y  + Math.sqrt(3) / 2 * circle.radius) ||
+			rectangle.contains(circle.x - circle.radius / 2, circle.y  + Math.sqrt(3) / 2 * circle.radius) ||
+			rectangle.contains(circle.x + circle.radius / 2, circle.y  - Math.sqrt(3) / 2 * circle.radius) ||
+			rectangle.contains(circle.x - circle.radius / 2, circle.y  - Math.sqrt(3) / 2 * circle.radius) ||
+			circle.contains(rectangle.x, rectangle.y) ||
+			circle.contains(rectangle.x + rectangle.width, rectangle.y) ||
+			circle.contains(rectangle.x, rectangle.y + rectangle.height) ||
+			circle.contains(rectangle.x + rectangle.width, rectangle.y + rectangle.height)
+}
 
 Micro.Collider = function (shape) {
 
@@ -39,6 +59,24 @@ Micro.Collider = function (shape) {
 		}
 		else {
 			this.shape = new PIXI.Point(shape.x, shape.y)
+		}
+
+		// Object.defineProperty(this, "scale", {set: function (x, y) {
+		// 	this.scale.x = x
+		// 	this.scale.y = y
+		// }})
+
+		//  ________________________________________
+		// /\                                       \
+		// \_|Collider.update                       |
+		//   |                                      |
+		//   |    update is a standard way to       |
+		//   |    maintain a collider moving        |
+		//   |   ___________________________________|_
+		//    \_/_____________________________________/
+
+		this.update = function (sprite) {
+			// console.log("Collider.update :", this)
 		}
 
 		//  ________________________________________
@@ -69,21 +107,31 @@ Micro.Collider = function (shape) {
 							this.shape.y <= Collider.shape.y + Collider.shape.height &&
 							Collider.shape.y <= this.shape.y + this.shape.height
 				}
+
 				else if (this.shape instanceof PIXI.Rectangle) {
-					return this.shape.contains(Collider.shape.x, Collider.shape.y) ||
-							Collider.shape.contains(this.shape.x, this.shape.y) ||
-							Collider.shape.contains(this.shape.x + this.shape.width, this.shape.y) ||
-							Collider.shape.contains(this.shape.x, this.shape.y + this.shape.height) ||
-							Collider.shape.contains(this.shape.x + this.shape.width, this.shape.y + this.shape.height)
+					return testCircleRectangle(this.shape, Collider.shape)
 				}
 				else if (Collider.shape instanceof PIXI.Rectangle) {
-					return Collider.shape.contains(this.shape.x, this.shape.y) ||
-							this.shape.contains(Collider.shape.x, Collider.shape.y) ||
-							this.shape.contains(Collider.shape.x + Collider.shape.width, Collider.shape.y) ||
-							this.shape.contains(Collider.shape.x, Collider.shape.y + Collider.shape.height) ||
-							this.shape.contains(Collider.shape.x + Collider.shape.width, Collider.shape.y + Collider.shape.height)
+					return testCircleRectangle(Collider.shape, this.shape)
+				}
+
+				if (this.shape instanceof PIXI.Circle && Collider.shape instanceof PIXI.Circle) {
+					return Math.pow(Collider.shape.x - this.shape.x, 2) + Math.pow(this.shape.y - Collider.shape.y, 2) <= Math.pow(this.shape.radius + Collider.shape.radius, 2)
 				}
 			}
+		}
+
+		//  ____________________________________
+		// /\                                   \
+		// \_|Collider.collideFunction          |
+		//   |                                  |
+		//   |  collideFunction is a container  |
+		//   |    for run-time reactions        |
+		//   |   _______________________________|_
+		//    \_/_________________________________/
+
+		this.collideFunction = function () {
+			console.log('collideFunction of ', this)
 		}
 
 		//  ________________________________________

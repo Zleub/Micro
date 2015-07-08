@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-07 20:32:57
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 20:33:06
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-08 19:39:45
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -79,18 +79,37 @@ Micro.Entity = function (texture)
 		// 	return
 
 
-		entity.sprite.x += entity.velocity.x * dt
-		entity.sprite.y += entity.velocity.y * dt
+		// entity.sprite.x += entity.velocity.x * dt
+		// entity.sprite.y += entity.velocity.y * dt
+
+		entity.moveBy(entity.velocity.x, entity.velocity.y)
 
 		entity.jumpBool = false
 		entity.addVelocity(0, dt)
 
-
 		if (entity.sprite.y + entity.sprite.height / 2 > Micro.height) {
-			entity.sprite.y = Micro.height - entity.sprite.height / 2
+			entity.moveTo(entity.sprite.x, Micro.height - entity.sprite.height / 2)
 			entity.jumpBool = true
 		}
 	})
+
+	//  ______________________________________
+	// /\                                     \
+	// \_|Entity.collider                     |
+	//   |                                    |
+	//   |  Since Base's collider is an array |
+	//   |    one should push an              |
+	//   |    Entity's collider in order to   |
+	//   |    get it processed                |
+	//   |   _________________________________|_
+	//    \_/___________________________________/
+
+	this.collider.push( new Micro.Collider({
+		x : this.sprite.x - this.sprite.width / 2,
+		y : this.sprite.y - this.sprite.height / 2,
+		width : this.sprite.width / 2,
+		height : this.sprite.height / 2
+	}).draw(Micro.Layer.list.debug.children[0]))
 
 //  ____________________________________
 // /\                                    \

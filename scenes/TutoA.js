@@ -35,9 +35,15 @@ TutoA.make = function () {
 			// .sprite.visible = false
 	}
 
-	new Micro.Player(Micro.Sprites['dwarves'][0]._texture)
-		.addTo(Micro.Layer.list.foreground)
-		.sprite.scale = Micro.Sprites['dwarves'][0].scale
+	var player = new Micro.Player(Micro.Sprites['dwarves'][0]._texture)
+		player.addTo(Micro.Layer.list.foreground)
+ 		player.scale = Micro.Sprites['dwarves'][0].scale
+ 		player.collider[0].update = function (sprite) {
+	 		player.collider[0].shape.x = sprite.x - sprite.width / 2
+	 		player.collider[0].shape.y = sprite.y - sprite.height / 2
+	 		player.collider[0].shape.width = sprite.width
+	 		player.collider[0].shape.height = sprite.height
+	 	}
 
 	// -- \|/ -- \|/ -- \|/ -- \
 	//	LEVEL
