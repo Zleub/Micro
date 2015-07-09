@@ -7,7 +7,7 @@
 
 var Micro = window['Micro'] || {}
 
-Micro.debug = true
+// Micro.debug = true
 
 Micro.time = Date.now();
 Micro.size = 16
@@ -103,6 +103,11 @@ function update(dt)
 			Micro.entityList[i].update[j](dt, Micro.entityList[i])
 		}
 	};
+	for (var i = 0; i < Micro.blockList.length; i++) {
+		for (var j = 0; j < Micro.blockList[i].update.length; j++) {
+			Micro.blockList[i].update[j](dt, Micro.blockList[i])
+		}
+	};
 
 	var testx = Micro.width / 2 - Micro.entityList[0].sprite.position.x
 	var testy = Micro.height / 2 - Micro.entityList[0].sprite.position.y
@@ -129,11 +134,19 @@ var cmp = 0
 
 function draw(dt) {
 
+	// Micro.blockList[0].collider[0].draw(Micro.Layer.list.debug.children[0])
+
 	if (Micro.debug) {
 
 		for (var i = 0; i < Micro.entityList.length; i++) {
 			for (var j = 0; j < Micro.entityList[i].collider.length; j++) {
 				Micro.entityList[i].collider[j].draw(Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1])
+			}
+		};
+
+		for (var i = 0; i < Micro.blockList.length; i++) {
+			for (var j = 0; j < Micro.blockList[i].collider.length; j++) {
+				Micro.blockList[i].collider[j].draw(Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1])
 			}
 		};
 
@@ -186,7 +199,8 @@ function animate()
 	update(Micro.dt)
 	update(Micro.dt)
 
-	// var text = new PIXI.Text(JSON.stringify(Micro.Player.list[0].velocity), {font : '24px Arial', fill : 0xff1010})
+	// var text_tmp = Micro.entityList[0].orientation + " : " + Micro.entityList[0].collider[0].shape.x + " " + Micro.entityList[0].collider[0].shape.y
+	// var text = new PIXI.Text(text_tmp, {font : '24px Arial', fill : 0xff1010})
 	// Micro.stage.addChild(text)
 
 	draw(Micro.dt)

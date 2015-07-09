@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-07 20:30:05
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-08 19:53:06
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-09 17:58:11
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -60,11 +60,6 @@ Micro.Collider = function (shape) {
 		else {
 			this.shape = new PIXI.Point(shape.x, shape.y)
 		}
-
-		// Object.defineProperty(this, "scale", {set: function (x, y) {
-		// 	this.scale.x = x
-		// 	this.scale.y = y
-		// }})
 
 		//  ________________________________________
 		// /\                                       \
@@ -130,7 +125,7 @@ Micro.Collider = function (shape) {
 		//   |   _______________________________|_
 		//    \_/_________________________________/
 
-		this.collideFunction = function () {
+		this.collideFunction = function (entity) {
 			console.log('collideFunction of ', this)
 		}
 

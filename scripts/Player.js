@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-07 05:22:41
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 05:23:12
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-09 20:35:04
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -16,39 +16,6 @@
 'use strict';
 
 var Micro = window['Micro'] || {}
-// if (!('Player' in Micro))
-// 	Micro.Player = {};
-
-// (function () {
-
-// var Player = Micro.Player
-
-// Micro.playerList = []
-
-// Player.update = function (dt, player)
-// {
-// 	// Micro.keypressed(18)
-
-// 	if (Micro.keypressed('left')) {
-// 		if (player.sprite.scale.x > 0)
-// 			player.sprite.scale.x *= -1
-// 		player.addVelocity(-1, 0)
-// 	}
-
-// 	if (Micro.keypressed('right')) {
-// 		if (player.sprite.scale.x < 0)
-// 			player.sprite.scale.x *= -1
-// 		player.addVelocity(1, 0)
-// 	}
-
-// 	if (!Micro.keypressed('left') && !Micro.keypressed('right'))
-// 		player.velocity.x = 0
-
-// 	if (Micro.keypressed('space') && player.jumpBool == true) {
-// 		player.jumpDelay = 0
-// 	}
-
-// }
 
 Micro.Player = function (texture) {
 //  ____________________________________
@@ -70,6 +37,8 @@ Micro.Player = function (texture) {
 //   |   ________________________________|_
 //    \_/_________________________________/
 
+	this.orientation = 'right'
+
 	this.update.push(function (dt, player)
 	{
 		// Micro.keypressed(18)
@@ -78,12 +47,19 @@ Micro.Player = function (texture) {
 			if (player.sprite.scale.x > 0)
 				player.sprite.scale.x *= -1
 			player.addVelocity(-1, 0)
+			if (player.orientation != 'left') {
+				player.orientation = 'left'
+
+			}
 		}
 
 		if (Micro.keypressed('right')) {
 			if (player.sprite.scale.x < 0)
 				player.sprite.scale.x *= -1
 			player.addVelocity(1, 0)
+			if (player.orientation != 'right') {
+				player.orientation = 'right'
+			}
 		}
 
 		if (!Micro.keypressed('left') && !Micro.keypressed('right'))

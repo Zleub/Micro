@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-06 22:51:08
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-08 19:54:44
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-09 19:56:55
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -34,7 +34,7 @@ Micro.Base = function (texture) {
 	this.update = [
 		function (dt, entity) {
 			for (var i = 0; i < entity.collider.length; i++) {
-				entity.collider[i].update(entity.sprite)
+				entity.collider[i].update(entity)
 			}
 		}]
 	this.collider = []
@@ -62,19 +62,11 @@ Micro.Base = function (texture) {
 	this.moveTo = function (x, y) {
 		this.sprite.x = x
 		this.sprite.y = y
-		// for (var i = 0; i < this.collider.length; i++) {
-		// 	this.collider[i].shape.x = x
-		// 	this.collider[i].shape.y = y
-		// };
 		return this
 	}
 	this.moveBy = function (x, y) {
 		this.sprite.x += x * Micro.dt
 		this.sprite.y += y * Micro.dt
-		for (var i = 0; i < this.collider.length; i++) {
-			this.collider[i].shape.x += x * Micro.dt
-			this.collider[i].shape.y += y * Micro.dt
-		};
 		return this
 	}
 

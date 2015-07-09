@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-07 20:32:57
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-08 19:39:45
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-09 20:34:47
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -67,30 +67,18 @@ Micro.Entity = function (texture)
 
 		var tmpBool = false
 
-		// THAT WAS OLD SCHOOL WAY TO COLLIDES ENTITY
-		// WITH DOOR && ENTITY
-
-		// Micro.Door.collidesWith(dt, entity)
-
-		// if (Micro.Block.collidesWith(dt, entity))
-		// 	tmpBool = true
-
-		// if (tmpBool)
-		// 	return
-
-
-		// entity.sprite.x += entity.velocity.x * dt
-		// entity.sprite.y += entity.velocity.y * dt
+		for (var i = 0; i < Micro.blockList.length; i++) {
+			if (entity.collider[0].collidesWith(Micro.blockList[i].collider[0])) {
+				if (Micro.blockList[i].collider[0].collideFunction(entity))
+					return ;
+			}
+		};
 
 		entity.moveBy(entity.velocity.x, entity.velocity.y)
 
 		entity.jumpBool = false
 		entity.addVelocity(0, dt)
 
-		if (entity.sprite.y + entity.sprite.height / 2 > Micro.height) {
-			entity.moveTo(entity.sprite.x, Micro.height - entity.sprite.height / 2)
-			entity.jumpBool = true
-		}
 	})
 
 	//  ______________________________________
@@ -104,12 +92,41 @@ Micro.Entity = function (texture)
 	//   |   _________________________________|_
 	//    \_/___________________________________/
 
-	this.collider.push( new Micro.Collider({
+	var Collider = new Micro.Collider({
 		x : this.sprite.x - this.sprite.width / 2,
 		y : this.sprite.y - this.sprite.height / 2,
 		width : this.sprite.width / 2,
 		height : this.sprite.height / 2
-	}).draw(Micro.Layer.list.debug.children[0]))
+	})
+
+	Collider.update = function (entity) {
+		if ('orientation' in entity) {
+
+				if (entity.orientation == 'right') {
+					this.shape.width = entity.sprite.width
+					this.shape.x = entity.sprite.x - entity.sprite.width / 2
+				}
+				else if (entity.orientation == 'left') {
+					this.shape.width = -entity.sprite.width
+					this.shape.x = entity.sprite.x + entity.sprite.width / 2
+				}
+			}
+			else {
+				this.shape.width = entity.sprite.width
+				this.shape.x = entity.sprite.x - entity.sprite.width / 2
+			}
+
+		this.shape.height = entity.sprite.height
+
+		this.shape.y = entity.sprite.y - entity.sprite.height / 2
+
+	}
+
+	Collider.collideFunction = function (collider) {
+		console.log('collideFunction of ', this)
+	}
+
+	this.collider.push( Collider )
 
 //  ____________________________________
 // /\                                    \
@@ -159,59 +176,5 @@ Micro.Entity = function (texture)
 
 	Micro.entityList.push(this)
 }
-
-// var test = new PIXI.Graphics();
-// test.lineStyle(2, 0xacacac);
-// // test.drawCircle(300, 300, 1);
-
-// Micro.stage.addChild(test);
-
-// (function () {
-
-// var Entity = Micro.Entity
-
-// Entity.list = []
-
-// Entity.collides = function (r1, r2, x, y)
-// {
-// 	if (r1.x + x + r1.width > r2.x && r1.y + y + r1.height > r2.y &&
-// 		r1.x + x < r2.x + r2.width && r1.y + y < r2.y + r2.height)
-// 		return true
-// 	else
-// 		return false
-// }
-
-// Entity.update = function (dt, entity)
-// {
-// 	if (entity.jumpDelay < Math.PI)
-// 	{
-// 		entity.jumpDelay += dt / 200
-// 		entity.addVelocity(0, -Math.cos(entity.jumpDelay) * 3)
-// 		entity.jumpBool = false
-// 	}
-// 	else
-// 	{
-// 		entity.jumpDelay = Math.PI
-// 	}
-
-// 	var tmpBool = false
-
-// 	Micro.Door.collidesWith(dt, entity)
-
-// 	if (Micro.Block.collidesWith(dt, entity))
-// 		tmpBool = true
-
-// 	if (tmpBool)
-// 		return
-
-
-// 	entity.sprite.x += entity.velocity.x * dt
-// 	entity.sprite.y += entity.velocity.y * dt
-
-// 	entity.jumpBool = false
-// 	entity.addVelocity(0, dt)
-
-// }
-
 
 

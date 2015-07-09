@@ -35,31 +35,53 @@ TutoA.make = function () {
 			// .sprite.visible = false
 	}
 
-	var player = new Micro.Player(Micro.Sprites['dwarves'][0]._texture)
-		player.addTo(Micro.Layer.list.foreground)
- 		player.scale = Micro.Sprites['dwarves'][0].scale
- 		player.collider[0].update = function (sprite) {
-	 		player.collider[0].shape.x = sprite.x - sprite.width / 2
-	 		player.collider[0].shape.y = sprite.y - sprite.height / 2
-	 		player.collider[0].shape.width = sprite.width
-	 		player.collider[0].shape.height = sprite.height
-	 	}
-
 	// -- \|/ -- \|/ -- \|/ -- \
 	//	LEVEL
 
-	// Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(0, Micro.height - Micro.size)
-	// Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(160, Micro.height - Micro.size)
-	// Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(400, 610)
-	// Micro.Block.new(Micro.Sprites['Sprute'][14]).moveTo(560, 610)
-	// // Micro.Block.new(Micro.Sprites['Sprute'][64]).moveTo(560, 610)
-	// // Micro.Block.new(Micro.Sprites['Sprute'][64]).moveTo(600, 610)
-	// Micro.Block.new(Micro.Sprites['Sprute'][14 + 6]).moveTo(800 , 550)
-	// Micro.Block.new(Micro.Sprites['Sprute'][14 + 6]).moveTo(960 , 550)
+	var block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
+		block.moveTo(0, Micro.height - Micro.size)
+		block.scale = Micro.Sprites['Sprute'][14].scale
 
-	// Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(560, 450)
-	// Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(400, 400)
-	// Micro.Block.new(Micro.Sprites['Sprute'][38]).moveTo(300, 400)
+		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
+		block.moveTo(160, Micro.height - Micro.size)
+		block.scale = Micro.Sprites['Sprute'][14].scale
+
+		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
+		block.moveTo(400, 610)
+		block.scale = Micro.Sprites['Sprute'][14].scale
+
+		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
+		block.moveTo(560, 610)
+		block.scale = Micro.Sprites['Sprute'][14].scale
+
+		// block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
+		// block.moveTo(600, 610)
+		// block.scale = Micro.Sprites['Sprute'][14].scale
+
+		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
+		block.moveTo(800 , 550)
+		block.scale = Micro.Sprites['Sprute'][14].scale
+
+		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
+		block.moveTo(960 , 550)
+		block.scale = Micro.Sprites['Sprute'][14].scale
+
+		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
+		block.moveTo(560, 450)
+		block.scale = Micro.Sprites['Sprute'][14].scale
+
+		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
+		block.moveTo(400, 400)
+		block.scale = Micro.Sprites['Sprute'][14].scale
+
+		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
+		block.moveTo(300, 400)
+		block.scale = Micro.Sprites['Sprute'][14].scale
+
+		new Micro.Base(Micro.Sprites['Sprute'][40]._texture)
+			.moveTo(400, 450)
+			.addTo(Micro.Layer.list.foreground)
+			.scale = Micro.Sprites['Sprute'][40].scale
 
 	// Micro.Asset.newAtOn(Micro.Sprites['Sprute'][40], 400, 450, Micro.Layer.list.foreground)
 
@@ -79,6 +101,11 @@ TutoA.make = function () {
 
 	// Micro.Asset.newAtOn(Micro.Sprites['fence_sign'][0], 800, 392, Micro.Layer.list.foreground)
 	// Micro.Asset.newAtOn(Micro.Sprites['fence_sign'][1], 960, 392, Micro.Layer.list.foreground)
+
+	var player = new Micro.Player(Micro.Sprites['dwarves'][0]._texture)
+		player.addTo(Micro.Layer.list.foreground)
+		player.scale = Micro.Sprites['dwarves'][0].scale
+		player.moveTo(128, 0)
 }
 
 })()
