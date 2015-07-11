@@ -59,35 +59,6 @@ Micro.launch = function ()
 
 		Micro.TutoA.make()
 		addAuthor()
-
-		// Micro.Layer.list.foreground.addChild( new PIXI.Graphics().lineStyle(2, 0xacacac) )
-
-		// var test1 = new Micro.Collider({x: 100, y: 100}).draw(Micro.Layer.list.debug.children[0])
-		// var test1 = new Micro.Collider({x: 180, y: 150, width: 100, height: 100}).draw(Micro.Layer.list.debug.children[0])
-		// var test2 = new Micro.Collider({x: 200, y: 100, width: 100, height: 100}).draw(Micro.Layer.list.debug.children[0])
-		// var test3 = new Micro.Collider({x: 100, y: 100, radius: 100}).draw(Micro.Layer.list.debug.children[0])
-		// var test1 = new Micro.Collider({x: 100, y: 100, radius: 100}).draw(Micro.Layer.list.debug.children[0])
-		// var test2 = new Micro.Collider({x: 300, y: 100, radius: 100}).draw(Micro.Layer.list.debug.children[0])
-
-
-		// var test1 = new Micro.Collider({x: 90, y:120, width : 16, height: 16}).draw(Micro.Layer.list.debug.children[0])
-		// var test2 = new Micro.Collider({x: 100, y:70, radius : 50}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100 - 50, y:70}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100 + 50, y:70}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100, y:70 - 50}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100, y:70 + 50}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100 + (Math.sqrt(3) / 2) * 50, y:70 + 25}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100 + (Math.sqrt(3) / 2) * 50, y:70 - 25}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100 - (Math.sqrt(3) / 2) * 50, y:70 + 25}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100 - (Math.sqrt(3) / 2) * 50, y:70 - 25}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100 + 25, y:70 + (Math.sqrt(3) / 2) * 50}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100 - 25, y:70 + (Math.sqrt(3) / 2) * 50}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100 + 25, y:70 - (Math.sqrt(3) / 2) * 50}).draw(Micro.Layer.list.debug.children[0])
-		// new Micro.Collider({x:100 - 25, y:70 - (Math.sqrt(3) / 2) * 50}).draw(Micro.Layer.list.debug.children[0])
-
-		// console.log(test1.collidesWith(test2))
-
-
 		animate()
 	})
 	PIXI.loader.load()
@@ -98,14 +69,9 @@ function update(dt)
 	if (Micro.menuBool)
 		return
 
-	for (var i = 0; i < Micro.entityList.length; i++) {
-		for (var j = 0; j < Micro.entityList[i].update.length; j++) {
-			Micro.entityList[i].update[j](dt, Micro.entityList[i])
-		}
-	};
-	for (var i = 0; i < Micro.blockList.length; i++) {
-		for (var j = 0; j < Micro.blockList[i].update.length; j++) {
-			Micro.blockList[i].update[j](dt, Micro.blockList[i])
+	for (var i = 0; i < Micro.baseList.length; i++) {
+		for (var j = 0; j < Micro.baseList[i].update.length; j++) {
+			Micro.baseList[i].update[j](dt, Micro.baseList[i])
 		}
 	};
 
@@ -114,10 +80,10 @@ function update(dt)
 
 	Micro.Layer.list.foreground.position.x = testx
 	Micro.Layer.list.debug.position.x = testx
-	// Micro.Layer.list.foreground.position.y = testy
+	Micro.Layer.list.foreground.position.y = testy
 
 	Micro.Layer.list.background.position.x = testx / 8 % 256
-	// Micro.Layer.list.background.position.y = testy / 8 % 256
+	Micro.Layer.list.background.position.y = testy / 8 % 256
 
 	// if (Micro.doortest.Irectangle.contains(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y)
 	// 	|| new PIXI.Rectangle(Micro.Firetest.x, Micro.Firetest.y, Micro.Firetest.width, Micro.Firetest.height).contains(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y))
@@ -138,17 +104,12 @@ function draw(dt) {
 
 	if (Micro.debug) {
 
-		for (var i = 0; i < Micro.entityList.length; i++) {
-			for (var j = 0; j < Micro.entityList[i].collider.length; j++) {
-				Micro.entityList[i].collider[j].draw(Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1])
+		for (var i = 0; i < Micro.baseList.length; i++) {
+			for (var j = 0; j < Micro.baseList[i].collider.length; j++) {
+				Micro.baseList[i].collider[j].draw(Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1])
 			}
 		};
 
-		for (var i = 0; i < Micro.blockList.length; i++) {
-			for (var j = 0; j < Micro.blockList[i].collider.length; j++) {
-				Micro.blockList[i].collider[j].draw(Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1])
-			}
-		};
 
 		// if (cmp > 0.1) {
 		// 	cmp = 0;

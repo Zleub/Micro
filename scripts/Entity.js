@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-07 20:32:57
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-09 20:34:47
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-11 00:56:22
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -74,6 +74,13 @@ Micro.Entity = function (texture)
 			}
 		};
 
+		for (var i = 0; i < Micro.animationList.length; i++) {
+			if (entity.collider[0].collidesWith(Micro.animationList[i].collider[0])) {
+				if (Micro.animationList[i].collider[0].collideFunction(entity))
+					return ;
+			}
+		};
+
 		entity.moveBy(entity.velocity.x, entity.velocity.y)
 
 		entity.jumpBool = false
@@ -100,6 +107,7 @@ Micro.Entity = function (texture)
 	})
 
 	Collider.update = function (entity) {
+
 		if ('orientation' in entity) {
 
 				if (entity.orientation == 'right') {

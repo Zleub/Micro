@@ -7,8 +7,10 @@
 	{
 		"scripts/engine.js" : [
 			"scripts/Base.js",
+			"scripts/Layer.js",
 			"scripts/Collider.js",
-			"scripts/Layer.js"
+			"scripts/Animation.js",
+			"scripts/Block.js"
 		]
 	},
 	{
@@ -28,7 +30,6 @@
 	{
 		"scripts/Entity.js" : [
 			"scripts/Player.js",
-			"scripts/block.js",
 			"scripts/door.js"
 		]
 	},

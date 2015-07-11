@@ -27,15 +27,6 @@ TutoA.make = function () {
 		Micro.Layer.list.background.addChild(background)
 
 	// -- \|/ -- \|/ -- \|/ -- \
-	//	UI
-	for (var i = 0; i < Micro.Sprites['needcoffee'].length; i++) {
-		new Micro.Base(Micro.Sprites['needcoffee'][i]._texture)
-			.moveTo(0, i * 21)
-			.addTo(Micro.Layer.list.foreground)
-			// .sprite.visible = false
-	}
-
-	// -- \|/ -- \|/ -- \|/ -- \
 	//	LEVEL
 
 	var block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
@@ -51,7 +42,7 @@ TutoA.make = function () {
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
-		block.moveTo(560, 610)
+		block.moveTo(559, 610)
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		// block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
@@ -63,11 +54,11 @@ TutoA.make = function () {
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
-		block.moveTo(960 , 550)
+		block.moveTo(959 , 550)
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
-		block.moveTo(560, 450)
+		block.moveTo(559, 450)
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
@@ -78,14 +69,45 @@ TutoA.make = function () {
 		block.moveTo(300, 400)
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
-		new Micro.Base(Micro.Sprites['Sprute'][40]._texture)
-			.moveTo(400, 450)
-			.addTo(Micro.Layer.list.foreground)
-			.scale = Micro.Sprites['Sprute'][40].scale
+	new Micro.Base(Micro.Sprites['Sprute'][40]._texture)
+		.moveTo(400, 450)
+		.addTo(Micro.Layer.list.foreground)
+		.scale = Micro.Sprites['Sprute'][40].scale
+
+	// Micro.firetest = new Micro.Base(Micro.Sprites['Fire'][0]._texture)
+	// 	Micro.firetest.moveTo(400, 400)
+	// 	Micro.firetest.addTo(Micro.Layer.list.foreground)
+	// 	Micro.firetest.scale = Micro.Sprites['Fire'][0].scale
 
 	// Micro.Asset.newAtOn(Micro.Sprites['Sprute'][40], 400, 450, Micro.Layer.list.foreground)
 
 	// Micro.Firetest = Micro.Asset.newAtOn(Micro.Sprites['Fire'][0], 400, 400, Micro.Layer.list.foreground)
+
+	var anim = new Micro.Animation(Micro.Sprites['Fire'])
+		var Collider = new Micro.Collider({
+			x : anim.sprite.x - anim.sprite.width / 2,
+			y : anim.sprite.y - anim.sprite.height / 2,
+			width : anim.sprite.width,
+			height : anim.sprite.height
+		})
+
+		Collider.update = function (entity) {
+				this.shape.x = entity.sprite.x + entity.sprite.width / 4
+				this.shape.y = entity.sprite.y
+				this.shape.width = entity.sprite.width / 2
+				this.shape.height = entity.sprite.height
+		}
+
+		Collider.collideFunction = function (entity) {
+				Micro.ui[19].visible = true
+		}
+
+		anim.collider.push(Collider)
+		anim.moveTo(400, 400)
+		anim.addTo(Micro.Layer.list.foreground)
+		anim.scale = Micro.Sprites['Fire'][0].scale
+
+
 	// // Micro.Asset.newAtOn(Micro.Sprites['Fire'][1], 600, 100, Micro.Layer.list.foreground)
 
 
@@ -106,6 +128,30 @@ TutoA.make = function () {
 		player.addTo(Micro.Layer.list.foreground)
 		player.scale = Micro.Sprites['dwarves'][0].scale
 		player.moveTo(128, 0)
+
+	// -- \|/ -- \|/ -- \|/ -- \
+	//	UI
+
+	Micro.ui = []
+	for (var i = 0; i < Micro.Sprites['needcoffee'].length; i++) {
+		var base = new Micro.Base(Micro.Sprites['needcoffee'][i]._texture)
+			// base.moveTo(Micro.width / 2, Micro.height / 2)
+			base.addTo(Micro.Layer.list.foreground)
+			base.update.push( function (dt, entity) {
+				entity.sprite.x = Micro.entityList[0].sprite.x - 20
+				entity.sprite.y = Micro.entityList[0].sprite.y - 80
+				if (entity.visible == true)
+					entity.sprite.visible = true
+				else
+					entity.sprite.visible = false
+				entity.visible = false
+			})
+			base.sprite.visible = false
+			base.sprite.scale.x = 2
+			base.sprite.scale.y = 2
+			Micro.ui.push(base)
+			// .sprite.visible = false
+	}
 }
 
 })()
