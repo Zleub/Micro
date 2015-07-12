@@ -20,6 +20,19 @@ Micro.Block = function (texture) {
 
 	Micro.Base.call(this, texture)
 
+//  ____________________________________
+// /\                                   \
+// \_|Block.collider                    |
+//   |                                  |
+//   |  The default collider of a Block |
+//   |    is the sprite-sized box.      |
+//   |                                  |
+//   |  The standard behavior is a      |
+//   |    snap of an entity passing by  |
+//   |    to the sprite edge.           |
+//   |   _______________________________|_
+//    \_/_________________________________/
+
 	var Collider = new Micro.Collider({
 		x : this.sprite.x - this.sprite.width / 2,
 		y : this.sprite.y - this.sprite.height / 2,

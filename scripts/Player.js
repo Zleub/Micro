@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-07 05:22:41
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-09 20:35:04
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-11 03:20:46
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -30,10 +30,9 @@ Micro.Player = function (texture) {
 // /\                                    \
 // \_|Player.update                      |
 //   |                                   |
-//   |  Since Base's update is an array  |
-//   |    one should push an             |
-//   |    Player's update in order to    |
-//   |    get it processed               |
+//   |  The standard player behavior is  |
+//   |    to be able to catch keyboard   |
+//   |    key.                           |
 //   |   ________________________________|_
 //    \_/_________________________________/
 

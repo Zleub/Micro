@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-07 20:32:57
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-11 00:56:22
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-11 03:18:57
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -45,10 +45,9 @@ Micro.Entity = function (texture)
 // /\                                    \
 // \_|Entity.update                      |
 //   |                                   |
-//   |  Since Base's update is an array  |
-//   |    one should push an             |
-//   |    Entity's update in order to    |
-//   |    get it processed               |
+//   |  The standard behavior of an      |
+//   |    Entity is to be able to move   |
+//   |    horizontaly and to jump.       |
 //   |   ________________________________|_
 //    \_/_________________________________/
 
@@ -92,10 +91,9 @@ Micro.Entity = function (texture)
 	// /\                                     \
 	// \_|Entity.collider                     |
 	//   |                                    |
-	//   |  Since Base's collider is an array |
-	//   |    one should push an              |
-	//   |    Entity's collider in order to   |
-	//   |    get it processed                |
+	//   |  The standard behavior of a Entity |
+	//   |    collider is to stick to the     |
+	//   |    Entity has a box. Crappy stuff. |
 	//   |   _________________________________|_
 	//    \_/___________________________________/
 

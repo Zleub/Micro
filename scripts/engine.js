@@ -32,11 +32,13 @@ window.addEventListener('keydown', function (e) {
 	Micro.keyArray[e.keyCode] = true
 
 	if (e.keyCode == 27 && Micro.menuBool == true) { // On PauseMenu OFF
+		Micro.State.current = 'GAME'
 		Micro.Layer.list.ui.children[0].visible = false
 		Micro.menuBool = false
 	}
 	else if (e.keyCode == 27 && Micro.menuBool == false) { // On PauseMenu ON
-		Micro.Layer.actualizedBindingList()
+		Micro.State.current = 'MENU'
+		Micro.Layer.actualizeBindingList()
 		Micro.Layer.list.ui.children[0].visible = true
 		Micro.menuBool = true
 	}
@@ -57,48 +59,30 @@ Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
 
-		Micro.TutoA.make()
+
+
 		addAuthor()
+		Micro.TutoA.make()
+		Micro.State.current = 'GAME'
+
+		Micro.time = Date.now()
 		animate()
 	})
 	PIXI.loader.load()
 }
 
-function update(dt)
+Micro.update = function (dt)
 {
-	if (Micro.menuBool)
-		return
+	Micro.State.map[Micro.State.current](dt)
 
-	for (var i = 0; i < Micro.baseList.length; i++) {
-		for (var j = 0; j < Micro.baseList[i].update.length; j++) {
-			Micro.baseList[i].update[j](dt, Micro.baseList[i])
-		}
-	};
-
-	var testx = Micro.width / 2 - Micro.entityList[0].sprite.position.x
-	var testy = Micro.height / 2 - Micro.entityList[0].sprite.position.y
-
-	Micro.Layer.list.foreground.position.x = testx
-	Micro.Layer.list.debug.position.x = testx
-	Micro.Layer.list.foreground.position.y = testy
-
-	Micro.Layer.list.background.position.x = testx / 8 % 256
-	Micro.Layer.list.background.position.y = testy / 8 % 256
-
-	// if (Micro.doortest.Irectangle.contains(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y)
-	// 	|| new PIXI.Rectangle(Micro.Firetest.x, Micro.Firetest.y, Micro.Firetest.width, Micro.Firetest.height).contains(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y))
-	// 	Micro.test.visible = true
-	// else
-	// 	Micro.test.visible = false
-
-	// if (Micro.Player.list[0].sprite.y > 3000) {
-	// 	Micro.Player.list[0].sprite.y = 0
+	// if (Micro.entityList[0].sprite.y > 3000) {
+	// // 	Micro.entityList[0].sprite.y = 0
 	// }
 }
 
 var cmp = 0
 
-function draw(dt) {
+Micro.draw = function (dt) {
 
 	// Micro.blockList[0].collider[0].draw(Micro.Layer.list.debug.children[0])
 
@@ -110,26 +94,12 @@ function draw(dt) {
 			}
 		};
 
+		if (cmp > 0.2) {
+			cmp = 0;
+			Micro.Layer.list.debug.reset()
+		}
 
-		// if (cmp > 0.1) {
-		// 	cmp = 0;
-		// 	Micro.Layer.list.debug.reset()
-		// }
-
-		// cmp += dt / 1000
-
-	// 	for (var i = 0; i < Micro.Block.list.length; i++)
-	// 	{
-	// 		// Micro.Block.list[i].rectangle.y = Micro.Block.list[i].sprite.y
-	// 		// Micro.Block.list[i].rectangle.height = -64
-	// 		Micro.Block.list[i].draw()
-	// 	}
-
-	// 	for (var i = Micro.Door.list.length - 1; i >= 0; i--) {
-	// 		Micro.Door.list[i].draw()
-	// 	};
-
-	// 	Micro.Layer.list.debug.children[0].drawCircle(Micro.Player.list[0].sprite.x, Micro.Player.list[0].sprite.y, 1)
+		cmp += dt / 1000
 
 	}
 
@@ -153,18 +123,18 @@ function addAuthor()
 
 function animate()
 {
-	Micro.dt = (Date.now() - Micro.time) / 4
+	Micro.dt = (Date.now() - Micro.time) / 2
 
-	update(Micro.dt)
-	update(Micro.dt)
-	update(Micro.dt)
-	update(Micro.dt)
+	Micro.update(Micro.dt)
+	Micro.update(Micro.dt)
+	// Micro.update(Micro.dt)
+	// Micro.update(Micro.dt)
 
 	// var text_tmp = Micro.entityList[0].orientation + " : " + Micro.entityList[0].collider[0].shape.x + " " + Micro.entityList[0].collider[0].shape.y
 	// var text = new PIXI.Text(text_tmp, {font : '24px Arial', fill : 0xff1010})
 	// Micro.stage.addChild(text)
 
-	draw(Micro.dt)
+	Micro.draw(Micro.dt)
 
 	// Micro.stage.removeChild(text)
 

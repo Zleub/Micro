@@ -34,7 +34,7 @@ TutoA.make = function () {
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
-		block.moveTo(160, Micro.height - Micro.size)
+		block.moveTo(150, Micro.height - Micro.size)
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
@@ -42,7 +42,7 @@ TutoA.make = function () {
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
-		block.moveTo(559, 610)
+		block.moveTo(550, 610)
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		// block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
@@ -54,11 +54,11 @@ TutoA.make = function () {
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
-		block.moveTo(959 , 550)
+		block.moveTo(950 , 550)
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
-		block.moveTo(559, 450)
+		block.moveTo(550, 450)
 		block.scale = Micro.Sprites['Sprute'][14].scale
 
 		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)

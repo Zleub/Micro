@@ -3,4 +3,4 @@
 
 Host @ [adebray.ovh](http://adebray.ovh)
 
-Doc in [doc.json](scripts/doc.json)
+Doc in [doc.json](scripts/doc.json) [doc.html](scripts/doc.html)
