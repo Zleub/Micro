@@ -148,15 +148,15 @@
     "    to set the engine on a",
     "    particular update function",
     "   _______________________________",
-    "State.current",
-    "",
-    "  current is the current state",
-    "    used by the engine.",
-    "   _______________________________",
     "State.map",
     "",
     "  State.map is an associative",
     "    object of [state] : function (dt)",
-    "   ____________________________________"
+    "   ____________________________________",
+    "State.current",
+    "",
+    "  current is the current state",
+    "    used by the engine.",
+    "   _______________________________"
   ]
 }

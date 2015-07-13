@@ -44,7 +44,7 @@ Micro.Block = function (texture) {
 			this.shape.x = entity.sprite.x
 			this.shape.y = entity.sprite.y - 8
 			this.shape.width = entity.sprite.width
-			this.shape.height = 16
+			this.shape.height = 32
 	}
 
 	Collider.collideFunction = function (entity) {
@@ -53,7 +53,7 @@ Micro.Block = function (texture) {
 
 			if (entity.sprite.x > this.shape.x && entity.sprite.x < this.shape.x + this.shape.width) {
 
-				if (entity.sprite.y == this.shape.y + this.shape.height / 2 - entity.sprite.height / 2) {
+				if (entity.sprite.y == this.shape.y + this.shape.height / 4 - entity.sprite.height / 2) {
 					entity.moveBy(entity.velocity.x, 0)
 					if (entity.velocity.y < 0) {
 						entity.moveBy(0, entity.velocity.y)
@@ -67,7 +67,7 @@ Micro.Block = function (texture) {
 				if (entity.sprite.y + entity.sprite.height / 2 > this.shape.y && entity.sprite.y + entity.sprite.height / 2 < this.shape.y + this.shape.height)
 				{
 					entity.moveBy(entity.velocity.x, 0)
-					entity.sprite.y = this.shape.y + this.shape.height / 2 - entity.sprite.height / 2
+					entity.sprite.y = this.shape.y + this.shape.height / 4 - entity.sprite.height / 2
 					entity.velocity.y = 0
 					return true
 				}

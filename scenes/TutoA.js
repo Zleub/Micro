@@ -84,6 +84,7 @@ TutoA.make = function () {
 	// Micro.Firetest = Micro.Asset.newAtOn(Micro.Sprites['Fire'][0], 400, 400, Micro.Layer.list.foreground)
 
 	var anim = new Micro.Animation(Micro.Sprites['Fire'])
+
 		var Collider = new Micro.Collider({
 			x : anim.sprite.x - anim.sprite.width / 2,
 			y : anim.sprite.y - anim.sprite.height / 2,
@@ -152,6 +153,36 @@ TutoA.make = function () {
 			Micro.ui.push(base)
 			// .sprite.visible = false
 	}
+
+
+
+	var G = new PIXI.Graphics()
+		G.lineStyle(2, 0xacacac)
+
+	Micro.Layer.list.ui.children[0].addChild(G)
+
+	var T = new PIXI.Text('Resume', {font : '24px courier', fill : 0xd8d8d8, align : 'center'})
+		T.anchor.x = 0.5
+		T.anchor.y = 0.5
+
+		T.x = Micro.width / 2
+		T.y = Micro.height / 2 - 100
+
+	var Q = new PIXI.Text('Keys', {font : '24px courier', fill : 0xd8d8d8, align : 'center'})
+		Q.anchor.x = 0.5
+		Q.anchor.y = 0.5
+
+		Q.x = Micro.width / 2
+		Q.y = Micro.height / 2 + 100
+
+	Micro.Layer.list.ui.children[0].addChild(T)
+	Micro.Layer.list.ui.children[0].addChild(Q)
+
+	var B = new Micro.Base(Micro.Sprites['select'][0]._texture)
+		B.sprite.anchor = {x: 0.5, y:0.5}
+		B.moveTo(T.x, T.y)
+		B.addTo(Micro.Layer.list.ui.children[0])
+
 }
 
 })()

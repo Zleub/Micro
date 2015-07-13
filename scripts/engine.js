@@ -22,6 +22,7 @@ Micro.stage = new PIXI.Container();
 
 Micro.menuBool = false
 Micro.keyEnum = {
+	'action' : 69,
 	'space' : 32,
 	'left' : 37,
 	'right' : 39
@@ -33,14 +34,9 @@ window.addEventListener('keydown', function (e) {
 
 	if (e.keyCode == 27 && Micro.menuBool == true) { // On PauseMenu OFF
 		Micro.State.current = 'GAME'
-		Micro.Layer.list.ui.children[0].visible = false
-		Micro.menuBool = false
 	}
 	else if (e.keyCode == 27 && Micro.menuBool == false) { // On PauseMenu ON
 		Micro.State.current = 'MENU'
-		Micro.Layer.actualizeBindingList()
-		Micro.Layer.list.ui.children[0].visible = true
-		Micro.menuBool = true
 	}
 } )
 window.addEventListener('keyup', function (e) {
@@ -59,12 +55,11 @@ Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
 
-
-
 		addAuthor()
 		Micro.TutoA.make()
 		Micro.State.current = 'GAME'
 
+		Micro.LTIME = Date.now() - Micro.time
 		Micro.time = Date.now()
 		animate()
 	})
@@ -73,11 +68,15 @@ Micro.launch = function ()
 
 Micro.update = function (dt)
 {
-	Micro.State.map[Micro.State.current](dt)
 
-	// if (Micro.entityList[0].sprite.y > 3000) {
-	// // 	Micro.entityList[0].sprite.y = 0
-	// }
+	// Micro.State.map['GAME'](dt)
+	Micro.State.map[Micro.State.current].update(dt)
+
+	if (Micro.entityList[0].sprite.y > 3000) {
+		Micro.entityList[0].sprite.y = 0
+		Micro.entityList[0].sprite.x = 128
+
+	}
 }
 
 var cmp = 0
@@ -130,13 +129,13 @@ function animate()
 	// Micro.update(Micro.dt)
 	// Micro.update(Micro.dt)
 
-	// var text_tmp = Micro.entityList[0].orientation + " : " + Micro.entityList[0].collider[0].shape.x + " " + Micro.entityList[0].collider[0].shape.y
-	// var text = new PIXI.Text(text_tmp, {font : '24px Arial', fill : 0xff1010})
-	// Micro.stage.addChild(text)
+	var text_tmp = Micro.LTIME / 1000
+	var text = new PIXI.Text(text_tmp, {font : '24px Arial', fill : 0xff1010})
+	Micro.stage.addChild(text)
 
 	Micro.draw(Micro.dt)
 
-	// Micro.stage.removeChild(text)
+	Micro.stage.removeChild(text)
 
 	Micro.time = Date.now()
 	requestAnimationFrame(animate)
