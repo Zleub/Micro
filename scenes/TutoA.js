@@ -130,6 +130,13 @@ TutoA.make = function () {
 		player.scale = Micro.Sprites['dwarves'][0].scale
 		player.moveTo(128, 0)
 
+		// create a filter
+		var blurFilter = new PIXI.filters.BlurFilter();
+		// blurFilter.blur = 100
+
+		// set the filter
+		// player.sprite.filters = [ blurFilter ];
+
 	// -- \|/ -- \|/ -- \|/ -- \
 	//	UI
 
@@ -155,7 +162,6 @@ TutoA.make = function () {
 	}
 
 
-
 	var G = new PIXI.Graphics()
 		G.lineStyle(2, 0xacacac)
 
@@ -178,10 +184,10 @@ TutoA.make = function () {
 	Micro.Layer.list.ui.children[0].addChild(T)
 	Micro.Layer.list.ui.children[0].addChild(Q)
 
-	var B = new Micro.Base(Micro.Sprites['select'][0]._texture)
-		B.sprite.anchor = {x: 0.5, y:0.5}
-		B.moveTo(T.x, T.y)
-		B.addTo(Micro.Layer.list.ui.children[0])
+		Micro.B = new Micro.Base(Micro.Sprites['select'][0]._texture)
+		Micro.B.sprite.anchor = {x: 0.5, y:0.5}
+		Micro.B.moveTo(T.x, T.y)
+		Micro.B.addTo(Micro.Layer.list.ui.children[0])
 
 }
 

@@ -22,26 +22,23 @@ Micro.stage = new PIXI.Container();
 
 Micro.menuBool = false
 Micro.keyEnum = {
-	'action' : 69,
+	'escape' : 27,
 	'space' : 32,
 	'left' : 37,
-	'right' : 39
+	'up' : 38,
+	'right' : 39,
+	'down' : 40,
+	'action' : 69
 }
+
 Micro.keyArray = []
 window.addEventListener('keydown', function (e) {
-	// console.log(e.keyCode)
 	Micro.keyArray[e.keyCode] = true
-
-	if (e.keyCode == 27 && Micro.menuBool == true) { // On PauseMenu OFF
-		Micro.State.current = 'GAME'
-	}
-	else if (e.keyCode == 27 && Micro.menuBool == false) { // On PauseMenu ON
-		Micro.State.current = 'MENU'
-	}
+	Micro.State.map[Micro.State.current].keydown(e.keyCode)
 } )
 window.addEventListener('keyup', function (e) {
 	Micro.keyArray[e.keyCode] = false
-
+	Micro.State.map[Micro.State.current].keyup(e.keyCode)
 } )
 
 Micro.keypressed = function (key) {
@@ -49,6 +46,13 @@ Micro.keypressed = function (key) {
 		return Micro.keyArray[key]
 	else
 		return Micro.keyArray[Micro.keyEnum[key]]
+}
+
+Micro.keyreset = function (key) {
+	if (typeof key == 'number')
+		Micro.keyArray[key] = false
+	else
+		Micro.keyArray[Micro.keyEnum[key]] = false
 }
 
 Micro.launch = function ()
@@ -122,12 +126,12 @@ function addAuthor()
 
 function animate()
 {
-	Micro.dt = (Date.now() - Micro.time) / 2
+	Micro.dt = (Date.now() - Micro.time) / 4
 
 	Micro.update(Micro.dt)
 	Micro.update(Micro.dt)
-	// Micro.update(Micro.dt)
-	// Micro.update(Micro.dt)
+	Micro.update(Micro.dt)
+	Micro.update(Micro.dt)
 
 	var text_tmp = Micro.LTIME / 1000
 	var text = new PIXI.Text(text_tmp, {font : '24px Arial', fill : 0xff1010})

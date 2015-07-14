@@ -62,7 +62,7 @@ var dispatch = function (req, res)
 			{
 				if (fs.existsSync('./srcs/index.html'))
 				{
-					console.log(req.url)
+					console.log("CACA", req.url)
 					git.writeAuthor()
 					mydoxy.writeDoc('scripts')
 					res.writeHead(200, {'Content-Type': 'text/html'})

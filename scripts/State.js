@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-11 18:23:21
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-13 20:15:00
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-14 21:37:27
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -46,6 +46,10 @@ Micro.State.enum = {
 Micro.State.map = {
 	'LOADING' : {
 
+		'keydown' : function (code) {},
+		'keyup' : function (code) {},
+
+
 		'start' : function (dt) {console.log('LOADING start')},
 		'update' : function (dt) {console.log('LOADING update')},
 		'end' : function (dt) {console.log('LOADING end')}
@@ -53,9 +57,16 @@ Micro.State.map = {
 	},
 	'GAME' : {
 
+		'keydown' : function (code) {
+			if (code == Micro.keyEnum.escape)
+				Micro.State.current = "MENU"
+		},
+		'keyup' : function (code) {},
+
 		'start' : function () { console.log('GAME start') },
 
 		'update' : function (dt) {
+
 			for (var i = 0; i < Micro.baseList.length; i++) {
 				for (var j = 0; j < Micro.baseList[i].update.length; j++) {
 					Micro.baseList[i].update[j](dt, Micro.baseList[i])
@@ -74,27 +85,45 @@ Micro.State.map = {
 			Micro.Layer.list.background.position.y = testy / 8 % 256
 			// Micro.Layer.list.debug.position.x = testx
 			// Micro.Layer.list.background.position.y = testy
+
 		},
 
 		'end' : function () { console.log('GAME end') },
-
-
 	},
 	MENU : {
+
+		'keydown' : function (code) {
+			console.log('menu keydown', code)
+			if (code == Micro.keyEnum.escape)
+				Micro.State.current = "GAME"
+
+			if (code == Micro.keyEnum.up || code == Micro.keyEnum.down)
+			{
+				if (Micro.B.sprite.y == Micro.height / 2 + 100)
+					Micro.B.sprite.y = Micro.height / 2 - 100
+				else
+					Micro.B.sprite.y = Micro.height / 2 + 100
+			}
+		},
+		'keyup' : function (code) {},
+
 
 		'start' : function (dt) {
 			console.log('MENU start')
 
 			Micro.Layer.actualizeBindingList()
 			Micro.Layer.list.ui.children[0].visible = true
-			Micro.menuBool = true
+
 		},
-		'update' : function (dt) {},
+		'update' : function (dt) {
+
+
+		},
 		'end' : function (dt) {
 			console.log('MENU end')
 
 			Micro.Layer.list.ui.children[0].visible = false
-			Micro.menuBool = false
+
 		}
 
 	}

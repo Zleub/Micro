@@ -23,10 +23,7 @@
 			"assets/needcoffee.js",
 			"assets/Fire.js",
 			"assets/fence_sign.js",
-			"assets/select.js",
-			"assets/layout.js",
-			"assets/usebutton.js",
-			"assets/playerbutton.js"
+			"assets/select.js"
 		]
 	},
 	{
