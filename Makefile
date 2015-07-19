@@ -1,1 +1,2 @@
-test: main.js
+test: 
+	node main.js
