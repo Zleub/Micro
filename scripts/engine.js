@@ -63,10 +63,11 @@ Micro.launch = function ()
 		Micro.TutoA.make()
 		Micro.State.current = 'GAME'
 
-		gui = new dat.GUI({width : 150});
-		gui.add(Micro.entityList[0].sprite, "x").listen()
-		gui.add(Micro.entityList[0].sprite, "y").listen()
-		gui.add(Micro.State, "current").listen()
+		var gui = new dat.GUI({width : 150});
+		var f1 = gui.addFolder('Coord.');
+		f1.add(Micro.entityList[0].sprite, "x").listen()
+		f1.add(Micro.entityList[0].sprite, "y").listen()
+		gui.add(Micro.State, "current", ["GAME", "MENU"]).listen()
 		gui.add(Micro.Layer.list.ui.children[1], "visible").listen()
 
 		Micro.LTIME = Date.now() - Micro.time
