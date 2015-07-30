@@ -91,4 +91,4 @@ var dispatch = function (req, res)
 
 var server = http.createServer(dispatch)
 
-server.listen(80, '*')
+server.listen(80)

@@ -63,8 +63,15 @@ Micro.launch = function ()
 		Micro.TutoA.make()
 		Micro.State.current = 'GAME'
 
+		gui = new dat.GUI({width : 150});
+		gui.add(Micro.entityList[0].sprite, "x").listen()
+		gui.add(Micro.entityList[0].sprite, "y").listen()
+		gui.add(Micro.State, "current").listen()
+		gui.add(Micro.Layer.list.ui.children[1], "visible").listen()
+
 		Micro.LTIME = Date.now() - Micro.time
 		Micro.time = Date.now()
+
 		animate()
 	})
 	PIXI.loader.load()

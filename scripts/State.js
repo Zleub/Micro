@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-11 18:23:21
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-14 21:37:27
+// :ddddddddddhyyddddddddddd: Modified: 2015-07-30 07:03:58
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -111,8 +111,8 @@ Micro.State.map = {
 		'start' : function (dt) {
 			console.log('MENU start')
 
-			Micro.Layer.actualizeBindingList()
-			Micro.Layer.list.ui.children[0].visible = true
+			// Micro.Layer.actualizeBindingList()
+			// Micro.Layer.list.ui.children[0].visible = true
 
 		},
 		'update' : function (dt) {
@@ -122,7 +122,7 @@ Micro.State.map = {
 		'end' : function (dt) {
 			console.log('MENU end')
 
-			Micro.Layer.list.ui.children[0].visible = false
+			// Micro.Layer.list.ui.children[0].visible = false
 
 		}
 
