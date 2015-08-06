@@ -1,9 +1,17 @@
-/*
-* @Author: adebray
-* @Date:   2015-06-13 17:26:31
-* @Last Modified by:   adebray
-* @Last Modified time: 2015-07-04 19:33:21
-*/
+//          `--::-.`
+//      ./shddddddddhs+.
+//    :yddddddddddddddddy:
+//  `sdddddddddddddddddddds`
+//  ydddh+sdddddddddy+ydddds  Block.js
+// /ddddy:oddddddddds:sddddd/ By adebray - adebray
+// sdddddddddddddddddddddddds
+// sdddddddddddddddddddddddds Created: 2015-07-13 19:35:53
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-04 20:09:59
+//  odddddddd/`:-`sdddddddds
+//   +ddddddh`+dh +dddddddo
+//    -sdddddh///sdddddds-
+//      .+ydddddddddhs/.
+//          .-::::-`
 
 'use strict';
 

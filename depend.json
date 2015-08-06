@@ -11,7 +11,9 @@
 			"scripts/Layer.js",
 			"scripts/Collider.js",
 			"scripts/Animation.js",
-			"scripts/Block.js"
+			"scripts/Block.js",
+			"scripts/Seeder.js",
+			"scripts/Populator.js"
 		]
 	},
 	{

@@ -59,16 +59,38 @@ Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
 
+		var test = new Micro.Populator
+		test.Seeder.rule.quantity = 12
+		test.Seeder.rule.seed = function () { return Math.getRandomInt(-1, 4) }
+
+		test.rule.seedControl = function () {}
+		test.rule.contentControl = function () {}
+		test.rule.creationControl = function () {}
+		test.rule.completionControl = function () {}
+		test.call()
+		console.log(test)
+
 		addAuthor()
+
 		Micro.TutoA.make()
 		Micro.State.current = 'GAME'
 
 		var gui = new dat.GUI({width : 150});
+		gui.closed = true
+
 		var f1 = gui.addFolder('Coord.');
 		f1.add(Micro.entityList[0].sprite, "x").listen()
 		f1.add(Micro.entityList[0].sprite, "y").listen()
 		gui.add(Micro.State, "current", ["GAME", "MENU"]).listen()
 		gui.add(Micro.Layer.list.ui.children[1], "visible").listen()
+
+		var elem = document.getElementsByClassName('close-button')
+
+		for (var i = 0; i < elem.length; i++) {
+			elem[i].style['height'] = '24px';
+			elem[i].parentElement.style['padding-top'] = '10px';
+		};
+
 
 		Micro.LTIME = Date.now() - Micro.time
 		Micro.time = Date.now()
@@ -80,8 +102,6 @@ Micro.launch = function ()
 
 Micro.update = function (dt)
 {
-
-	// Micro.State.map['GAME'](dt)
 	Micro.State.map[Micro.State.current].update(dt)
 
 	if (Micro.entityList[0].sprite.y > 3000) {

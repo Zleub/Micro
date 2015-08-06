@@ -16,7 +16,6 @@ function timeConverter(UNIX_timestamp){
   return time;
 }
 
-
 exports.writeAuthor = function () {
 	array = fs.readFileSync(".git/logs/HEAD")
 
@@ -33,5 +32,6 @@ exports.writeAuthor = function () {
 
 	array[2] = timeConverter(array[2].split(" ")[0])
 
+  console.log(array)
 	fs.writeSync(fs.openSync("author.json", "w"), JSON.stringify(array) + "\n")
 }
