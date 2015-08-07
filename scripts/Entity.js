@@ -5,8 +5,8 @@
 //  ydddh+sdddddddddy+ydddds  Entity.js
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
-// sdddddddddddddddddddddddds Created: 2015-07-07 20:32:57
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 07:23:11
+// sdddddddddddddddddddddddds Created: 2015-08-07 07:47:24
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:26
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-

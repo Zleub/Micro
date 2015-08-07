@@ -1,3 +1,18 @@
+//          `--::-.`
+//      ./shddddddddhs+.
+//    :yddddddddddddddddy:
+//  `sdddddddddddddddddddds`
+//  ydddh+sdddddddddy+ydddds  doc.js
+// /ddddy:oddddddddds:sddddd/ By adebray - adebray
+// sdddddddddddddddddddddddds
+// sdddddddddddddddddddddddds Created: 2015-07-11 19:22:45
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:12
+//  odddddddd/`:-`sdddddddds
+//   +ddddddh`+dh +dddddddo
+//    -sdddddh///sdddddds-
+//      .+ydddddddddhs/.
+//          .-::::-`
+
 $( function () {
 
     $.getJSON('scripts/doc.json').done(function (json) {

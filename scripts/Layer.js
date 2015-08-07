@@ -5,8 +5,8 @@
 //  ydddh+sdddddddddy+ydddds  Layer.js
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
-// sdddddddddddddddddddddddds Created: 2015-07-07 05:35:55
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-07 22:55:50
+// sdddddddddddddddddddddddds Created: 2015-07-07 22:55:50
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:35
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-

@@ -1,3 +1,18 @@
+//          `--::-.`
+//      ./shddddddddhs+.
+//    :yddddddddddddddddy:
+//  `sdddddddddddddddddddds`
+//  ydddh+sdddddddddy+ydddds  door.js
+// /ddddy:oddddddddds:sddddd/ By adebray - adebray
+// sdddddddddddddddddddddddds
+// sdddddddddddddddddddddddds Created: 2015-06-30 17:37:26
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:17
+//  odddddddd/`:-`sdddddddds
+//   +ddddddh`+dh +dddddddo
+//    -sdddddh///sdddddds-
+//      .+ydddddddddhs/.
+//          .-::::-`
+
 'use strict';
 
 var Micro = window['Micro'] || {}

@@ -5,8 +5,8 @@
 //  ydddh+sdddddddddy+ydddds  Collider.js
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
-// sdddddddddddddddddddddddds Created: 2015-07-07 20:30:05
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-09 17:58:11
+// sdddddddddddddddddddddddds Created: 2015-07-09 17:58:11
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:04
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-

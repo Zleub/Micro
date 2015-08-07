@@ -5,8 +5,8 @@
 //  ydddh+sdddddddddy+ydddds  Block.js
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
-// sdddddddddddddddddddddddds Created: 2015-07-13 19:35:53
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 07:38:54
+// sdddddddddddddddddddddddds Created: 2015-08-07 08:48:45
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:00
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -50,9 +50,9 @@ Micro.Block = function (texture) {
 
 	Collider.update = function (entity) {
 			this.shape.x = entity.sprite.x
-			this.shape.y = entity.sprite.y - 32 / 4
+			this.shape.y = entity.sprite.y - Micro.dt
 			this.shape.width = entity.sprite.width
-			this.shape.height = 32
+			this.shape.height = Micro.dt * 4
 	}
 
 	Collider.collideFunction = function (entity) {

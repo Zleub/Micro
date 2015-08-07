@@ -1,9 +1,17 @@
-/*
-* @Author: adebray
-* @Date:   2015-06-07 16:35:53
-* @Last Modified by:   adebray
-* @Last Modified time: 2015-07-06 00:14:58
-*/
+//          `--::-.`
+//      ./shddddddddhs+.
+//    :yddddddddddddddddy:
+//  `sdddddddddddddddddddds`
+//  ydddh+sdddddddddy+ydddds  engine.js
+// /ddddy:oddddddddds:sddddd/ By adebray - adebray
+// sdddddddddddddddddddddddds
+// sdddddddddddddddddddddddds Created: 2015-08-07 08:15:25
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:22
+//  odddddddd/`:-`sdddddddds
+//   +ddddddh`+dh +dddddddo
+//    -sdddddh///sdddddds-
+//      .+ydddddddddhs/.
+//          .-::::-`
 
 var Micro = window['Micro'] || {}
 
@@ -19,6 +27,8 @@ Micro.height = Micro.size * 40 + Micro.size / 2
 Micro.renderer = new PIXI.WebGLRenderer(Micro.width, Micro.height);
 document.body.appendChild(Micro.renderer.view);
 Micro.renderer.view.style.marginTop = window.innerHeight / 2 - Micro.height / 2 +'px';
+if (Micro.renderer.view.style.marginTop < 55)
+	Micro.renderer.view.style.marginTop = 55
 
 Micro.stage = new PIXI.Container();
 
@@ -61,8 +71,8 @@ Micro.addPlayer = function () {
 	var player = new Micro.Player(Micro.Sprites['dwarves'][Math.getRandomInt(0, 264)]._texture)
 		player.addTo(Micro.Layer.list.foreground)
 		player.scale = Micro.Sprites['dwarves'][0].scale
-		// player.moveTo(Math.getRandomInt(0, 1024), 0)
-		player.moveTo(128, 0)
+		player.moveTo(Math.getRandomInt(0, 1024), 0)
+		// player.moveTo(128, 0)
 }
 
 Micro.switchDebug = function () {
@@ -70,6 +80,14 @@ Micro.switchDebug = function () {
 		this.debug = false
 	else
 		this.debug = true
+}
+
+Micro.clearDebug = function () {
+	Micro.Layer.list.debug.reset()
+}
+
+Micro.autoJump = function () {
+	Micro.keyArray[32] = true
 }
 
 Micro.launch = function ()
@@ -96,8 +114,8 @@ Micro.launch = function ()
 
 		Micro.State.current = 'GAME'
 
-		var gui = new dat.GUI({width : 150});
-		// gui.closed = true
+		var gui = new dat.GUI();
+		gui.closed = true
 
 		var f1 = gui.addFolder('Coord.');
 		f1.add(Micro.entityList[0].sprite, "x").listen()
@@ -109,6 +127,8 @@ Micro.launch = function ()
 		gui.add(Micro.entityList, "length").listen()
 		gui.add(Micro, "addPlayer")
 		gui.add(Micro, "switchDebug")
+		gui.add(Micro, "clearDebug")
+		gui.add(Micro, "autoJump")
 
 		var elem = document.getElementsByClassName('close-button')
 
@@ -138,8 +158,6 @@ Micro.update = function (dt)
 	}
 }
 
-var cmp = 0
-
 Micro.draw = function (dt) {
 
 	// Micro.blockList[0].collider[0].draw(Micro.Layer.list.debug.children[0])
@@ -151,13 +169,6 @@ Micro.draw = function (dt) {
 				Micro.baseList[i].collider[j].draw(Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1])
 			}
 		};
-
-		if (cmp > 0.2) {
-			cmp = 0;
-			Micro.Layer.list.debug.reset()
-		}
-
-		cmp += dt / 1000
 
 	}
 
@@ -181,12 +192,12 @@ function addAuthor()
 
 function animate()
 {
-	Micro.dt = (Date.now() - Micro.time) // 2
+	Micro.dt = (Date.now() - Micro.time) / 4
 
 	Micro.update(Micro.dt)
-	// Micro.update(Micro.dt)
-	// Micro.update(Micro.dt)
-	// Micro.update(Micro.dt)
+	Micro.update(Micro.dt)
+	Micro.update(Micro.dt)
+	Micro.update(Micro.dt)
 
 	var text_tmp = Micro.LTIME / 1000
 	var text = new PIXI.Text(text_tmp, {font : '24px Arial', fill : 0xff1010})
