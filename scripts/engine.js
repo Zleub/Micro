@@ -7,6 +7,8 @@
 
 var Micro = window['Micro'] || {}
 
+Micro.Var = 12
+Micro.Watch = 0
 // Micro.debug = true
 
 Micro.time = Date.now();
@@ -55,6 +57,21 @@ Micro.keyreset = function (key) {
 		Micro.keyArray[Micro.keyEnum[key]] = false
 }
 
+Micro.addPlayer = function () {
+	var player = new Micro.Player(Micro.Sprites['dwarves'][Math.getRandomInt(0, 264)]._texture)
+		player.addTo(Micro.Layer.list.foreground)
+		player.scale = Micro.Sprites['dwarves'][0].scale
+		// player.moveTo(Math.getRandomInt(0, 1024), 0)
+		player.moveTo(128, 0)
+}
+
+Micro.switchDebug = function () {
+	if (this.debug)
+		this.debug = false
+	else
+		this.debug = true
+}
+
 Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
@@ -73,16 +90,25 @@ Micro.launch = function ()
 		addAuthor()
 
 		Micro.TutoA.make()
+		// for (var i = 0; i < 250; i++) {
+		// 	Micro.addPlayer()
+		// };
+
 		Micro.State.current = 'GAME'
 
 		var gui = new dat.GUI({width : 150});
-		gui.closed = true
+		// gui.closed = true
 
 		var f1 = gui.addFolder('Coord.');
 		f1.add(Micro.entityList[0].sprite, "x").listen()
 		f1.add(Micro.entityList[0].sprite, "y").listen()
 		gui.add(Micro.State, "current", ["GAME", "MENU"]).listen()
 		gui.add(Micro.Layer.list.ui.children[1], "visible").listen()
+		gui.add(Micro, "Var").listen()
+		gui.add(Micro, "Watch").listen()
+		gui.add(Micro.entityList, "length").listen()
+		gui.add(Micro, "addPlayer")
+		gui.add(Micro, "switchDebug")
 
 		var elem = document.getElementsByClassName('close-button')
 
@@ -102,6 +128,7 @@ Micro.launch = function ()
 
 Micro.update = function (dt)
 {
+	Micro.Watch = dt
 	Micro.State.map[Micro.State.current].update(dt)
 
 	if (Micro.entityList[0].sprite.y > 3000) {
@@ -154,12 +181,12 @@ function addAuthor()
 
 function animate()
 {
-	Micro.dt = (Date.now() - Micro.time) / 4
+	Micro.dt = (Date.now() - Micro.time) // 2
 
 	Micro.update(Micro.dt)
-	Micro.update(Micro.dt)
-	Micro.update(Micro.dt)
-	Micro.update(Micro.dt)
+	// Micro.update(Micro.dt)
+	// Micro.update(Micro.dt)
+	// Micro.update(Micro.dt)
 
 	var text_tmp = Micro.LTIME / 1000
 	var text = new PIXI.Text(text_tmp, {font : '24px Arial', fill : 0xff1010})

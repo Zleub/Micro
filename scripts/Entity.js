@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-07 20:32:57
-// :ddddddddddhyyddddddddddd: Modified: 2015-07-11 03:18:57
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 07:23:11
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -53,6 +53,10 @@ Micro.Entity = function (texture)
 
 	this.update.push( function (dt, entity)
 	{
+		// ON GOING WORK
+		// Micro.Watch = dt
+		// dt = Micro.Var
+
 		if (entity.jumpDelay < Math.PI)
 		{
 			entity.jumpDelay += dt / 200
