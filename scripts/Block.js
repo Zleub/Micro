@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-07 08:48:45
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:00
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-08 10:38:58
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -18,6 +18,7 @@
 var Micro = window['Micro'] || {}
 
 Micro.blockList = []
+Micro.blockTree = new PIXI.TreeNode
 Micro.Block = function (texture) {
 
 //  ____________________________________
@@ -86,6 +87,21 @@ Micro.Block = function (texture) {
 	}
 
 	this.collider.push(Collider)
+
+	//  ____________________________________
+	// /\                                   \
+	// \_|Block.getCentrum                  |
+	//   |                                  |
+	//   |  A function to get the center    |
+	//   |    of a Block                    |
+	//   |   _______________________________|_
+	//    \_/_________________________________/
+
+	this.getCentrum = function () {
+		return new PIXI.Point(this.sprite.x + this.sprite.width / 2, this.sprite.y + this.sprite.height / 2)
+	}
+
+	Micro.blockTree.addChild(this)
 
 	Micro.blockList.push(this)
 }

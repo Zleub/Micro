@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-07 08:49:55
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:53:56
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-08 07:30:46
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -101,6 +101,7 @@ Micro.Base = function (texture) {
 			this.sprite.scale.x = scale.x
 			this.sprite.scale.y = scale.y
 		}
+		return this
 	}})
 
 	Micro.baseList.push(this)

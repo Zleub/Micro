@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-07 08:15:25
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:22
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-08 12:10:21
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -17,7 +17,8 @@ var Micro = window['Micro'] || {}
 
 Micro.Var = 12
 Micro.Watch = 0
-// Micro.debug = true
+
+Micro.lastPressed = 0
 
 Micro.time = Date.now();
 Micro.size = 16
@@ -49,6 +50,7 @@ window.addEventListener('keydown', function (e) {
 	Micro.State.map[Micro.State.current].keydown(e.keyCode)
 } )
 window.addEventListener('keyup', function (e) {
+	Micro.lastPressed = e.keyCode
 	Micro.keyArray[e.keyCode] = false
 	Micro.State.map[Micro.State.current].keyup(e.keyCode)
 } )
@@ -94,21 +96,28 @@ Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
 
-		var test = new Micro.Populator
-		test.Seeder.rule.quantity = 12
-		test.Seeder.rule.seed = function () { return Math.getRandomInt(-1, 4) }
+		var test = new PIXI.Vector2(
+			new PIXI.Point(Math.getRandomInt(-150, 150), Math.getRandomInt(-150, 150)),
+			new PIXI.Point(Math.getRandomInt(-150, 150), Math.getRandomInt(-150, 150))
+		)
 
-		test.rule.seedControl = function () {}
-		test.rule.contentControl = function () {}
-		test.rule.creationControl = function () {}
-		test.rule.completionControl = function () {}
-		test.call()
+		console.log(new PIXI.TreeNode(test))
+
+		// var test = new Micro.Populator
+		// test.Seeder.rule.quantity = 12
+		// test.Seeder.rule.seed = function () { return Math.getRandomInt(-1, 4) }
+
+		// test.rule.seedControl = function () {}
+		// test.rule.contentControl = function () {}
+		// test.rule.creationControl = function () {}
+		// test.rule.completionControl = function () {}
+		// test.call()
 		console.log(test)
 
 		addAuthor()
 
 		Micro.TutoA.make()
-		// for (var i = 0; i < 250; i++) {
+		// for (var i = 0; i < 500; i++) {
 		// 	Micro.addPlayer()
 		// };
 
@@ -129,6 +138,11 @@ Micro.launch = function ()
 		gui.add(Micro, "switchDebug")
 		gui.add(Micro, "clearDebug")
 		gui.add(Micro, "autoJump")
+		gui.add(Micro, "lastPressed").listen()
+		var f2 = gui.addFolder('KeyMap');
+		for (var k in Micro.keyEnum) {
+			f2.add(Micro.keyEnum, k).listen()
+		}
 
 		var elem = document.getElementsByClassName('close-button')
 
@@ -164,7 +178,28 @@ Micro.draw = function (dt) {
 
 	if (Micro.debug) {
 
+		Micro.blockTree.forAny(
+			function (Node) {
+				if (Node.parent == undefined || Node.parent.content == undefined) {
+					return false
+				}
+				else {
+					return true
+				}
+			},
+			function (Node) {
+				var Pcenter = Node.parent.content.getCentrum()
+				var center = Node.content.getCentrum()
+
+				Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1].moveTo(Pcenter.x, Pcenter.y)
+				Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1].lineTo(center.x, center.y)
+			}
+		)
+
 		for (var i = 0; i < Micro.baseList.length; i++) {
+			if (Micro.baseList[i].getCentrum)
+				Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1].drawRect(Micro.baseList[i].getCentrum().x, Micro.baseList[i].getCentrum().y, 10, 10 )
+
 			for (var j = 0; j < Micro.baseList[i].collider.length; j++) {
 				Micro.baseList[i].collider[j].draw(Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1])
 			}

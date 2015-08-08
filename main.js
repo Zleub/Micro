@@ -33,6 +33,10 @@ var content_type = {
 	".json" : {
 		"Content-Type" : 'application/json',
 		"Base-Directory" : '.'
+	},
+	".ico" : {
+		"Content-Type" : 'image/x-icon',
+		"Base-Directory" : '.'
 	}
 }
 
