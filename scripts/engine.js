@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-07 08:15:25
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-08 12:10:21
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-09 18:37:54
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -117,7 +117,7 @@ Micro.launch = function ()
 		addAuthor()
 
 		Micro.TutoA.make()
-		// for (var i = 0; i < 500; i++) {
+		// for (var i = 0; i < 800; i++) {
 		// 	Micro.addPlayer()
 		// };
 
