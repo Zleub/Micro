@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-07 08:15:25
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-09 18:37:54
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-11 14:19:41
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -27,9 +27,17 @@ Micro.height = Micro.size * 40 + Micro.size / 2
 
 Micro.renderer = new PIXI.WebGLRenderer(Micro.width, Micro.height);
 document.body.appendChild(Micro.renderer.view);
-Micro.renderer.view.style.marginTop = window.innerHeight / 2 - Micro.height / 2 +'px';
-if (Micro.renderer.view.style.marginTop < 55)
-	Micro.renderer.view.style.marginTop = 55
+if (window.innerHeight > Micro.height)
+	Micro.renderer.view.style.marginTop = window.innerHeight / 2 - Micro.height / 1.5 +'px';
+if (parseInt(Micro.renderer.view.style.marginTop) < 30)
+	Micro.renderer.view.style.marginTop = '30px'
+
+window.addEventListener('resize', function () {
+	if (window.innerHeight > Micro.height)
+		Micro.renderer.view.style.marginTop = window.innerHeight / 2 - Micro.height / 1.5 +'px';
+	if (parseInt(Micro.renderer.view.style.marginTop) < 30)
+		Micro.renderer.view.style.marginTop = '30px'
+} )
 
 Micro.stage = new PIXI.Container();
 
@@ -92,6 +100,40 @@ Micro.autoJump = function () {
 	Micro.keyArray[32] = true
 }
 
+Micro.makeGUI = function () {
+	Micro.State.current = 'GAME'
+
+	var gui = new dat.GUI({ autoPlace: false });
+	gui.closed = true
+
+	$('.container').append(gui.domElement)
+
+	var f1 = gui.addFolder('Coord.');
+	f1.add(Micro.entityList[0].sprite, "x").listen()
+	f1.add(Micro.entityList[0].sprite, "y").listen()
+	gui.add(Micro.State, "current", ["GAME", "MENU"]).listen()
+	gui.add(Micro.Layer.list.ui.children[1], "visible").listen()
+	gui.add(Micro, "Var").listen()
+	gui.add(Micro, "Watch").listen()
+	gui.add(Micro.entityList, "length").listen()
+	gui.add(Micro, "addPlayer")
+	gui.add(Micro, "switchDebug")
+	gui.add(Micro, "clearDebug")
+	gui.add(Micro, "autoJump")
+	gui.add(Micro, "lastPressed").listen()
+	var f2 = gui.addFolder('KeyMap');
+	for (var k in Micro.keyEnum) {
+		f2.add(Micro.keyEnum, k).listen()
+	}
+
+	var elem = document.getElementsByClassName('close-button')
+
+	for (var i = 0; i < elem.length; i++) {
+		elem[i].style['height'] = '24px';
+		elem[i].parentElement.style['padding-top'] = '10px';
+	};
+}
+
 Micro.launch = function ()
 {
 	PIXI.loader.once('complete', function () {
@@ -103,15 +145,15 @@ Micro.launch = function ()
 
 		console.log(new PIXI.TreeNode(test))
 
-		// var test = new Micro.Populator
-		// test.Seeder.rule.quantity = 12
-		// test.Seeder.rule.seed = function () { return Math.getRandomInt(-1, 4) }
+		var test = new Micro.Populator
+		test.Seeder.rule.quantity = 12
+		test.Seeder.rule.seed = function () { return Math.getRandomInt(-1, 4) }
 
-		// test.rule.seedControl = function () {}
-		// test.rule.contentControl = function () {}
-		// test.rule.creationControl = function () {}
-		// test.rule.completionControl = function () {}
-		// test.call()
+		test.rule.seedControl = function () {}
+		test.rule.contentControl = function () {}
+		test.rule.creationControl = function () {}
+		test.rule.completionControl = function () {}
+		test.call()
 		console.log(test)
 
 		addAuthor()
@@ -123,34 +165,7 @@ Micro.launch = function ()
 
 		Micro.State.current = 'GAME'
 
-		var gui = new dat.GUI();
-		gui.closed = true
-
-		var f1 = gui.addFolder('Coord.');
-		f1.add(Micro.entityList[0].sprite, "x").listen()
-		f1.add(Micro.entityList[0].sprite, "y").listen()
-		gui.add(Micro.State, "current", ["GAME", "MENU"]).listen()
-		gui.add(Micro.Layer.list.ui.children[1], "visible").listen()
-		gui.add(Micro, "Var").listen()
-		gui.add(Micro, "Watch").listen()
-		gui.add(Micro.entityList, "length").listen()
-		gui.add(Micro, "addPlayer")
-		gui.add(Micro, "switchDebug")
-		gui.add(Micro, "clearDebug")
-		gui.add(Micro, "autoJump")
-		gui.add(Micro, "lastPressed").listen()
-		var f2 = gui.addFolder('KeyMap');
-		for (var k in Micro.keyEnum) {
-			f2.add(Micro.keyEnum, k).listen()
-		}
-
-		var elem = document.getElementsByClassName('close-button')
-
-		for (var i = 0; i < elem.length; i++) {
-			elem[i].style['height'] = '24px';
-			elem[i].parentElement.style['padding-top'] = '10px';
-		};
-
+		Micro.makeGUI()
 
 		Micro.LTIME = Date.now() - Micro.time
 		Micro.time = Date.now()

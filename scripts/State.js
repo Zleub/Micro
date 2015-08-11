@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-06 05:30:44
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-08 12:33:18
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-10 19:34:45
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -73,8 +73,8 @@ Micro.State.map = {
 		 		}
 			}
 
-			var testx = Math.round(Micro.width / 2 - Micro.entityList[0].sprite.position.x * Micro.Layer.list.foreground.scale.x)
-			var testy = Math.round(Micro.height / 2 - Micro.entityList[0].sprite.position.y * Micro.Layer.list.foreground.scale.y)
+			var testx = Micro.width / 2 - Micro.entityList[0].sprite.position.x * Micro.Layer.list.foreground.scale.x
+			var testy = Micro.height / 2 - Micro.entityList[0].sprite.position.y * Micro.Layer.list.foreground.scale.y
 
 			Micro.Layer.list.foreground.position.x = testx
 			Micro.Layer.list.foreground.position.y = testy

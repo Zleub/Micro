@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-11 03:21:37
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-08 12:07:42
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-11 15:45:16
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -22,6 +22,16 @@ Math.clamp = function (a,b,c) {
 Math.getRandomInt = function (min, max) {
 	return Math.floor(Math.random() * (max - min)) + min
 }
+
+//  ____________________________________
+// /\                                   \
+// \_|PIXI.Vector2                      |
+//   |                                  |
+//   |  PIXI.Vector2 is a custom        |
+//   |    Vector2 implementation for    |
+//   |    distance rationalisation      |
+//   |   _______________________________|_
+//    \_/_________________________________/
 
 PIXI.Vector2 = function (pt1, pt2) {
 	if (!(pt1 instanceof PIXI.Point) || !(pt1 instanceof PIXI.Point))
@@ -58,4 +68,10 @@ PIXI.TreeNode = function (content, parent) {
 		else
 			return this.child.getLast()
 	}
+}
+
+Micro.Wrapper = {}
+
+Micro.creationWrapper = function ( name, f) {
+	Micro.Wrapper[name] = f
 }

@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-06 05:32:45
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:48
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-11 15:31:57
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -23,9 +23,11 @@ Micro.Seeder = function () {
 		seed : null
 	}
 
-	this.call = function () {
+	this.call = function (Seeder) {
+		Seeder.export = []
+
 		for (var i = 0; i < this.rule.quantity; i++) {
-			this.export[i] = this.rule.seed()
+			Seeder.export[i] = this.rule.seed()
 		};
 	}
 }

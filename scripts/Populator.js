@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-06 05:36:58
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:44
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-11 15:33:38
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -30,6 +30,9 @@ Micro.Populator = function (World) {
 	}
 
 	this.call = function () {
+
+		this.Seeder.call(this.Seeder)
+
 		for(var k in this.rule)
 		{
 			if (typeof(this.rule[k]) != 'function')
@@ -37,7 +40,8 @@ Micro.Populator = function (World) {
 
 		}
 
-		for(var i = 0; i < this.Seeder.rule.quantity; i++)
-			console.log('CREATE ELEM: ' + this.Seeder.rule.seed())
+		for (var i = 0; i < this.Seeder.export.length; i++) {
+			console.log('Populator.call seed:' + this.Seeder.export[i]);
+		};
 	}
 }

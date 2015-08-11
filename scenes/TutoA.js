@@ -29,54 +29,23 @@ TutoA.make = function () {
 	// -- \|/ -- \|/ -- \|/ -- \
 	//	LEVEL
 
-	var block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture)
-			block.moveTo(0, Micro.height - Micro.size)
+	Micro.creationWrapper("stdblock", function (x, y) {
+		var block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture)
+			block.moveTo(x, y)
 			block.scale = Micro.Sprites['Sprute'][14].scale
 			block.addTo(Micro.Layer.list.foreground)
+	})
 
-		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture)
-			block.moveTo(150, Micro.height - Micro.size)
-			block.scale = Micro.Sprites['Sprute'][14].scale
-			block.addTo(Micro.Layer.list.foreground)
+	Micro.Wrapper.stdblock(0, Micro.height - Micro.size)
+	Micro.Wrapper.stdblock(150, Micro.height - Micro.size)
+	Micro.Wrapper.stdblock(400, 610)
+	Micro.Wrapper.stdblock(550, 610)
+	Micro.Wrapper.stdblock(800 , 550)
+	Micro.Wrapper.stdblock(950 , 550)
+	Micro.Wrapper.stdblock(550, 450)
+	Micro.Wrapper.stdblock(400, 400)
+	Micro.Wrapper.stdblock(300, 400)
 
-		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture)
-			block.moveTo(400, 610)
-			block.scale = Micro.Sprites['Sprute'][14].scale
-			block.addTo(Micro.Layer.list.foreground)
-
-		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture)
-			block.moveTo(550, 610)
-			block.scale = Micro.Sprites['Sprute'][14].scale
-			block.addTo(Micro.Layer.list.foreground)
-
-		// block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture).addTo(Micro.Layer.list.foreground)
-		// block.moveTo(600, 610)
-		// block.scale = Micro.Sprites['Sprute'][14].scale
-
-		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture)
-			block.moveTo(800 , 550)
-			block.scale = Micro.Sprites['Sprute'][14].scale
-			block.addTo(Micro.Layer.list.foreground)
-
-		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture)
-			block.moveTo(950 , 550)
-			block.scale = Micro.Sprites['Sprute'][14].scale
-			block.addTo(Micro.Layer.list.foreground)
-
-		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture)
-			block.moveTo(550, 450)
-			block.scale = Micro.Sprites['Sprute'][14].scale
-			block.addTo(Micro.Layer.list.foreground)
-
-		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture)
-			block.moveTo(400, 400)
-			block.scale = Micro.Sprites['Sprute'][14].scale
-			block.addTo(Micro.Layer.list.foreground)
-
-		block = new Micro.Block(Micro.Sprites['Sprute'][14]._texture)
-			block.moveTo(300, 400)
-			block.scale = Micro.Sprites['Sprute'][14].scale
-			block.addTo(Micro.Layer.list.foreground)
 
 	new Micro.Base(Micro.Sprites['Sprute'][40]._texture)
 		.moveTo(400, 450)

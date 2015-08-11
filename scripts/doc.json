@@ -1,4 +1,22 @@
 {
+  "Animation.js": [
+    "An Animation is build upon Base",
+    "   _______________________________",
+    "Animation Config",
+    "",
+    "  An animation's config is build",
+    "    upon a few variables :",
+    "    - cadence : the rythm in sec",
+    "      for each image.",
+    "   _______________________________",
+    "Animation.update",
+    "",
+    "  The default behavior of an",
+    "    Animation is the iterate over",
+    "    the sprite array sent at",
+    "    construction.",
+    "   _______________________________"
+  ],
   "Asset.js": [
     "Micro.Asset",
     "",
@@ -47,6 +65,24 @@
     "  scale is a JS traditional",
     "    setter, must be feed with",
     "    PIXI.scale object",
+    "   _______________________________"
+  ],
+  "Block.js": [
+    "An Block is build upon Base",
+    "   _______________________________",
+    "Block.collider",
+    "",
+    "  The default collider of a Block",
+    "    is the sprite-sized box.",
+    "",
+    "  The standard behavior is a",
+    "    snap of an entity passing by",
+    "    to the sprite edge.",
+    "   _______________________________",
+    "Block.getCentrum",
+    "",
+    "  A function to get the center",
+    "    of a Block",
     "   _______________________________"
   ],
   "Collider.js": [
@@ -157,6 +193,14 @@
     "",
     "  current is the current state",
     "    used by the engine.",
+    "   _______________________________"
+  ],
+  "stdlib.js": [
+    "PIXI.Vector2",
+    "",
+    "  PIXI.Vector2 is a custom",
+    "    Vector2 implementation for",
+    "    distance rationalisation",
     "   _______________________________"
   ]
 }

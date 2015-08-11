@@ -151,6 +151,7 @@ var dispatch = function (req, res)
 		var file = './srcs/index.html'
 
 		git.writeAuthor()
+		mydoxy.writeDoc('scripts')
 		if (fs.existsSync( file ))
 		{
 			res.writeHead(200, {'Content-Type': 'text/html'})
