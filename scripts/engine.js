@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-07 08:15:25
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-11 14:19:41
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-12 01:10:40
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -103,7 +103,7 @@ Micro.autoJump = function () {
 Micro.makeGUI = function () {
 	Micro.State.current = 'GAME'
 
-	var gui = new dat.GUI({ autoPlace: false });
+	var gui = new dat.GUI({ autoPlace: false, width: 150 });
 	gui.closed = true
 
 	$('.container').append(gui.domElement)
@@ -144,17 +144,6 @@ Micro.launch = function ()
 		)
 
 		console.log(new PIXI.TreeNode(test))
-
-		var test = new Micro.Populator
-		test.Seeder.rule.quantity = 12
-		test.Seeder.rule.seed = function () { return Math.getRandomInt(-1, 4) }
-
-		test.rule.seedControl = function () {}
-		test.rule.contentControl = function () {}
-		test.rule.creationControl = function () {}
-		test.rule.completionControl = function () {}
-		test.call()
-		console.log(test)
 
 		addAuthor()
 

@@ -34,18 +34,58 @@ TutoA.make = function () {
 			block.moveTo(x, y)
 			block.scale = Micro.Sprites['Sprute'][14].scale
 			block.addTo(Micro.Layer.list.foreground)
+		return block
 	})
 
-	Micro.Wrapper.stdblock(0, Micro.height - Micro.size)
-	Micro.Wrapper.stdblock(150, Micro.height - Micro.size)
-	Micro.Wrapper.stdblock(400, 610)
-	Micro.Wrapper.stdblock(550, 610)
-	Micro.Wrapper.stdblock(800 , 550)
-	Micro.Wrapper.stdblock(950 , 550)
-	Micro.Wrapper.stdblock(550, 450)
-	Micro.Wrapper.stdblock(400, 400)
-	Micro.Wrapper.stdblock(300, 400)
+	// Micro.Wrapper.stdblock(0, Micro.height - Micro.size)
+	// Micro.Wrapper.stdblock(151, Micro.height - Micro.size)
+	// Micro.Wrapper.stdblock(400, 610)
+	// Micro.Wrapper.stdblock(550, 610)
+	// Micro.Wrapper.stdblock(800 , 550)
+	// Micro.Wrapper.stdblock(950 , 550)
+	// Micro.Wrapper.stdblock(550, 450)
+	// Micro.Wrapper.stdblock(400, 400)
+	// Micro.Wrapper.stdblock(300, 400)
 
+	var stdpopu = new Micro.Populator()
+	stdpopu.Seeder.rule.quantity = 12
+	stdpopu.Seeder.rule.seed = function () { return Math.getRandomInt(-1, 2) }
+
+	stdpopu.x = 0
+	stdpopu.y = Micro.height
+	stdpopu.rule.seedControl = function (Populator, Seed) {
+		if (Seed == -1)
+			Populator.y -= 80
+		else if (Seed == 1)
+			Populator.y += 80
+	};
+	stdpopu.rule.contentControl = function (Populator, Seed) {
+		var element = Micro.Wrapper.stdblock(Populator.x, Populator.y)
+		Populator.x += 160
+		return element
+	};
+	stdpopu.rule.creationControl = function (Populator, Element) {
+		// console.log(Element)
+		if (Element.Node.parent && Element.Node.parent.parent
+			&& Element.Node.parent.parent.content) {
+			if (Element.Node.parent.parent.content.sprite.y ==
+				Element.sprite.y )
+			{
+				Micro.Layer.list.foreground.removeChild(Element.Node.parent.content.sprite)
+				for(var i = Micro.blockList.length - 1; i >= 0; i--) {
+					if(Micro.blockList[i] === Element.Node.parent.content) {
+						Micro.blockList.splice(i, 1);
+					}
+				}
+				Element.Node.parent.parent.child = Element.Node
+				Element.Node.parent = Element.Node.parent.parent
+			}
+		}
+	};
+	stdpopu.rule.completionControl = function (Populator) { };//console.log('completionControl') }
+	stdpopu.call()
+
+	console.log(stdpopu)
 
 	new Micro.Base(Micro.Sprites['Sprute'][40]._texture)
 		.moveTo(400, 450)

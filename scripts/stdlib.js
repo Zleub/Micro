@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-11 03:21:37
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-11 15:45:16
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-12 01:31:11
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -48,10 +48,11 @@ PIXI.TreeNode = function (content, parent) {
 
 	this.addChild = function (newchild) {
 		if ('child' in this) {
-			this.child.addChild(newchild)
+			return this.child.addChild(newchild)
 		} else {
 			this.child = new PIXI.TreeNode(newchild)
 			this.child.parent = this
+			return this.child
 		}
 	}
 
