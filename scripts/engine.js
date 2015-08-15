@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-07 08:15:25
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-12 01:10:40
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-15 20:30:13
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -39,6 +39,7 @@ window.addEventListener('resize', function () {
 		Micro.renderer.view.style.marginTop = '30px'
 } )
 
+Micro.scale = 1
 Micro.stage = new PIXI.Container();
 
 Micro.menuBool = false
@@ -78,11 +79,13 @@ Micro.keyreset = function (key) {
 }
 
 Micro.addPlayer = function () {
-	var player = new Micro.Player(Micro.Sprites['dwarves'][Math.getRandomInt(0, 264)]._texture)
-		player.addTo(Micro.Layer.list.foreground)
-		player.scale = Micro.Sprites['dwarves'][0].scale
-		player.moveTo(Math.getRandomInt(0, 1024), 0)
-		// player.moveTo(128, 0)
+	for (var i = 0; i < 10; i++) {
+		var player = new Micro.Player(Micro.Sprites['dwarves'][Math.getRandomInt(0, 264)]._texture)
+			player.addTo(Micro.Layer.list.foreground)
+			player.scale = Micro.Sprites['dwarves'][0].scale
+			player.moveTo(Math.getRandomInt(10, 1024), 0)
+			// player.moveTo(128, 0)
+	};
 }
 
 Micro.switchDebug = function () {
@@ -123,8 +126,11 @@ Micro.makeGUI = function () {
 	gui.add(Micro, "lastPressed").listen()
 	var f2 = gui.addFolder('KeyMap');
 	for (var k in Micro.keyEnum) {
-		f2.add(Micro.keyEnum, k).listen()
+		f2.add(Micro.keyEnum, k)
 	}
+
+	gui.add(Micro, "scale")
+	gui.add(Micro, "applyScale")
 
 	var elem = document.getElementsByClassName('close-button')
 
@@ -132,6 +138,10 @@ Micro.makeGUI = function () {
 		elem[i].style['height'] = '24px';
 		elem[i].parentElement.style['padding-top'] = '10px';
 	};
+}
+
+Micro.applyScale = function () {
+	Micro.Layer.list.foreground.scale = new PIXI.Point(Micro.scale, Micro.scale)
 }
 
 Micro.launch = function ()
@@ -164,16 +174,23 @@ Micro.launch = function ()
 	PIXI.loader.load()
 }
 
+var lock = false
 Micro.update = function (dt)
 {
-	Micro.Watch = dt
+	// Micro.Watch = dt
 	Micro.State.map[Micro.State.current].update(dt)
 
+
+	// if (lock == false && Micro.entityList[0].sprite.y > 1500) {
+
+	// 	Micro.Wrapper.stdblock(Micro.entityList[0].sprite.x - 40, Micro.entityList[0].sprite.y + 60)
+	// 	lock = true
+	// }
 	if (Micro.entityList[0].sprite.y > 3000) {
 		Micro.entityList[0].sprite.y = 0
-		Micro.entityList[0].sprite.x = 128
-
+		// Micro.entityList[0].sprite.x = 128
 	}
+
 }
 
 Micro.draw = function (dt) {
@@ -184,12 +201,10 @@ Micro.draw = function (dt) {
 
 		Micro.blockTree.forAny(
 			function (Node) {
-				if (Node.parent == undefined || Node.parent.content == undefined) {
+				if (Node.parent == undefined || Node.parent.content == undefined)
 					return false
-				}
-				else {
+				else
 					return true
-				}
 			},
 			function (Node) {
 				var Pcenter = Node.parent.content.getCentrum()
@@ -199,6 +214,12 @@ Micro.draw = function (dt) {
 				Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1].lineTo(center.x, center.y)
 			}
 		)
+
+		for (var i = Micro.entityList.length - 1; i >= 0; i--) {
+			Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1].moveTo(Micro.entityList[i].sprite.x, Micro.entityList[i].sprite.y)
+			Micro.Layer.list.debug.children[Micro.Layer.list.debug.children.length - 1].lineTo(Micro.entityList[i].nearestBlock.content.getCentrum().x, Micro.entityList[i].nearestBlock.content.getCentrum().y)
+		};
+
 
 		for (var i = 0; i < Micro.baseList.length; i++) {
 			if (Micro.baseList[i].getCentrum)
@@ -231,7 +252,7 @@ function addAuthor()
 
 function animate()
 {
-	Micro.dt = (Date.now() - Micro.time) / 4
+	Micro.dt = 4
 
 	Micro.update(Micro.dt)
 	Micro.update(Micro.dt)

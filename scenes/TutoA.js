@@ -37,19 +37,53 @@ TutoA.make = function () {
 		return block
 	})
 
-	// Micro.Wrapper.stdblock(0, Micro.height - Micro.size)
-	// Micro.Wrapper.stdblock(151, Micro.height - Micro.size)
-	// Micro.Wrapper.stdblock(400, 610)
-	// Micro.Wrapper.stdblock(550, 610)
-	// Micro.Wrapper.stdblock(800 , 550)
-	// Micro.Wrapper.stdblock(950 , 550)
-	// Micro.Wrapper.stdblock(550, 450)
-	// Micro.Wrapper.stdblock(400, 400)
-	// Micro.Wrapper.stdblock(300, 400)
+	Micro.creationWrapper("stdfire", function (x, y) {
+
+		new Micro.Base(Micro.Sprites['Sprute'][40]._texture)
+			.moveTo(x, y)
+			.addTo(Micro.Layer.list.foreground)
+			.scale = Micro.Sprites['Sprute'][40].scale
+		new Micro.Base(Micro.Sprites['Sprute'][40]._texture)
+			.moveTo(x, y - 80)
+			.addTo(Micro.Layer.list.foreground)
+			.scale = Micro.Sprites['Sprute'][40].scale
+
+		var anim = new Micro.Animation(Micro.Sprites['Fire'])
+
+			var Collider = new Micro.Collider({
+				x : anim.sprite.x - anim.sprite.width / 2,
+				y : anim.sprite.y - anim.sprite.height / 2,
+				width : anim.sprite.width,
+				height : anim.sprite.height
+			})
+
+			Collider.update = function (entity) {
+					this.shape.x = entity.sprite.x + entity.sprite.width / 4
+					this.shape.y = entity.sprite.y
+					this.shape.width = entity.sprite.width / 2
+					this.shape.height = entity.sprite.height
+			}
+
+			Collider.collideFunction = function (entity) {
+					Micro.ui[19].visible = true
+			}
+
+		anim.collider.push(Collider)
+		anim.moveTo(x, y - 50)
+		anim.addTo(Micro.Layer.list.foreground)
+		anim.scale = Micro.Sprites['Fire'][0].scale
+	})
+
+	Micro.creationWrapper("stdbase", function (x, y) {
+		new Micro.Base(Micro.Sprites['Sprute'][40]._texture)
+			.moveTo(x, y)
+			.addTo(Micro.Layer.list.foreground)
+			.scale = Micro.Sprites['Sprute'][40].scale
+	})
 
 	var stdpopu = new Micro.Populator()
-	stdpopu.Seeder.rule.quantity = 12
-	stdpopu.Seeder.rule.seed = function () { return Math.getRandomInt(-1, 2) }
+	stdpopu.Seeder.rule.quantity = 42
+	stdpopu.Seeder.rule.seed = function () { return Math.getRandomInt(-1, 4) }
 
 	stdpopu.x = 0
 	stdpopu.y = Micro.height
@@ -60,8 +94,11 @@ TutoA.make = function () {
 			Populator.y += 80
 	};
 	stdpopu.rule.contentControl = function (Populator, Seed) {
+		if (Seed == 0)
+			Micro.Wrapper.stdfire(Populator.x, Populator.y - 160)
+
 		var element = Micro.Wrapper.stdblock(Populator.x, Populator.y)
-		Populator.x += 160
+		Populator.x += 150
 		return element
 	};
 	stdpopu.rule.creationControl = function (Populator, Element) {
@@ -69,7 +106,8 @@ TutoA.make = function () {
 		if (Element.Node.parent && Element.Node.parent.parent
 			&& Element.Node.parent.parent.content) {
 			if (Element.Node.parent.parent.content.sprite.y ==
-				Element.sprite.y )
+				Element.sprite.y && Element.Node.parent.content.sprite.y !=
+				Element.sprite.y)
 			{
 				Micro.Layer.list.foreground.removeChild(Element.Node.parent.content.sprite)
 				for(var i = Micro.blockList.length - 1; i >= 0; i--) {
@@ -82,49 +120,11 @@ TutoA.make = function () {
 			}
 		}
 	};
-	stdpopu.rule.completionControl = function (Populator) { };//console.log('completionControl') }
+	stdpopu.rule.completionControl = function (Populator) {
+	};
 	stdpopu.call()
 
 	console.log(stdpopu)
-
-	new Micro.Base(Micro.Sprites['Sprute'][40]._texture)
-		.moveTo(400, 450)
-		.addTo(Micro.Layer.list.foreground)
-		.scale = Micro.Sprites['Sprute'][40].scale
-
-	// Micro.firetest = new Micro.Base(Micro.Sprites['Fire'][0]._texture)
-	// 	Micro.firetest.moveTo(400, 400)
-	// 	Micro.firetest.addTo(Micro.Layer.list.foreground)
-	// 	Micro.firetest.scale = Micro.Sprites['Fire'][0].scale
-
-	// Micro.Asset.newAtOn(Micro.Sprites['Sprute'][40], 400, 450, Micro.Layer.list.foreground)
-
-	// Micro.Firetest = Micro.Asset.newAtOn(Micro.Sprites['Fire'][0], 400, 400, Micro.Layer.list.foreground)
-
-	var anim = new Micro.Animation(Micro.Sprites['Fire'])
-
-		var Collider = new Micro.Collider({
-			x : anim.sprite.x - anim.sprite.width / 2,
-			y : anim.sprite.y - anim.sprite.height / 2,
-			width : anim.sprite.width,
-			height : anim.sprite.height
-		})
-
-		Collider.update = function (entity) {
-				this.shape.x = entity.sprite.x + entity.sprite.width / 4
-				this.shape.y = entity.sprite.y
-				this.shape.width = entity.sprite.width / 2
-				this.shape.height = entity.sprite.height
-		}
-
-		Collider.collideFunction = function (entity) {
-				Micro.ui[19].visible = true
-		}
-
-		anim.collider.push(Collider)
-		anim.moveTo(400, 400)
-		anim.addTo(Micro.Layer.list.foreground)
-		anim.scale = Micro.Sprites['Fire'][0].scale
 
 
 	// // Micro.Asset.newAtOn(Micro.Sprites['Fire'][1], 600, 100, Micro.Layer.list.foreground)
@@ -146,7 +146,7 @@ TutoA.make = function () {
 	var player = new Micro.Player(Micro.Sprites['dwarves'][0]._texture)
 		player.addTo(Micro.Layer.list.foreground)
 		player.scale = Micro.Sprites['dwarves'][0].scale
-		player.moveTo(128, 0)
+		player.moveTo(64, 0)
 
 		// create a filter
 		var blurFilter = new PIXI.filters.BlurFilter();

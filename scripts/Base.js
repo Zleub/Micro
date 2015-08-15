@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-07 08:49:55
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-08 07:30:46
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-12 16:35:02
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -92,7 +92,7 @@ Micro.Base = function (texture) {
 //   |                                  |
 //   |  scale is a JS traditional       |
 //   |    setter, must be feed with     |
-//   |    PIXI.scale object             |
+//   |    PIXI.scale (AKA PIXI.Point)   |
 //   |   _______________________________|_
 //    \_/_________________________________/
 

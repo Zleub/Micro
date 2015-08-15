@@ -64,7 +64,7 @@
     "",
     "  scale is a JS traditional",
     "    setter, must be feed with",
-    "    PIXI.scale object",
+    "    PIXI.scale (AKA PIXI.Point)",
     "   _______________________________"
   ],
   "Block.js": [
@@ -124,6 +124,11 @@
     "  Unlike Base's anchor,",
     "    Entity.anchor is centered",
     "   ________________________________",
+    "Entity.nearestBlock",
+    "",
+    "  nearestBlock is a reference to",
+    "    the nearest treeNode Block",
+    "   _______________________________",
     "Entity.update",
     "",
     "  The standard behavior of an",
@@ -187,7 +192,13 @@
     "State.map",
     "",
     "  State.map is an associative",
-    "    object of [state] : function (dt)",
+    "    object of [state] : {",
+    "      keydown : function,",
+    "      keyup: function,",
+    "      start: function,",
+    "      update: function,",
+    "      draw: function",
+    "    }",
     "   ____________________________________",
     "State.current",
     "",
@@ -201,6 +212,12 @@
     "  PIXI.Vector2 is a custom",
     "    Vector2 implementation for",
     "    distance rationalisation",
+    "   _______________________________",
+    "PIXI.TreeNode",
+    "",
+    "  TreeNode is a chained-like",
+    "    data storage for easy",
+    "    orthogonal mapping",
     "   _______________________________"
   ]
 }

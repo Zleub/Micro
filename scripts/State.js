@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-06 05:30:44
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-10 19:34:45
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-14 18:58:17
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -39,7 +39,13 @@ Micro.State.enum = {
 // \_|State.map                              |
 //   |                                       |
 //   |  State.map is an associative          |
-//   |    object of [state] : function (dt)  |
+//   |    object of [state] : {              |
+//   |      keydown : function,              |
+//   |      keyup: function,                 |
+//   |      start: function,                 |
+//   |      update: function,                |
+//   |      draw: function                   |
+//   |    }                                  |
 //   |   ____________________________________|_
 //    \_/______________________________________/
 
@@ -64,14 +70,16 @@ Micro.State.map = {
 		'keyup' : function (code) {},
 
 		'start' : function () { console.log('GAME start') },
-
 		'update' : function (dt) {
 
+			var k = 0
 			for (var i = 0; i < Micro.baseList.length; i++) {
 				for (var j = 0; j < Micro.baseList[i].update.length; j++) {
 					Micro.baseList[i].update[j](dt, Micro.baseList[i])
+					k += 1
 		 		}
 			}
+			// console.log(i, k)
 
 			var testx = Micro.width / 2 - Micro.entityList[0].sprite.position.x * Micro.Layer.list.foreground.scale.x
 			var testy = Micro.height / 2 - Micro.entityList[0].sprite.position.y * Micro.Layer.list.foreground.scale.y
@@ -87,7 +95,6 @@ Micro.State.map = {
 			// Micro.Layer.list.background.position.y = testy
 
 		},
-
 		'end' : function () { console.log('GAME end') },
 	},
 	'MENU' : {

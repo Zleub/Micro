@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-11 03:21:37
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-12 01:31:11
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-15 20:24:04
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -38,9 +38,19 @@ PIXI.Vector2 = function (pt1, pt2) {
 		console.log('Malformed PIXI.Vector2')
 
 	this.x = pt1.x - pt2.x
-	this.y = pt2.y - pt2.y
+	this.y = (pt1.y - pt2.y) / 8
 	this.magnitude = Math.sqrt(this.x * this.x + this.y * this.y)
 }
+
+//  ____________________________________
+// /\                                   \
+// \_|PIXI.TreeNode                     |
+//   |                                  |
+//   |  TreeNode is a chained-like      |
+//   |    data storage for easy         |
+//   |    orthogonal mapping            |
+//   |   _______________________________|_
+//    \_/_________________________________/
 
 PIXI.TreeNode = function (content, parent) {
 	this.content = content

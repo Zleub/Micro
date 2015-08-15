@@ -136,6 +136,7 @@ var makePict = function () {
 
 var dispatch = function (req, res)
 {
+	console.log(req.url)
 	var extension = path.extname(req.url)
 
 	if (req.url == '/pict.bmp') {

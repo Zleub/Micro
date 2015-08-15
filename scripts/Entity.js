@@ -1,12 +1,12 @@
-//          `--::-.`
 //      ./shddddddddhs+.
+//          `--::-.`
 //    :yddddddddddddddddy:
 //  `sdddddddddddddddddddds`
 //  ydddh+sdddddddddy+ydddds  Entity.js
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-07 07:47:24
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-07 08:54:26
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-15 20:32:15
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -41,6 +41,46 @@ Micro.Entity = function (texture)
 	this.sprite.anchor.x = 0.5
 	this.sprite.anchor.y = 0.5
 
+	//  ____________________________________
+	// /\                                   \
+	// \_|Entity.nearestBlock               |
+	//   |                                  |
+	//   |  nearestBlock is a reference to  |
+	//   |    the nearest treeNode Block    |
+	//   |   _______________________________|_
+	//    \_/_________________________________/
+
+	var that = this
+	Micro.blockTree.forAny(
+		function (Node) {
+				if (Node.parent == undefined) {
+					return false
+				}
+				else {
+					return true
+				}
+			},
+		function (Node) {
+				// console.log(Node.content.sprite.x)
+				var vec = new PIXI.Vector2(
+						new PIXI.Point(Node.content.getCentrum().x, Node.content.getCentrum().y),
+						new PIXI.Point(that.sprite.x, that.sprite.y)
+					)
+				if (that.magnitude == undefined) {
+					that.magnitude = vec.magnitude
+					that.nearestBlock = Node
+				}
+				else {
+					if (vec.magnitude < that.magnitude) {
+						that.magnitude = vec.magnitude
+						that.nearestBlock = Node
+					}
+				}
+			}
+		)
+
+	console.log("test: ", this.nearestBlock.content.sprite.x)
+
 //  ____________________________________
 // /\                                    \
 // \_|Entity.update                      |
@@ -57,6 +97,12 @@ Micro.Entity = function (texture)
 		// Micro.Watch = dt
 		// dt = Micro.Var
 
+		entity.sprite.position.x = Math.round(entity.sprite.position.x)
+		entity.sprite.position.y = Math.round(entity.sprite.position.y)
+
+		if (entity.sprite.y > 10000)
+			Micro.Watch += 1;
+
 		if (entity.jumpDelay < Math.PI)
 		{
 			entity.jumpDelay += dt / 200
@@ -70,12 +116,51 @@ Micro.Entity = function (texture)
 
 		var tmpBool = false
 
-		for (var i = 0; i < Micro.blockList.length; i++) {
-			if (entity.collider[0].collidesWith(Micro.blockList[i].collider[0])) {
-				if (Micro.blockList[i].collider[0].collideFunction(entity))
-					return ;
-			}
-		};
+		var Pmagnitude = undefined
+		var Cmagnitude = undefined
+		if (entity.nearestBlock.parent && entity.nearestBlock.parent.content)
+			Pmagnitude = new PIXI.Vector2(
+				new PIXI.Point(entity.sprite.x, entity.sprite.y),
+				new PIXI.Point(
+					entity.nearestBlock.parent.content.getCentrum().x,
+					entity.nearestBlock.parent.content.getCentrum().y
+				)
+			).magnitude
+		if (entity.nearestBlock.child && entity.nearestBlock.child.content)
+			Cmagnitude = new PIXI.Vector2(
+				new PIXI.Point(entity.sprite.x, entity.sprite.y),
+				new PIXI.Point(
+					entity.nearestBlock.child.content.getCentrum().x,
+					entity.nearestBlock.child.content.getCentrum().y
+				)
+			).magnitude
+
+		if (Pmagnitude && Pmagnitude <= entity.magnitude) {
+			entity.nearestBlock = entity.nearestBlock.parent
+		}
+		else if (Cmagnitude && Cmagnitude <= entity.magnitude) {
+			entity.nearestBlock = entity.nearestBlock.child
+		}
+
+		entity.magnitude = new PIXI.Vector2(
+				new PIXI.Point(entity.sprite.x, entity.sprite.y),
+				new PIXI.Point(
+					entity.nearestBlock.content.getCentrum().x,
+					entity.nearestBlock.content.getCentrum().y
+				)
+			).magnitude
+
+		// console.log(Pmagnitude, entity.magnitude, Cmagnitude)
+		if (entity.collider[0].collidesWith(entity.nearestBlock.content.collider[0])) {
+			if (entity.nearestBlock.content.collider[0].collideFunction(entity))
+				return ;
+		}
+		// for (var i = 0; i < Micro.blockList.length; i++) {
+		// 	if (entity.collider[0].collidesWith(Micro.blockList[i].collider[0])) {
+		// 		if (Micro.blockList[i].collider[0].collideFunction(entity))
+		// 			return ;
+		// 	}
+		// };
 
 		for (var i = 0; i < Micro.animationList.length; i++) {
 			if (entity.collider[0].collidesWith(Micro.animationList[i].collider[0])) {
@@ -175,6 +260,40 @@ Micro.Entity = function (texture)
 		this.velocity.y += y
 		this.velocity.x = Math.clamp(this.velocity.x, -this.velocity.x_max, this.velocity.x_max)
 		this.velocity.y = Math.clamp(this.velocity.y, -this.velocity.y_max, this.velocity.y_max)
+	}
+
+	this.moveTo = function (x, y) {
+		this.sprite.x = x
+		this.sprite.y = y
+
+		var that = this
+		Micro.blockTree.forAny(
+		function (Node) {
+				if (Node.parent == undefined) {
+					return false
+				}
+				else {
+					return true
+				}
+			},
+		function (Node) {
+				var vec = new PIXI.Vector2(
+						new PIXI.Point(Node.content.getCentrum().x, Node.content.getCentrum().y),
+						new PIXI.Point(that.sprite.x, that.sprite.y)
+					)
+				if (that.magnitude == undefined) {
+					that.magnitude = vec.magnitude
+					that.nearestBlock = Node
+				}
+				else {
+					if (vec.magnitude < that.magnitude) {
+						that.magnitude = vec.magnitude
+						that.nearestBlock = Node
+					}
+				}
+			}
+		)
+		return this;
 	}
 
 //  ____________________________________
