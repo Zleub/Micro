@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-07 08:48:45
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-14 00:08:09
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-21 03:03:35
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -51,9 +51,9 @@ Micro.Block = function (texture) {
 
 	Collider.update = function (entity) {
 			this.shape.x = entity.sprite.x
-			this.shape.y = entity.sprite.y - Micro.dt
+			this.shape.y = entity.sprite.y - Micro.dt * 2
 			this.shape.width = entity.sprite.width
-			this.shape.height = Micro.dt * 4
+			this.shape.height = Micro.dt * 8
 	}
 
 	Collider.collideFunction = function (entity) {

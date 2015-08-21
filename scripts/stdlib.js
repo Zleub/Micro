@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-07-11 03:21:37
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-15 20:24:04
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-21 01:36:46
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -38,7 +38,7 @@ PIXI.Vector2 = function (pt1, pt2) {
 		console.log('Malformed PIXI.Vector2')
 
 	this.x = pt1.x - pt2.x
-	this.y = (pt1.y - pt2.y) / 8
+	this.y = pt1.y - pt2.y
 	this.magnitude = Math.sqrt(this.x * this.x + this.y * this.y)
 }
 

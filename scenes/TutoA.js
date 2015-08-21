@@ -98,7 +98,7 @@ TutoA.make = function () {
 			Micro.Wrapper.stdfire(Populator.x, Populator.y - 160)
 
 		var element = Micro.Wrapper.stdblock(Populator.x, Populator.y)
-		Populator.x += 150
+		Populator.x += 159
 		return element
 	};
 	stdpopu.rule.creationControl = function (Populator, Element) {

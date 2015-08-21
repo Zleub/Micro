@@ -6,7 +6,7 @@
 // /ddddy:oddddddddds:sddddd/ By adebray - adebray
 // sdddddddddddddddddddddddds
 // sdddddddddddddddddddddddds Created: 2015-08-07 07:47:24
-// :ddddddddddhyyddddddddddd: Modified: 2015-08-15 20:32:15
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-21 01:39:16
 //  odddddddd/`:-`sdddddddds
 //   +ddddddh`+dh +dddddddo
 //    -sdddddh///sdddddds-
@@ -151,10 +151,19 @@ Micro.Entity = function (texture)
 			).magnitude
 
 		// console.log(Pmagnitude, entity.magnitude, Cmagnitude)
+
 		if (entity.collider[0].collidesWith(entity.nearestBlock.content.collider[0])) {
 			if (entity.nearestBlock.content.collider[0].collideFunction(entity))
 				return ;
 		}
+		// if (Pmagnitude && entity.collider[0].collidesWith(entity.nearestBlock.parent.content.collider[0])) {
+		// 	if (entity.nearestBlock.content.collider[0].collideFunction(entity))
+		// 		return ;
+		// }
+		// if (Cmagnitude && entity.collider[0].collidesWith(entity.nearestBlock.child.content.collider[0])) {
+		// 	if (entity.nearestBlock.content.collider[0].collideFunction(entity))
+		// 		return ;
+		// }
 		// for (var i = 0; i < Micro.blockList.length; i++) {
 		// 	if (entity.collider[0].collidesWith(Micro.blockList[i].collider[0])) {
 		// 		if (Micro.blockList[i].collider[0].collideFunction(entity))
