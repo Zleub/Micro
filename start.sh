@@ -4,4 +4,4 @@
 # @Last Modified by:   adebray
 # @Last Modified time: 2015-06-07 16:11:45
 
-nohup nodejs main.js
+nohup nodejs main.js &

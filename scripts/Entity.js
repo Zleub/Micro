@@ -156,20 +156,20 @@ Micro.Entity = function (texture)
 			if (entity.nearestBlock.content.collider[0].collideFunction(entity))
 				return ;
 		}
-		// if (Pmagnitude && entity.collider[0].collidesWith(entity.nearestBlock.parent.content.collider[0])) {
-		// 	if (entity.nearestBlock.content.collider[0].collideFunction(entity))
-		// 		return ;
-		// }
-		// if (Cmagnitude && entity.collider[0].collidesWith(entity.nearestBlock.child.content.collider[0])) {
-		// 	if (entity.nearestBlock.content.collider[0].collideFunction(entity))
-		// 		return ;
-		// }
-		// for (var i = 0; i < Micro.blockList.length; i++) {
-		// 	if (entity.collider[0].collidesWith(Micro.blockList[i].collider[0])) {
-		// 		if (Micro.blockList[i].collider[0].collideFunction(entity))
-		// 			return ;
-		// 	}
-		// };
+		if (Pmagnitude && entity.collider[0].collidesWith(entity.nearestBlock.parent.content.collider[0])) {
+			if (entity.nearestBlock.content.collider[0].collideFunction(entity))
+				return ;
+		}
+		if (Cmagnitude && entity.collider[0].collidesWith(entity.nearestBlock.child.content.collider[0])) {
+			if (entity.nearestBlock.content.collider[0].collideFunction(entity))
+				return ;
+		}
+		for (var i = 0; i < Micro.blockList.length; i++) {
+			if (entity.collider[0].collidesWith(Micro.blockList[i].collider[0])) {
+				if (Micro.blockList[i].collider[0].collideFunction(entity))
+					return ;
+			}
+		};
 
 		for (var i = 0; i < Micro.animationList.length; i++) {
 			if (entity.collider[0].collidesWith(Micro.animationList[i].collider[0])) {
@@ -314,5 +314,3 @@ Micro.Entity = function (texture)
 
 	Micro.entityList.push(this)
 }
-
-
