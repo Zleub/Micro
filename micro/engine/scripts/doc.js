@@ -15,7 +15,7 @@
 
 $( function () {
 
-    $.getJSON('scripts/doc.json').done(function (json) {
+    $.getJSON('micro/engine/scripts/doc.json').done(function (json) {
        for (var k in json) {
             var elem = document.createElement('div')
             var text = ''

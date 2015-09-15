@@ -63,5 +63,5 @@ exports.writeDoc = function (folder) {
 	_folder = './' + folder + '/'
 	_doc = {}
 	fs.readdirSync(_folder).forEach(readFile)
-	fs.writeFileSync('./scripts/doc.json', JSON.stringify(_doc, null, "  "))
+	fs.writeFileSync('./engine/scripts/doc.json', JSON.stringify(_doc, null, "  "))
 }

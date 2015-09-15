@@ -1,48 +1,21 @@
-/*
-* @Author: adebray
-* @Date:   2015-06-05 15:47:33
-* @Last Modified by:   adebray
-* @Last Modified time: 2015-07-06 23:13:24
-*/
+//          `--::-.`
+//      ./shddddddddhs+.
+//    :yddddddddddddddddy:
+//  `sdddddddddddddddddddds`
+//  ydddh+sdddddddddy+ydddds  picture.js
+// /ddddy:oddddddddds:sddddd/ By adebray - adebray
+// sdddddddddddddddddddddddds
+// sdddddddddddddddddddddddds Created: 2015-08-06 07:46:29
+// :ddddddddddhyyddddddddddd: Modified: 2015-08-06 07:59:01
+//  odddddddd/`:-`sdddddddds
+//   +ddddddh`+dh +dddddddo
+//    -sdddddh///sdddddds-
+//      .+ydddddddddhs/.
+//          .-::::-`
 
 'use strict';
 
-var path = require('path')
-var fs = require('fs')
-var http = require('http')
-var git = require('./git.js')
-var mydoxy = require('./mydoxy.js')
-
-var content_type = {
-	".html" : {
-		"Content-Type" : 'text/html',
-		"Base-Directory" : './srcs'
-	},
-	".png" : {
-		"Content-Type" : 'image/png',
-		"Base-Directory" : './assets'
-	},
-	".css" : {
-		"Content-Type" : 'text/css',
-		"Base-Directory" : './srcs'
-	},
-	".js" : {
-		"Content-Type" : 'application/javascript',
-		"Base-Directory" : '.'
-	},
-	".json" : {
-		"Content-Type" : 'application/json',
-		"Base-Directory" : '.'
-	},
-	".ico" : {
-		"Content-Type" : 'image/x-icon',
-		"Base-Directory" : '.'
-	},
-	".article" : {
-		"Content-Type" : 'text/html',
-		"Base-Directory" : './blog'
-	}
-}
+var fs = require('fs');
 
 var getRandomInt = function (min, max) {
 	return Math.floor(Math.random() * (max - min)) + min
@@ -68,7 +41,7 @@ var color_table = [
 	{ r : 255, g : 209, b : 220 }
 ]
 
-var makePict = function () {
+exports.make = function () {
 	var str = "\
 \x42\x4d\x7a\x4b\x00\x00\x00\x00\x00\x00\x7a\x00\x00\x00\x6c\x00\
 \x00\x00\x50\x00\x00\x00\x50\x00\x00\x00\x01\x00\x18\x00\x00\x00\
@@ -133,55 +106,3 @@ var makePict = function () {
 
 	return str;
 }
-
-var dispatch = function (req, res)
-{
-	console.log(req.url)
-	var extension = path.extname(req.url)
-
-	if (req.url == '/pict.bmp') {
-
-		res.writeHead(200, {'Content-Type': 'image/bmp'})
-		var str = makePict();
-
-		res.end( str, 'binary')
-
-	}
-	else if (req.url == '/') {
-
-		var file = './srcs/index.html'
-
-		git.writeAuthor()
-		mydoxy.writeDoc('scripts')
-		if (fs.existsSync( file ))
-		{
-			res.writeHead(200, {'Content-Type': 'text/html'})
-			res.end(fs.readFileSync( file ))
-		}
-		else
-		{
-			res.writeHead(404, {'Content-Type': 'text/html'})
-			res.end();
-		}
-
-	}
-	else if (content_type[ extension ]) {
-
-		var file = content_type[extension]["Base-Directory"] + req.url
-
-		if (fs.existsSync( file ))
-		{
-			res.writeHead(200, {'Content-Type': content_type[extension]["Content-Type"]})
-			res.end(fs.readFileSync( file ))
-		}
-		else
-		{
-			res.writeHead(404, {'Content-Type': 'text/html'})
-			res.end();
-		}
-	}
-}
-
-var server = http.createServer(dispatch)
-
-server.listen(80)

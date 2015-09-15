@@ -1,0 +1,16 @@
+{
+  "stdlib.js": [
+    "PIXI.Vector2",
+    "",
+    "  PIXI.Vector2 is a custom",
+    "    Vector2 implementation for",
+    "    distance rationalisation",
+    "   _______________________________",
+    "PIXI.TreeNode",
+    "",
+    "  TreeNode is a chained-like",
+    "    data storage for easy",
+    "    orthogonal mapping",
+    "   _______________________________"
+  ]
+}

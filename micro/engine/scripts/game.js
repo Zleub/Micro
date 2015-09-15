@@ -25,6 +25,7 @@ $(function()
 
 		return function () {
 			var re = /(\w+)\/?(\w+)\./;
+			console.log(_name)
 			if (re.exec(_name)[1] == 'assets')
 				$.getScript(_name).done(function () {
 					Micro.Asset.load(re.exec(_name)[2])

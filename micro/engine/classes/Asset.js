@@ -96,9 +96,9 @@ Micro.Asset.makeArray = function (baseTexture, id)
 
 Micro.Asset.load = function (id, callback)
 {
+	// console.log(id, window['_' + id].image)
 	var status = this.status
 	var loader = PIXI.loader
-	loader.add(id, window['_' + id].image);
+	loader.add(id, "micro/game/assets/" + window['_' + id].image);
 
 }
-

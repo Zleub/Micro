@@ -43,16 +43,16 @@ Micro.Block = function (texture) {
 //    \_/_________________________________/
 
 	var Collider = new Micro.Collider({
-		x : this.sprite.x - this.sprite.width / 2,
+		x : this.sprite.x - this.sprite.width / 2 - 10,
 		y : this.sprite.y - this.sprite.height / 2,
-		width : this.sprite.width,
+		width : this.sprite.width + 10,
 		height : this.sprite.height
 	})
 
 	Collider.update = function (entity) {
 			this.shape.x = entity.sprite.x
 			this.shape.y = entity.sprite.y - Micro.dt * 2
-			this.shape.width = entity.sprite.width
+			this.shape.width = entity.sprite.width + 10
 			this.shape.height = Micro.dt * 8
 	}
 

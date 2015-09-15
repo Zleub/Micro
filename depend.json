@@ -1,40 +1,40 @@
 [
 	{
 		"author.json" : [
-			"scripts/stdlib.js"
+			"micro/engine/scripts/stdlib.js"
 		]
 	},
 	{
-		"scripts/engine.js" : [
-			"scripts/State.js",
-			"scripts/Base.js",
-			"scripts/Layer.js",
-			"scripts/Collider.js",
-			"scripts/Animation.js",
-			"scripts/Block.js",
-			"scripts/Seeder.js",
-			"scripts/Populator.js"
+		"micro/engine/scripts/engine.js" : [
+			"micro/engine/classes/State.js",
+			"micro/engine/classes/Base.js",
+			"micro/engine/classes/Layer.js",
+			"micro/engine/classes/Collider.js",
+			"micro/engine/classes/Animation.js",
+			"micro/engine/classes/Block.js",
+			"micro/engine/classes/Seeder.js",
+			"micro/engine/classes/Populator.js"
 		]
 	},
 	{
-		"scripts/Asset.js" : [
-			"assets/Door.js",
-			"assets/dwarves.js",
-			"assets/Sprute.js",
-			"assets/mountain_2.js",
-			"assets/needcoffee.js",
-			"assets/Fire.js",
-			"assets/fence_sign.js",
-			"assets/select.js"
+		"micro/engine/classes/Asset.js" : [
+			"micro/game/assets/Door.js",
+			"micro/game/assets/dwarves.js",
+			"micro/game/assets/Sprute.js",
+			"micro/game/assets/mountain_2.js",
+			"micro/game/assets/needcoffee.js",
+			"micro/game/assets/Fire.js",
+			"micro/game/assets/fence_sign.js",
+			"micro/game/assets/select.js"
 		]
 	},
 	{
-		"scripts/Entity.js" : [
-			"scripts/Player.js",
-			"scripts/door.js"
+		"micro/engine/classes/Entity.js" : [
+			"micro/engine/classes/Player.js",
+			"micro/engine/classes/door.js"
 		]
 	},
 	{
-		"scenes/TutoA.js" : []
+		"micro/game/scenes/TutoA.js" : []
 	}
 ]
