@@ -17,6 +17,8 @@ var git =		require('./scripts/git.js')
 var mydoxy =	require('./scripts/mydoxy.js')
 var mypict =	require('./scripts/picture.js')
 
+var menu_template = fs.readFileSync('web/templates/menu', 'utf8')
+
 var content_type = {
 	".html" : {
 		"Content-Type" : 'text/html',
@@ -45,6 +47,30 @@ var content_type = {
 	".article" : {
 		"Content-Type" : 'text/html',
 		"Base-Directory" : '.'
+	}
+}
+
+var html_response = function (res, file, extension)
+{
+	var i = null
+	var array = null
+
+	if (fs.existsSync( file )) {
+		array = fs.readFileSync( file, 'utf8' ).split('\n')
+		array.forEach( function (data, index) {
+			if (data.search("<head>") != -1) {
+				i = index + 1
+			}
+		})
+	}
+	if (i != null) {
+		array.splice(i, 0, menu_template)
+		res.writeHead(200, {'Content-Type': content_type[extension]["Content-Type"]})
+		res.end( array.join('') )
+	}
+	else {
+		res.writeHead(404, {'Content-Type': 'text/html'})
+		res.end();
 	}
 }
 
@@ -79,7 +105,7 @@ var dispatch = function (req, res)
 		// git.writeAuthor()
 		// mydoxy.writeDoc('engine/scripts')
 
-		response(res, './web/html/index.html', ".html")
+		html_response(res, './web/html/index.html', ".html")
 	}
 	else if (extension == '.json') {
 		var file = content_type[extension]["Base-Directory"] + req.url
@@ -87,9 +113,7 @@ var dispatch = function (req, res)
 		if (!fs.existsSync( file )) {
 			console.log('NO JSON FILE: ' + file)
 			var jsfile = path.dirname(file) + '/' + path.basename(file, '.json') + '.js'
-			if (!fs.existsSync(jsfile))
-				console.log('NO JS FILE: ' + jsfile)
-			else {
+			if (fs.existsSync(jsfile)) {
 				c_process.exec('node ' + jsfile, function (error, stdout, stderr) {
 					if (error !== null) {
 						console.log('exec error: ' + error);
@@ -110,7 +134,11 @@ var dispatch = function (req, res)
 	else if (content_type[ extension ]) {
 		var file = content_type[extension]["Base-Directory"] + req.url
 
-		response(res, file, extension)
+		if (extension == '.html') {
+			html_response(res, file, extension)
+		}
+		else
+			response(res, file, extension)
 	}
 }
 
