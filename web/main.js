@@ -9,9 +9,10 @@
 
 'use strict';
 
-var path =		require('path')
-var fs =		require('fs')
 var http =		require('http')
+var fs =		require('fs')
+var path =		require('path')
+var c_process =	require('child_process')
 var git =		require('./scripts/git.js')
 var mydoxy =	require('./scripts/mydoxy.js')
 var mypict =	require('./scripts/picture.js')
@@ -63,8 +64,8 @@ var response = function(res, file, extension)
 
 var dispatch = function (req, res)
 {
-	console.log('File access:', req.url)
 	var extension = path.extname(req.url)
+	// console.log('File access:', req.url, extension)
 
 	if (req.url == '/pict.bmp') {
 
@@ -74,16 +75,39 @@ var dispatch = function (req, res)
 	}
 	else if (req.url == '/') {
 
-		var file = './web/html/index.html'
-
 		// THIS IS CUSTOM BEHAVIOR ON INDEX CALL
 		// git.writeAuthor()
 		// mydoxy.writeDoc('engine/scripts')
 
-		response(res, file, ".html")
+		response(res, './web/html/index.html', ".html")
+	}
+	else if (extension == '.json') {
+		var file = content_type[extension]["Base-Directory"] + req.url
+
+		if (!fs.existsSync( file )) {
+			console.log('NO JSON FILE: ' + file)
+			var jsfile = path.dirname(file) + '/' + path.basename(file, '.json') + '.js'
+			if (!fs.existsSync(jsfile))
+				console.log('NO JS FILE: ' + jsfile)
+			else {
+				c_process.exec('node ' + jsfile, function (error, stdout, stderr) {
+					if (error !== null) {
+						console.log('exec error: ' + error);
+					} else {
+						res.writeHead(200, {'Content-Type': 'text/plain'})
+						console.log(stdout.key)
+						res.end( stdout )
+					}
+				})
+			}
+
+		}
+		else {
+			console.log("FOUND JSON: " + file)
+			response(res, file, extension)
+		}
 	}
 	else if (content_type[ extension ]) {
-
 		var file = content_type[extension]["Base-Directory"] + req.url
 
 		response(res, file, extension)

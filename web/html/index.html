@@ -1,8 +1,7 @@
 <html>
 <head>
 	<title>index</title>
-	<script type="text/javascript" src="web/scripts/menu.json"></script>
-	<script type="text/javascript" src="engine/lib/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="micro/engine/lib/jquery-2.1.4.min.js"></script>
 	<style type="text/css">
 	body { text-align: center; }
 	canvas {
@@ -28,7 +27,7 @@
 	</style>
 </head>
 <body>
-	<div class='menu'>
+	<!-- <div class='menu'>
 		<ul>
 		<li class='cell'><a href='/'>ADEBRAY.OVH</a></li>
 		<li class='cell'><a href='/micro.html'>Micro</a></li>
@@ -36,8 +35,33 @@
 		<li class='cell'><a href='/blog.html'>Blog</a></li>
 		<li class='cell'><a href='http://github.com/Zleub/Micro'>GitHub</a></li>
 		</ul>
-	</div>
+	</div> -->
 	EMPTY
-	<!-- <script type="text/javascript" src="engine/scripts/game.js"></script> -->
+	<script type="application/javascript">
+		var div = document.createElement('div')
+		div.setAttribute('class', 'menu')
+
+		document.body.appendChild(div)
+
+		var ul = document.createElement('ul')
+
+		$.get("web/scripts/menu.json", function(d) {
+			d = JSON.parse(d)
+			d.unshift('ADEBRAY.OVH')
+			d.forEach(function (data) {
+				console.log(data)
+				var li = document.createElement('li')
+					li.setAttribute('class', 'cell')
+				var a = document.createElement('a')
+					a.setAttribute('href', data)
+					a.text = data
+
+				li.appendChild(a)
+				ul.appendChild(li)
+			})
+			div.appendChild(ul)
+		})
+
+	</script>
 </body>
 </html>
