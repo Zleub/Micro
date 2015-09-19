@@ -7,6 +7,7 @@ addtomenu = function (ul, href, text) {
 		li.setAttribute('class', 'cell')
 	var a = document.createElement('a')
 		a.setAttribute('href', href)
+		a.setAttribute('class', '_a')
 		a.text = text
 
 	li.appendChild(a)
@@ -15,6 +16,16 @@ addtomenu = function (ul, href, text) {
 
 $.get("web/scripts/menu.json", function(d) {
 	d = JSON.parse(d)
+	var li = document.createElement('li')
+		li.setAttribute('class', 'cell')
+
+	var logo = document.createElement('img')
+		logo.setAttribute('class', 'logo')
+		logo.setAttribute('src', '/web/images/logo-42.png')
+
+	li.appendChild(logo)
+	ul.appendChild(li)
+
 	addtomenu(ul, "/", "ADEBRAY.OVH")
 	addtomenu(ul, "http://github.com/Zleub/Micro", "GitHub")
 
@@ -25,5 +36,6 @@ $.get("web/scripts/menu.json", function(d) {
 		}
 	})
 	div.appendChild(ul)
+
 	$('body').prepend(div)
 })
